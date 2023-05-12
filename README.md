@@ -1,1 +1,1 @@
-# Smart_Camput_Management
+# Smart_Campus_Management
