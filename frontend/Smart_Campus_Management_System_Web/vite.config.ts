@@ -8,6 +8,7 @@ function resolve (dir){
 }
 // https://vitejs.dev/config/
 export default defineConfig({
+  envDir: "./viteenv",  //relative path
   plugins: [vue(),
     //Use svg icon
     createSvgIconsPlugin({

@@ -9,7 +9,7 @@ import "element-plus/dist/index.css"
 import * as ElementPlusIconsVue from "@element-plus/icons-vue"
 //Register and import svg-icons
 import 'virtual:svg-icons-register'
-import SvgIcon from "./components/SvgIcon/index.vue"
+import SvgIcon from './components/SvgIcon/index.vue'
 
 const app = createApp(App)
 app.use(router)
