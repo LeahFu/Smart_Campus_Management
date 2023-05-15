@@ -1,5 +1,26 @@
 <script setup lang="ts">
+import { SwitchButton } from '@element-plus/icons-vue'
+import { useUserStore } from '../../../store/modules/user'
+import {loginOutApi} from '../../../api/login/login'
+import CollapseIcon  from './CollapseIcon.vue'
+import Hamburger from './Hamburger.vue'
+import TabsView from '../tags/Index.vue'
+import {calculateDays, formatTime} from "../../../utils/date";
+const { userInfo } = useUserStore()
+// logout
+const exit = async () => {
 
+    const { data } = await loginOutApi();
+    if(data.status===200){
+        // clear login information
+        window.localStorage.removeItem("userStore");
+        // return login page
+        window.location.href = "/";
+    }
+
+}
+// server path
+const url = import.meta.env.VITE_APP_BASE_API
 </script>
 
 <template>
@@ -45,10 +66,10 @@
                             <p class="demo-rich-content__desc" style="margin: 0">
                                 <div
                                         style="float:left;width: 75px;padding:10px;border-right: 1px solid rgb(205, 205, 205);text-align: center;">
-                                    <p>性别</p>
+                                    <p>Gender</p>
                                     <p style="font-size: 25px;font-weight:600;">
                                         {{ userInfo.sex }}
-                                        <span style="font-size: 10px;font-weight:100;margin-left:5px;">孩</span>
+                                        <span style="font-size: 10px;font-weight:100;margin-left:5px;"></span>
                                     </p>
                                 </div>
                                 <div
@@ -72,11 +93,68 @@
                 </el-popover>
                 <!--Login user information end-->
 
-            </div>
+                <!--logout start-->
+                <el-popconfirm confirm-button-text="Submit" cancel-button-text="Cansel" :icon="SwitchButton" icon-color="#30bcd7"
+                      title="Are you sure you want to log out of the system?" @confirm="exit">
+                   <template #reference>
+                      <el-link :underline="false">
+                        <el-icon>
+                            <SwitchButton />
+                        </el-icon>
+                        <span>Logout</span>
+                      </el-link>
+                   </template>
+                </el-popconfirm>
+                <!--logout end-->
         </div>
-        <TabsView/>
+      </div>
+         <TabsView/>
 </template>
 
 <style scoped>
+.main {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    background: white;
+}
 
+.linkBox {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    float: right;
+}
+.linkBox .el-link {
+    margin-right: 25px;
+    color: #8c8c8c;
+}
+.linkBox .el-link:hover {
+    color: #30bcd7;
+}
+.linkBox .el-link span {
+    margin-left: 8px;
+}
+
+/* The style of the mouse over the avatar */
+.demo-rich-conent-custom img {
+    width: 55px;
+    margin: 0px 15px 0px 0px;
+    border-radius: 50px;
+    float: left;
+}
+
+.demo-rich-conent-custom p {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tool-left{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
 </style>
