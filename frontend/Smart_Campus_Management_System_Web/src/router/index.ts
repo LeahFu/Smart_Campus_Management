@@ -7,7 +7,20 @@ const routes = [{
     name:'Login',
     meta:{title:'smart campus management system login'},
     component:()=>import('../views/Login.vue')
-}]
+},
+    {path:'index',
+     name:'index',
+     neta:{title:'smart campus management system - background home page',icon:'House'},
+     component:()=>import('../views/layout/Index.vue'),
+     redirect:'/home',
+     children:[{
+        path:'/home',
+        name:'home',
+        meta:{title:'smart campus management system - background home page',icon:'House'},
+        component:()=>import('../views/home/index.vue')
+     }]
+    }
+]
 //3. Create routing instance and pass routes configuration
 const router = createRouter({
     history: createWebHashHistory(),
