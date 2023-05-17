@@ -10,13 +10,12 @@ const routes = [{
 },
     {path:'/index',
      name:'index',
-     neta:{title:'smart campus management system - background home page',icon:'House'},
      component:()=>import('../views/layout/Index.vue'),
      redirect:'/home',
      children:[{
         path:'/home',
         name:'home',
-        meta:{title:'smart campus management system - background home page',icon:'House'},
+        meta:{title:'home page',icon:'House'},
         component:()=>import('../views/home/index.vue')
      }]
     }
