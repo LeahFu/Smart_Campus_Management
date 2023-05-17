@@ -18,6 +18,19 @@ const routes = [{
         meta:{title:'home page',icon:'House',affix:true},
         component:()=>import('../views/home/index.vue')
      }]
+    },
+    {
+        path:'/system',
+        name:'system',
+        meta:{title:'system management'},
+        redirect:'/system/user',
+        component:()=>import('../views/layout/Index.vue'),
+        children: [{
+            path: 'user',
+            name: 'user',
+            meta: {title:'user management'},
+            component:()=>import('../views/user/UserList.vue')
+        }]
     }
 ]
 //3. Create routing instance and pass routes configuration
