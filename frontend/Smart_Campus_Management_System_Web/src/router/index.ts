@@ -8,7 +8,7 @@ const routes = [{
     meta:{title:'smart campus management system login'},
     component:()=>import('../views/Login.vue')
 },
-    {path:'index',
+    {path:'/index',
      name:'index',
      neta:{title:'smart campus management system - background home page',icon:'House'},
      component:()=>import('../views/layout/Index.vue'),
