@@ -24,6 +24,22 @@ export const useTagsViewStore = defineStore({
         },
         addView(view:any){
             this.addVisitedView(view)
+        },
+        delView(activeTabPath){
+            return new Promise(resolve=>{
+                this.delVisitedView(activeTabPath)
+                resolve({
+                    visitedViews:[...this.visitedViews]
+                })
+            })
+        },
+        delVisitedView(path){
+            return new Promise(resolve => {
+                this.visitedViews = this.visitedViews.filter(v=>{
+                    return(v.path!==path||v.meta.affix)
+                })
+                resolve([...this.visitedViews])
+            })
         }
     }
 })
