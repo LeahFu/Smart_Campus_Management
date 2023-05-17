@@ -16,12 +16,15 @@ const activeTabsValue = computed({
         TagsViewStore.setTabsMenuValue(val);
     }
 })
-// Show previous tabs
+// Show previous or next tab label
 function toLastView(activeTabPath) {
+    // the index of the current tab
     let index = visitedViews.value.findIndex(item=>item.path===activeTabPath)
+    // get the previous or next index
     const nextTab = visitedViews.value[index + 1] || visitedViews.value[index - 1];
     if (!nextTab) return;
     router.push(nextTab.path);
+    // add function of tabs label
     TagsViewStore.addVisitedView(nextTab)
 }
 // Click tabs
