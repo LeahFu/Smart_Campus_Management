@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import {computed} from "vue";
+import {useSettingStore} from "../../store/modules/setting";
+const SettingStore = useSettingStore()
+
+const isCollapse = computed(() => !SettingStore.isCollapse)
+// import left menu bar custom component
+import AsideMenu from './aside/Index.vue';
+import TopBar from './header/TopBar.vue';
 
 </script>
 
