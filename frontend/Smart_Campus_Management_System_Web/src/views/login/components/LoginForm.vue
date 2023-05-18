@@ -4,7 +4,7 @@ import { ref, reactive } from 'vue'
 import type { FormInstance } from 'element-plus'
 import { ElNotification } from "element-plus";
 import { useRouter } from 'vue-router'
-
+import { useUserStore } from '../../../store/modules/user'
 const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
 const passwordType = ref('password')
