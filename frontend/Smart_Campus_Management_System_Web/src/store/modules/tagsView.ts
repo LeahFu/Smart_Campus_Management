@@ -45,6 +45,16 @@ export const useTagsViewStore = defineStore({
             this.visitedViews = this.visitedViews.filter(item=>{
                 return item.path === path || item.meta.affix
             })
-        }
+        },
+        delAllViews(){
+            return new Promise((resolve)=>{
+                this.visitedViews = this.visitedViews.filter(v=>v.meta.affix)
+                resolve([...this.visitedViews])
+            })
+        },
+        goHome(){
+            this.activeTabsValue='/home'
+            router.push({path:'/home'})
+        },
     }
 })
