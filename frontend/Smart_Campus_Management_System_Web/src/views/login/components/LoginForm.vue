@@ -1,5 +1,75 @@
 <script setup lang="ts">
+import SvgIcon from "../../../components/SvgIcon/index.vue";
+import { ref, reactive } from 'vue'
+import type { FormInstance } from 'element-plus'
+import { ElNotification } from "element-plus";
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+const ruleFormRef = ref<FormInstance>()
+const passwordType = ref('password')
+const loading = ref(false)
+
+// form rules
+const rules = reactive({
+    password: [{ required: true, message: "Please enter usernama", trigger: "blur" }],
+    username: [{ required: true, message: "Please enter password", trigger: "blur" }],
+})
+// form data
+const ruleForm = reactive({
+    username: 'admin',
+    password: '123456',
+})
+// show password
+const showPwd = () => {
+    passwordType.value = passwordType.value === 'password'?'':'password'
+}
+// submit form
+const userStore = useUserStore()
+const submitForm = (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    formEl.validate(async(valid) => {
+        if (valid) {
+            loading.value = true
+            // login
+            const { data } = await loginApi({ ...ruleForm });
+            if(data.status===200){
+                // set token
+                userStore.setToken(data.result.token)
+                userStore.setUserInfo({
+                    username: data.result.username,
+                    realname: data.result.realname,
+                    email: data.result.email,
+                    sex: data.result.sex,
+                    userIcon: data.result.userIcon,
+                    createTime: data.result.createTime,
+                    role: data.result.role
+                })
+                await router.push({
+                    path: '/index',
+                })
+                ElNotification({
+                    title: 'Login successful',
+                    message: "Welcome Login Smart Campus Management System",
+                    type: "success",
+                    duration: 3000
+                })
+            }else {
+                ElNotification({
+                    title: 'kind tips',
+                    message: data.message,
+                    type: "error",
+                    duration: 3000
+                });
+                loading.value = false
+            }
+        } else {
+            console.log('error submit!')
+            loading.value = false
+            return false
+        }
+    })
+}
 </script>
 
 <template>
