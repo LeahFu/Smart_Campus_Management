@@ -6,7 +6,7 @@ const routes = [{
     path:'/',
     name:'Login',
     meta:{title:'smart campus management system login'},
-    component:()=>import('../views/Login.vue')
+    component:()=>import('../views/login/Login.vue')
 },
     {path:'/index',
      name:'index',

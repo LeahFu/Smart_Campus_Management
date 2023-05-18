@@ -118,5 +118,19 @@ const submitForm = (formEl: FormInstance | undefined) => {
 </template>
 
 <style scoped>
-
+.login-btn{
+    margin-top: 20px;
+    width: 100%; height: 47px
+}
+.show-pwd {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+::v-deep(.svg-icon){
+    vertical-align: 0;
+}
 </style>
