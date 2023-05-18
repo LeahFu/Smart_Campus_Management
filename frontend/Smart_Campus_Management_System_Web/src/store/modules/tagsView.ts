@@ -40,6 +40,11 @@ export const useTagsViewStore = defineStore({
                 })
                 resolve([...this.visitedViews])
             })
+        },
+        delOtherViews(path){
+            this.visitedViews = this.visitedViews.filter(item=>{
+                return item.path === path || item.meta.affix
+            })
         }
     }
 })
