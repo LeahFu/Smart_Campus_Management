@@ -4,6 +4,7 @@ import ca.access.base.BaseResult;
 import ca.access.student.domain.SysUser;
 import ca.access.student.service.ISysUserService;
 import ca.access.utils.HutoolJWTUtil;
+import ca.access.utils.Md5Util;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,7 @@ public class LoginController {
         SysUser dbSysUser = sysUserService.login(sysUser);
         if(dbSysUser==null){
             return BaseResult.fail("Login failed, account does not exist");
-        } else if (!dbSysUser.getPassword().equals(Md5Util.Md5(sysUser.getPassword()))) {
+        } else if (!dbSysUser.getPassword().equals(Md5Util.MD5(sysUser.getPassword()))) {
             return BaseResult.fail("Login failed, password is incorrect");
         } else if (dbSysUser.getStatus()==0) {
             return BaseResult.fail("Login failed, account is banned");

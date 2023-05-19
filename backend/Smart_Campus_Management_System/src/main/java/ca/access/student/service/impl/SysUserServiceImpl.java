@@ -3,8 +3,8 @@ package ca.access.student.service.impl;
 import ca.access.student.domain.SysUser;
 import ca.access.student.repository.SysUserRepository;
 import ca.access.student.service.ISysUserService;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author: Lei Fu
@@ -26,7 +26,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public SysUser login(SysUser sysUser){
-        SysUser dbSysUser = sysUserRepository.findByUserName(sysUser.getUsername());
+        SysUser dbSysUser = sysUserRepository.findByUsername(sysUser.getUsername());
         return dbSysUser;
     }
 }
