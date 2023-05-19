@@ -29,6 +29,10 @@ public class SysUser extends BaseEntity {
     private String gender;
     @Column(name = "status")
     private Integer status;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "user_icon")
+    private String userIcon;
 
 
 }

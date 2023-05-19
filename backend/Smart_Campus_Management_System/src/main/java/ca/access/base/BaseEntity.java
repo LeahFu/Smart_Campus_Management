@@ -1,7 +1,10 @@
 package ca.access.base;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,7 +20,9 @@ import java.sql.Timestamp;
  * @description: Base(public) entity
  */
 
-@Data
+@Getter
+@Setter
+@MappedSuperclass
 public class BaseEntity implements Serializable {
     /**
      * create time

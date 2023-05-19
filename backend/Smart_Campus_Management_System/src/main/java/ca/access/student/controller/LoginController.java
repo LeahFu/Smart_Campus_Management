@@ -6,10 +6,10 @@ import ca.access.student.service.ISysUserService;
 import ca.access.utils.HutoolJWTUtil;
 import ca.access.utils.Md5Util;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: Lei Fu
@@ -43,7 +43,28 @@ public class LoginController {
             // generate token
             String token = HutoolJWTUtil.createToken(sysUser);
             request.getServletContext().setAttribute("token",token);
-            return BaseResult.success("Login successful",token);
+            // return user information
+            Map<String,Object> resultMap = new HashMap<String,Object>();
+            resultMap.put("username",dbSysUser.getUsername());
+            resultMap.put("realname",dbSysUser.getRealname());
+            resultMap.put("token",token);
+            resultMap.put("email",dbSysUser.getEmail());
+            resultMap.put("gender",dbSysUser.getGender());
+            resultMap.put("createTime",dbSysUser.getCreateTime());
+            resultMap.put("userIcon",dbSysUser.getUserIcon());
+
+            return BaseResult.success("Login successful",resultMap);
         }
+    }
+
+    /**
+     * logout
+     * @param request
+     * @return
+     */
+    @GetMapping("logOut")
+    public BaseResult logOut(HttpServletRequest request){
+        request.getServletContext().removeAttribute("token");
+        return BaseResult.success("Logout success");
     }
 }
