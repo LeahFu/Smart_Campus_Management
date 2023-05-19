@@ -10,4 +10,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @description: System User Persistence Layer
  */
 public interface SysUserRepository extends JpaRepository<SysUser,Long>, JpaSpecificationExecutor {
+    /**
+     * Find user information based on login user name
+     * @param username
+     * @return
+     */
+    SysUser findByUserName(String username);
+
 }
