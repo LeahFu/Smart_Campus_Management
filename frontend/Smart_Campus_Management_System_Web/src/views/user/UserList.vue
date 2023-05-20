@@ -29,7 +29,7 @@
        <div class="my-button">
         <el-button plain style="width: 50%;" color="#2fa7b9" @click="addUser">add user</el-button>
         <el-button @click="exportExcelAction" type="primary">
-         <el-icon style="margin-right: 6px"><Download /></el-icon>导出 Excel
+         <el-icon style="margin-right: 6px"><Download /></el-icon>export Excel
         </el-button>
        </div>
 
@@ -43,7 +43,63 @@
     </div>
     <!--search area end-->
    </div>
-</template>
+  </template>
+  <!--head end-->
+  <!--form area start-->
+  <div class="table-box">
+   <el-table element-loading-text="loading..." v-loading="loading" :data="tableData"
+             style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
+             :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
+
+    <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
+    <el-table-column label="user name">
+     <template #default="scope">
+      <el-tooltip :content="scope.row.username" palacement="top" effect="light">
+       <span class="highlight">{{scope.row.username}}</span>
+      </el-tooltip>
+     </template>
+    </el-table-column>
+    <el-table-column label="real name">
+     <template #default="scope">
+      <el-tooltip :content="scope.row.realname" palacement="top" effect="light">
+       <span class="highlight">{{scope.row.realname}}</span>
+      </el-tooltip>
+     </template>
+    </el-table-column>
+    <el-table-column label="gender">
+     <template #default="scope">
+      <el-tooltip :content="scope.row.sex" palacement="top" effect="light">
+       <span class="highlight">{{scope.row.sex}}</span>
+      </el-tooltip>
+     </template>
+    </el-table-column>
+    <el-table-column label="status">
+     <template #default="scope">
+      <div v-if="scope.row.status == 1" style="color: #67C23A;">normal</div>
+      <div v-if="scope.row.status == 0" style="color: #F56C6C;">banned</div>
+     </template>
+    </el-table-column>
+
+    <el-table-column label="created time">
+     <template #default="scope">
+      <el-tooltip :content="scope.row.createTime" placement="top" effect="light">
+       <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
+      </el-tooltip>
+     </template>
+    </el-table-column>
+    <el-table-column label="operate">
+     <template #default="scope">
+      <el-button size="small"
+                 style="margin: 0 0 10px 10px;" @click="editUser(scope.row.id)">edit</el-button>
+      <el-popconfirm confirm-button-text="submit" cancel-button-text="cancel" :icon="Delete"
+                     icon-color="#626AEF" :title="'Are you sure you want to delete :“'+scope.row.username+'” ?'"
+                     @confirm="delUser(scope.row.id)">
+       <template #reference>
+        <el-button size="small" type="danger" style="margin-bottom: 10px;">delete</el-button>
+       </template>
+      </el-popconfirm>
+     </template>
+    </el-table-column>
 
 <style scoped>
  .card-header {
