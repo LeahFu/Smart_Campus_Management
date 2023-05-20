@@ -3,103 +3,142 @@
 </script>
 
 <template>
- <el-card class="box-card">
-  <!--head start-->
-  <template #header>
-   <div class="card-header">
-    <h3>
-     <el-icon style="margin-right: 10px;"><UserFilled /></el-icon>user management
-    </h3>
+  <el-card class="box-card">
+    <!--head start-->
+    <template #header>
+      <div class="card-header">
+        <h3>
+          <el-icon style="margin-right: 10px;"><UserFilled /></el-icon>user management
+        </h3>
 
-    <!--search area start-->
-    <div class="card-search">
-     <el-row :gutter="10">
-      <el-col :span="8">
-       <el-input :prefix-icon="Search" v-model="searchValue" @keyup.enter.native="search"
+        <!--search area start-->
+       <div class="card-search">
+         <el-row :gutter="10">
+           <el-col :span="8">
+             <el-input :prefix-icon="Search" v-model="searchValue" @keyup.enter.native="search"
                  placeholder="Key word search（return）"/>
-      </el-col>
-      <el-col :span="6">
-       <el-select v-model="status" placeholder="Please choose status">
-        <el-option label="All" value="-1"/>
-        <el-option label="Banned" value="0"/>
-        <el-option label="Normal" value="1"/>
-       </el-select>
-      </el-col>
-      <el-col :span="8">
-       <div class="my-button">
-        <el-button plain style="width: 50%;" color="#2fa7b9" @click="addUser">add user</el-button>
-        <el-button @click="exportExcelAction" type="primary">
-         <el-icon style="margin-right: 6px"><Download /></el-icon>export Excel
-        </el-button>
+           </el-col>
+           <el-col :span="6">
+             <el-select v-model="status" placeholder="Please choose status">
+               <el-option label="All" value="-1"/>
+               <el-option label="Banned" value="0"/>
+               <el-option label="Normal" value="1"/>
+             </el-select>
+           </el-col>
+           <el-col :span="8">
+             <div class="my-button">
+               <el-button plain style="width: 50%;" color="#2fa7b9" @click="addUser">add user</el-button>
+               <el-button @click="exportExcelAction" type="primary">
+               <el-icon style="margin-right: 6px"><Download /></el-icon>export Excel
+               </el-button>
+             </div>
+           </el-col>
+           <el-col :span="2" style="display: inline-flex;justify-content: center;align-items: center; cursor: pointer;">
+             <el-icon style="font-size: 20px;color: #b3b6bc;" @click="refresh">
+               <Refresh />
+             </el-icon>
+           </el-col>
+         </el-row>
        </div>
-
-      </el-col>
-      <el-col :span="2" style="display: inline-flex;justify-content: center;align-items: center; cursor: pointer;">
-       <el-icon style="font-size: 20px;color: #b3b6bc;" @click="refresh">
-        <Refresh />
-       </el-icon>
-      </el-col>
-     </el-row>
-    </div>
-    <!--search area end-->
-   </div>
-  </template>
-  <!--head end-->
-  <!--form area start-->
-  <div class="table-box">
-   <el-table element-loading-text="loading..." v-loading="loading" :data="tableData"
+       <!--search area end-->
+     </div>
+    </template>
+    <!--head end-->
+    <!--form area start-->
+    <div class="table-box">
+      <el-table element-loading-text="loading..." v-loading="loading" :data="tableData"
              style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
              :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
 
-    <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
-    <el-table-column label="user name">
-     <template #default="scope">
-      <el-tooltip :content="scope.row.username" palacement="top" effect="light">
-       <span class="highlight">{{scope.row.username}}</span>
-      </el-tooltip>
-     </template>
-    </el-table-column>
-    <el-table-column label="real name">
-     <template #default="scope">
-      <el-tooltip :content="scope.row.realname" palacement="top" effect="light">
-       <span class="highlight">{{scope.row.realname}}</span>
-      </el-tooltip>
-     </template>
-    </el-table-column>
-    <el-table-column label="gender">
-     <template #default="scope">
-      <el-tooltip :content="scope.row.sex" palacement="top" effect="light">
-       <span class="highlight">{{scope.row.sex}}</span>
-      </el-tooltip>
-     </template>
-    </el-table-column>
-    <el-table-column label="status">
-     <template #default="scope">
-      <div v-if="scope.row.status == 1" style="color: #67C23A;">normal</div>
-      <div v-if="scope.row.status == 0" style="color: #F56C6C;">banned</div>
-     </template>
-    </el-table-column>
-
-    <el-table-column label="created time">
-     <template #default="scope">
-      <el-tooltip :content="scope.row.createTime" placement="top" effect="light">
-       <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
-      </el-tooltip>
-     </template>
-    </el-table-column>
-    <el-table-column label="operate">
-     <template #default="scope">
-      <el-button size="small"
+        <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
+        <el-table-column label="user name">
+           <template #default="scope">
+              <el-tooltip :content="scope.row.username" palacement="top" effect="light">
+                 <span class="highlight">{{scope.row.username}}</span>
+              </el-tooltip>
+           </template>
+        </el-table-column>
+        <el-table-column label="real name">
+           <template #default="scope">
+              <el-tooltip :content="scope.row.realname" palacement="top" effect="light">
+                 <span class="highlight">{{scope.row.realname}}</span>
+              </el-tooltip>
+           </template>
+        </el-table-column>
+        <el-table-column label="gender">
+           <template #default="scope">
+              <el-tooltip :content="scope.row.sex" palacement="top" effect="light">
+                 <span class="highlight">{{scope.row.sex}}</span>
+              </el-tooltip>
+           </template>
+        </el-table-column>
+        <el-table-column label="status">
+           <template #default="scope">
+              <div v-if="scope.row.status == 1" style="color: #67C23A;">normal</div>
+              <div v-if="scope.row.status == 0" style="color: #F56C6C;">banned</div>
+           </template>
+        </el-table-column>
+        <el-table-column label="created time">
+           <template #default="scope">
+              <el-tooltip :content="scope.row.createTime" placement="top" effect="light">
+                 <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
+              </el-tooltip>
+           </template>
+        </el-table-column>
+        <el-table-column label="operate">
+           <template #default="scope">
+              <el-button size="small"
                  style="margin: 0 0 10px 10px;" @click="editUser(scope.row.id)">edit</el-button>
-      <el-popconfirm confirm-button-text="submit" cancel-button-text="cancel" :icon="Delete"
+              <el-popconfirm confirm-button-text="submit" cancel-button-text="cancel" :icon="Delete"
                      icon-color="#626AEF" :title="'Are you sure you want to delete :“'+scope.row.username+'” ?'"
                      @confirm="delUser(scope.row.id)">
-       <template #reference>
-        <el-button size="small" type="danger" style="margin-bottom: 10px;">delete</el-button>
-       </template>
-      </el-popconfirm>
-     </template>
-    </el-table-column>
+                 <template #reference>
+                    <el-button size="small" type="danger" style="margin-bottom: 10px;">delete</el-button>
+                 </template>
+              </el-popconfirm>
+           </template>
+        </el-table-column>
+      </el-table>
+
+      <!--paging start-->
+      <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
+                   v-model:page-size="pageSize"
+                   @current-change="changePage"
+                   :page-sizes="[10, 20, 30, 40]"/>
+      <!--paging end-->
+    </div>
+    <!--form area end-->
+  </el-card>
+
+  <!--User Dialog FormVisible start-->
+  <el-dialog  align-center  v-model="userDialogFormVisible"  width="42%" destroy-on-close>
+    <template #header="{ close, titleId, titleClass }">
+      <div class="my-header">
+        <el-icon size="26px"><EditPen /></el-icon>
+        <h1 id="titleId">{{title}}</h1>
+      </div>
+    </template>
+    <!--Add user component start-->
+    <AddUser @closeAddUserForm="closeAddUserForm" @success="success"/>
+    <!--Add user component end-->
+ </el-dialog>
+ <!--User Dialog FormVisible end-->
+
+ <!--Edit user popup start-->
+ <el-dialog  align-center v-model="editUserDialogFormVisible"  width="42%" destroy-on-close>
+    <template #header="{ close, titleId, titleClass }">
+      <div class="my-header">
+        <el-icon size="26px"><EditPen /></el-icon>
+        <h1 id="titleId">{{editTitle}}</h1>
+      </div>
+    </template>
+    <!--Edit user component start-->
+    <EditUser :userInfo="userInfo" @closeEditUserForm="closeEditUserForm" @success="success"/>
+    <!--Edit user component end-->
+ </el-dialog>
+ <!--Edit user popup end-->
+
+</template>
 
 <style scoped>
  .card-header {
@@ -119,5 +158,12 @@
  .el-card {
   border-radius: 0px;
   border: none;
+ }
+ :deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
+     background-color: #178557;
+ }
+ .el-pagination {
+     margin-top: 20px;
+     justify-content: center;
  }
 </style>
