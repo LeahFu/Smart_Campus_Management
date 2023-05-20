@@ -1,5 +1,36 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
 
+const state = reactive({
+    // search form content
+    searchValue: "",
+    // all content
+    tableData: [],
+    // user information
+    userInfo:null,
+    status: null,
+    total: 0,
+    pageSize: 10, // rows per page
+    pageIndex: 1, // current page number
+    loading: false,
+})
+// Get user list data
+const loadData = async (state: any)=> {
+    state.loading = true
+    // Clear the data
+    state.tableData=[]
+    const params = {
+        'pageIndex':state.pageIndex,
+        'pageSize': state.pageSize,
+        'status': state.status ==-1 ? '':state.status,
+        'searchValue': state.searchValue
+    }
+    const { data } = await getUserListApi(params)
+    state.tableData = data.content
+    state.total = data.totalElements
+    state.loading = false
+}
+const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(state)
 </script>
 
 <template>
