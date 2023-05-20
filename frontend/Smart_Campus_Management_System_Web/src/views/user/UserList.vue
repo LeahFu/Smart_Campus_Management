@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive,toRefs,onMounted } from 'vue'
+import { getUserListApi } from "../../api/user/user.ts";
 
 const state = reactive({
     // search form content
@@ -30,6 +31,10 @@ const loadData = async (state: any)=> {
     state.total = data.totalElements
     state.loading = false
 }
+
+onMounted(() => {
+    loadData(state);
+})
 const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(state)
 </script>
 
