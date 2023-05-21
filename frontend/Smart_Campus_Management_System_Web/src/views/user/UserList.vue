@@ -32,6 +32,15 @@ const loadData = async (state: any)=> {
     state.total = data.totalElements
     state.loading = false
 }
+// refresh
+const refresh = () => {
+    // search value
+    state.searchValue = ""
+    // filter drop-down box content
+    state.status = null
+    // refresh data
+    loadData(state);
+}
 
 onMounted(() => {
     loadData(state);
