@@ -1,6 +1,8 @@
 package ca.access.student.service;
 
 import ca.access.student.domain.SysUser;
+import ca.access.student.service.dto.UserQueryCriteria;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @author: Lei Fu
@@ -9,4 +11,11 @@ import ca.access.student.domain.SysUser;
  */
 public interface ISysUserService {
     SysUser login(SysUser sysUser);
+
+    /**
+     * Get user list data
+     * @param pageable
+     * @return
+     */
+    Object getList(UserQueryCriteria queryCriteria,Pageable pageable);
 }
