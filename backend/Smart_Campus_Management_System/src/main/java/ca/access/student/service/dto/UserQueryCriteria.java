@@ -9,25 +9,10 @@ import ca.access.annotation.EnableAccessQuery;
  */
 public class UserQueryCriteria {
     /**
-     * query by username
+     * query by username,realname,gender,email
      */
-    @EnableAccessQuery(blurry = "username")
-    private String username;
-    /**
-     * query by realname
-     */
-    @EnableAccessQuery(blurry = "realname")
-    private String realname;
-    /**
-     * query by gender
-     */
-    @EnableAccessQuery
-    private String gender;
-    /**
-     * query by email
-     */
-    @EnableAccessQuery(blurry = "email")
-    private String email;
+    @EnableAccessQuery(blurry = "username,realname,gender,email")
+    private String searchValue;
     /**
      * query by status
      */

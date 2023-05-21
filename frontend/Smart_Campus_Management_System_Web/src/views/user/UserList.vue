@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive,toRefs,onMounted } from 'vue'
+import { reactive,toRefs,onMounted,watch } from 'vue'
 import { getUserListApi } from "../../api/user/user.ts";
 import { formatTime } from "../../utils/date"
+import {ElMessage, ElNotification, ElMessageBox} from 'element-plus'
 
 const state = reactive({
     // search form content
@@ -41,7 +42,28 @@ const refresh = () => {
     // refresh data
     loadData(state);
 }
-
+// search
+const search = () => {
+    if (state.searchValue !== null) {
+        ElMessage({
+            type: 'success',
+            message: `keywords“${state.searchValue}”Search results: `,
+        })
+        loadData(state)
+    }
+}
+// Monitor the change of the content of the drop-down box
+watch(() => state.status, (val, preVal) => {
+    if (val) {
+        state.searchValue = ""
+        if (state.status === -1) {
+            // Search all
+            loadData(null);
+        } else {
+            loadData(state)
+        }
+    }
+})
 onMounted(() => {
     loadData(state);
 })
