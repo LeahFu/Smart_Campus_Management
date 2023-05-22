@@ -18,4 +18,11 @@ public interface ISysUserService {
      * @return
      */
     Object getList(UserQueryCriteria queryCriteria,Pageable pageable);
+
+    /**
+     * Add user information
+     * @param sysUser
+     * @return
+     */
+    boolean addUser(SysUser sysUser);
 }

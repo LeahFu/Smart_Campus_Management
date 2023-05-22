@@ -1,5 +1,7 @@
 package ca.access.student.controller;
 
+import ca.access.base.BaseResult;
+import ca.access.student.domain.SysUser;
 import ca.access.student.service.ISysUserService;
 import ca.access.student.service.dto.UserQueryCriteria;
 import ca.access.utils.PageVo;
@@ -9,9 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: Lei Fu
@@ -37,5 +37,20 @@ public class UserController {
         Pageable pageable = PageRequest.of(pageVo.getPageIndex()-1, pageVo.getPageSize(),
                 Sort.Direction.DESC,"id");
         return new ResponseEntity<>(sysUserService.getList(queryCriteria,pageable), HttpStatus.OK);
+    }
+
+    /**
+     * Add user information
+     * @param sysUser
+     * @return
+     */
+    @PostMapping
+    public BaseResult addUser(@RequestBody SysUser sysUser){
+        boolean result = sysUserService.addUser(sysUser);
+        if(result){
+            return BaseResult.success("Added successfully");
+        }else {
+            return BaseResult.fail("Add failed");
+        }
     }
 }

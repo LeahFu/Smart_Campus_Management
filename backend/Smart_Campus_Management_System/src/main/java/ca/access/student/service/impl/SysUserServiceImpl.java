@@ -48,4 +48,16 @@ public class SysUserServiceImpl implements ISysUserService {
                 QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page);
     }
+
+    /**
+     * Add user information
+     * @param sysUser
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addUser(SysUser sysUser) {
+        SysUser dbSysUser = sysUserRepository.save(sysUser);
+        return dbSysUser.getId() != null;
+    }
 }
