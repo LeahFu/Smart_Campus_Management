@@ -1,0 +1,70 @@
+<script setup lang="ts">
+
+</script>
+
+<template>
+    <el-form ref="ruleFormRef" :rules="rules"  :model="formUser"  label-width="80px">
+        <el-row>
+            <el-col :span="24">
+                <el-form-item prop="role" label="role">
+                    <el-select v-model="formUser.sysRole.id" placeholder="please select a role" style="width: 100%;">
+                        <el-option v-for="item in roleOptions" :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="username" prop="username">
+                    <el-input v-model="formUser.username" placeholder="please enter user name" />
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="password" prop="password">
+                    <el-input v-model="formUser.password" placeholder="please enter password" />
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="realname" prop="realname">
+                    <el-input v-model="formUser.realname" placeholder="please enter real name" />
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="email" prop="email">
+                    <el-input v-model="formUser.email" placeholder="please enter email" />
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="gender" prop="gender">
+                    <el-radio-group v-model="formUser.sex" fill="#178557">
+                        <el-radio-button label="male" />
+                        <el-radio-button label="female" />
+                    </el-radio-group>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="status" prop="status">
+                    <el-radio-group v-model="formUser.status" fill="#178557">
+                        <el-radio-button :label="1">normal</el-radio-button>
+                        <el-radio-button :label="0">banned</el-radio-button>
+
+                    </el-radio-group>
+                </el-form-item>
+            </el-col>
+
+            <el-col :span="24">
+                <el-form-item label="remark">
+                    <el-input
+                            v-model="formUser.remarks"
+                            :rows="2"
+                            type="textarea"
+                            placeholder="please enter remark"
+                    />
+                </el-form-item>
+            </el-col>
+
+        </el-row>
+    </el-form>
+</template>
+
+<style scoped>
+
+</style>
