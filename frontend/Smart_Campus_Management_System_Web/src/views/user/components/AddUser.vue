@@ -2,6 +2,7 @@
 import { reactive,ref } from 'vue'
 import {ElMessage, FormInstance} from 'element-plus'
 import {addUserApi} from "../../../api/user/user.ts";
+const emit = defineEmits(['closeAddUserForm','success'])
 const subLoading = ref(false)
 const formUser = reactive({
     username: '',
@@ -34,6 +35,10 @@ const addUser = async (formEl: FormInstance | undefined) => {
         }
         subLoading.value = false
     })
+}
+// cancel form
+const close = ()=> {
+    emit('closeAddUserForm')
 }
 </script>
 

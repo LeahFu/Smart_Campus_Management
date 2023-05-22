@@ -86,6 +86,10 @@ watch(() => state.status, (val, preVal) => {
 const addUser = ()=> {
     userDialogFormVisible.value = true
 }
+// close the new user popup
+const closeAddUserForm = ()=> {
+    userDialogFormVisible.value = false
+}
 
 onMounted(() => {
     loadData(state);
