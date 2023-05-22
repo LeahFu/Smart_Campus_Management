@@ -82,6 +82,11 @@ watch(() => state.status, (val, preVal) => {
         }
     }
 })
+// add user
+const addUser = ()=> {
+    userDialogFormVisible.value = true
+}
+
 onMounted(() => {
     loadData(state);
 })
@@ -252,5 +257,9 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
      margin-top: 20px;
      justify-content: center;
  }
- 
+ /*customize the header style of the user pop-up box*/
+ .my-header {
+     display: flex;
+     justify-content: flex-start;
+ }
 </style>
