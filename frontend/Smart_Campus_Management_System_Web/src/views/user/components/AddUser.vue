@@ -1,5 +1,18 @@
 <script setup lang="ts">
-
+import { reactive,ref } from 'vue'
+const subLoading = ref(false)
+const formUser = reactive({
+    username: '',
+    password: '123456',
+    status:1,
+    realname: '',
+    email: '',
+    sex: 'female',
+    remarks: '',
+    sysRole: {
+        id: ''
+    }
+})
 </script>
 
 <template>
@@ -63,8 +76,16 @@
 
         </el-row>
     </el-form>
+
+    <div class="dialong__button--wrap">
+        <el-button @click="close">cancel</el-button>
+        <el-button color="#178557" :loading="subLoading" type="success" @click="addUser(ruleFormRef)">save</el-button>
+    </div>
 </template>
 
 <style scoped>
-
+.dialong__button--wrap {
+    text-align: center;
+    margin-top: 20px;
+}
 </style>

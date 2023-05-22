@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { reactive,toRefs,onMounted,watch } from 'vue'
+import { reactive,toRefs,onMounted,watch,ref } from 'vue'
 import { getUserListApi } from "../../api/user/user.ts";
 import { formatTime } from "../../utils/date"
+import AddUser from './components/AddUser.vue'
 import {ElMessage, ElNotification, ElMessageBox} from 'element-plus'
+
+// add user popup status
+const userDialogFormVisible = ref(false)
 
 const state = reactive({
     // search form content
@@ -203,8 +207,8 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
     <!--Add user component start-->
     <AddUser @closeAddUserForm="closeAddUserForm" @success="success"/>
     <!--Add user component end-->
- </el-dialog>
- <!--User Dialog FormVisible end-->
+  </el-dialog>
+  <!--User Dialog FormVisible end-->
 
  <!--Edit user popup start-->
  <el-dialog  align-center v-model="editUserDialogFormVisible"  width="42%" destroy-on-close>
@@ -248,4 +252,5 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
      margin-top: 20px;
      justify-content: center;
  }
+ 
 </style>
