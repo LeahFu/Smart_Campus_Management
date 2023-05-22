@@ -33,6 +33,20 @@ const loadData = async (state: any)=> {
     state.total = data.totalElements
     state.loading = false
 }
+
+// the execution event of switching pages
+// val current page
+const changePage = (val) => {
+    state.pageIndex = val;
+    loadData(state);
+}
+// dealing with user serial number issues after pagination
+const Nindex = (index) => {
+    // current page number - 1 * number of data items per page + 1
+    const page = state.pageIndex // current page
+    const pagesize = state.pageSize // number of data items per page
+    return index + 1 + (page - 1) * pagesize
+}
 // refresh
 const refresh = () => {
     // search value
