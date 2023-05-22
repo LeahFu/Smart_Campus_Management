@@ -90,6 +90,11 @@ const addUser = ()=> {
 const closeAddUserForm = ()=> {
     userDialogFormVisible.value = false
 }
+// submit form callback function
+const success = ()=> {
+    loadData(state);
+    userDialogFormVisible.value = false
+}
 
 onMounted(() => {
     loadData(state);

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { reactive,ref } from 'vue'
-import {ElMessage, FormInstance} from 'element-plus'
+import {ElMessage, FormInstance, FormRules} from 'element-plus'
 import {addUserApi} from "../../../api/user/user.ts";
 const emit = defineEmits(['closeAddUserForm','success'])
 const subLoading = ref(false)
+const ruleFormRef = ref<FormInstance>()
 const formUser = reactive({
     username: '',
     password: '123456',
@@ -15,6 +16,14 @@ const formUser = reactive({
     sysRole: {
         id: ''
     }
+})
+// define Form Constraint Rules
+const rules = reactive<FormRules>({
+    username: [{ required: true, message: 'Username can not be empty', trigger: 'blur' }],
+    password: [{ required: true, message: 'Password can not be empty', trigger: 'blur' }],
+    realname: [{ required: true, message: 'Real name can not be empty', trigger: 'blur' }],
+    sysRole: [{ required: true, message: 'Role can not be empty', trigger: 'blur' }],
+    email: [{ required: true, message: 'Email can not be empty', trigger: 'blur' }]
 })
 // add user information
 const addUser = async (formEl: FormInstance | undefined) => {
