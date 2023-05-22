@@ -9,3 +9,11 @@ export function getUserListApi(data:object) {
 
     })
 }
+// Add user information
+export function addUserApi(data:object) {
+    return request({
+        url: 'user',
+        method: 'post',
+        data
+    })
+}
