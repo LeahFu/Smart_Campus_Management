@@ -3,6 +3,7 @@ import { reactive,toRefs,onMounted,watch,ref } from 'vue'
 import { getUserListApi } from "../../api/user/user.ts";
 import { formatTime } from "../../utils/date"
 import AddUser from './components/AddUser.vue'
+import EditUser from "./components/EditUser.vue";
 import {ElMessage, ElNotification, ElMessageBox} from 'element-plus'
 
 // add user popup status
