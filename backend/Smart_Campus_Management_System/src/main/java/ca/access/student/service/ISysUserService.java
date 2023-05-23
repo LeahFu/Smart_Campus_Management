@@ -25,4 +25,11 @@ public interface ISysUserService {
      * @return
      */
     boolean addUser(SysUser sysUser);
+
+    /**
+     * Get user details by id
+     * @param id
+     * @return
+     */
+    SysUser getById(Long id);
 }

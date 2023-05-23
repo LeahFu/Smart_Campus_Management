@@ -60,4 +60,14 @@ public class SysUserServiceImpl implements ISysUserService {
         SysUser dbSysUser = sysUserRepository.save(sysUser);
         return dbSysUser.getId() != null;
     }
+
+    /**
+     * Get user details by id
+     * @param id
+     * @return
+     */
+    @Override
+    public SysUser getById(Long id){
+        return sysUserRepository.findById(id).orElseGet(SysUser::new);
+    }
 }

@@ -1,10 +1,12 @@
 package ca.access.student.controller;
 
 import ca.access.base.BaseResult;
+import ca.access.exception.BadRequestException;
 import ca.access.student.domain.SysUser;
 import ca.access.student.service.ISysUserService;
 import ca.access.student.service.dto.UserQueryCriteria;
 import ca.access.utils.PageVo;
+import ca.access.exception.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  * @author: Lei Fu
@@ -52,5 +55,19 @@ public class UserController {
         }else {
             return BaseResult.fail("Add failed");
         }
+    }
+
+    /**
+     * Get user details by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public BaseResult detail(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to get information");
+        }
+        SysUser dbSysUser = sysUserService.getById(id);
+        return BaseResult.success(dbSysUser);
     }
 }
