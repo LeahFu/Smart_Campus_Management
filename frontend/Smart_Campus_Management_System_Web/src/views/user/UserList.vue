@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive,toRefs,onMounted,watch,ref } from 'vue'
-import { getUserListApi } from "../../api/user/user.ts";
+import {getUserApi, getUserListApi} from "../../api/user/user.ts";
 import { formatTime } from "../../utils/date"
 import AddUser from './components/AddUser.vue'
 import EditUser from "./components/EditUser.vue";
@@ -8,6 +8,10 @@ import {ElMessage, ElNotification, ElMessageBox} from 'element-plus'
 
 // add user popup status
 const userDialogFormVisible = ref(false)
+const title = ref('add user')
+// edit user popup status
+const editUserDialogFormVisible = ref(false)
+const editTitle = ref('edit user')
 
 const state = reactive({
     // search form content
@@ -96,7 +100,13 @@ const success = ()=> {
     loadData(state);
     userDialogFormVisible.value = false
 }
-
+// edit user information
+const userInfo = ref()
+const editUser = async (id:number)=> {
+    const { data } = await getUserApi(id)
+    userInfo.value = data.result
+    editUserDialogFormVisible.value = true
+}
 onMounted(() => {
     loadData(state);
 })
