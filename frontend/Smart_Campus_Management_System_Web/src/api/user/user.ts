@@ -24,3 +24,11 @@ export function getUserApi(id:number) {
         method: 'get'
     })
 }
+// Refresh user information
+export function editUserApi(data:object) {
+    return request({
+        url: 'user',
+        method: 'put',
+        data
+    })
+}

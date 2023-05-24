@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { reactive,ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import {FormInstance} from "element-plus";
 
 const props = defineProps(['userInfo'])
 const userInfo = ref(props.userInfo)
@@ -21,6 +23,27 @@ const formUser = reactive({
 for (const key in formUser) {
     formUser[key] = userInfo.value[key]
 }
+// Edit user information
+const editUser = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
+        subLoading.value = true
+        if (valid) {
+            const { data } =  await editUserApi(formUser)
+            if(data.status===200){
+                ElMessage.success(data.message)
+                emit('success')
+            }else {
+                ElMessage.error(data.message)
+            }
+        } else {
+            ElMessage.error('提交失败，你还有未填写的项！')
+            console.log('error submit!', fields)
+        }
+        subLoading.value = false
+    })
+}
+
 </script>
 
 <template>
