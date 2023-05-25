@@ -1,5 +1,6 @@
 package ca.access.student.service.impl;
 
+import ca.access.base.BaseResult;
 import ca.access.student.domain.SysUser;
 import ca.access.student.repository.SysUserRepository;
 import ca.access.student.service.ISysUserService;
@@ -7,6 +8,8 @@ import ca.access.student.service.dto.UserQueryCriteria;
 import ca.access.utils.Md5Util;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -69,5 +72,17 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public SysUser getById(Long id){
         return sysUserRepository.findById(id).orElseGet(SysUser::new);
+    }
+
+    /**
+     * Refresh user information
+     * @param sysUser
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editUser(SysUser sysUser){
+        SysUser dbSysUser = sysUserRepository.getReferenceById(sysUser.getId());
+        BeanUtil.copyProperties(sysUser,dbSysUser, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        sysUserRepository.save(dbSysUser);
     }
 }

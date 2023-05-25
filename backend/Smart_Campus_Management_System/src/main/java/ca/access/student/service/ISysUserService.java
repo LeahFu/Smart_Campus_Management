@@ -32,4 +32,10 @@ public interface ISysUserService {
      * @return
      */
     SysUser getById(Long id);
+
+    /**
+     * Refresh user information
+     * @param sysUser
+     */
+    void editUser(SysUser sysUser);
 }

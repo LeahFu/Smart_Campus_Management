@@ -70,4 +70,15 @@ public class UserController {
         SysUser dbSysUser = sysUserService.getById(id);
         return BaseResult.success(dbSysUser);
     }
+
+    /**
+     * Refresh user information
+     * @param sysUser
+     * @return
+     */
+    @PutMapping
+    public BaseResult editUser(@RequestBody SysUser sysUser){
+        sysUserService.editUser(sysUser);
+        return BaseResult.success("Refresh success");
+    }
 }
