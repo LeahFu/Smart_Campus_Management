@@ -111,6 +111,16 @@ const editUser = async (id:number)=> {
 const closeEditUserForm = ()=> {
     editUserDialogFormVisible.value = false
 }
+// Delete user information
+const delUser = async (id:number)=> {
+    const { data } = await deleteUserApi(id)
+    if(data.status===200){
+        ElMessage.success('Successfully deleted')
+        await loadData(state);
+    }else {
+        ElMessage.error('Failed to delete')
+    }
+}
 onMounted(() => {
     loadData(state);
 })

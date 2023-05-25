@@ -32,3 +32,10 @@ export function editUserApi(data:object) {
         data
     })
 }
+// Delete user information based on ID
+export function deleteUserApi(id:number) {
+    return request({
+        url: `user/${id}`,
+        method: 'delete'
+    })
+}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive,ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import {ElMessage, FormRules} from 'element-plus'
 import {FormInstance} from "element-plus";
 import {editUserApi} from "../../../api/user/user.ts";
 const emit = defineEmits(['closeEditUserForm','success'])
@@ -24,6 +24,14 @@ const formUser = reactive({
 for (const key in formUser) {
     formUser[key] = userInfo.value[key]
 }
+// Define Form Constraint Rule Objects
+const rules = reactive<FormRules>({
+    username: [{ required: true, message: 'Username can not be empty', trigger: 'blur' }],
+    password: [{ required: true, message: 'Password can not be empty', trigger: 'blur' }],
+    realname: [{ required: true, message: 'Real name can not be empty', trigger: 'blur' }],
+    sysRole: [{ required: true, message: 'Role can not be empty', trigger: 'blur' }],
+    email: [{ required: true, message: 'Email can not be empty', trigger: 'blur' }]
+})
 // Edit user information
 const editUser = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
@@ -74,7 +82,7 @@ const close = ()=> {
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="gender" prop="sex">
+                <el-form-item label="gender" prop="gender">
                     <el-radio-group v-model="formUser.sex" fill="#178557">
                         <el-radio-button label="male" />
                         <el-radio-button label="female" />
