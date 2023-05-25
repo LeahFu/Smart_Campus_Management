@@ -2,7 +2,8 @@
 import { reactive,ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import {FormInstance} from "element-plus";
-
+import {editUserApi} from "../../../api/user/user.ts";
+const emit = defineEmits(['closeEditUserForm','success'])
 const props = defineProps(['userInfo'])
 const userInfo = ref(props.userInfo)
 const subLoading = ref(false)
@@ -37,13 +38,16 @@ const editUser = async (formEl: FormInstance | undefined) => {
                 ElMessage.error(data.message)
             }
         } else {
-            ElMessage.error('提交失败，你还有未填写的项！')
+            ElMessage.error('Submission failed, you still have unfilled items')
             console.log('error submit!', fields)
         }
         subLoading.value = false
     })
 }
-
+// cancel form
+const close = ()=> {
+    emit('closeEditUserForm')
+}
 </script>
 
 <template>

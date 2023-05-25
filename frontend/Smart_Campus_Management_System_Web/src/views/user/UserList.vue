@@ -107,6 +107,10 @@ const editUser = async (id:number)=> {
     userInfo.value = data.result
     editUserDialogFormVisible.value = true
 }
+// close edit user popup
+const closeEditUserForm = ()=> {
+    editUserDialogFormVisible.value = false
+}
 onMounted(() => {
     loadData(state);
 })
