@@ -38,4 +38,10 @@ public interface ISysUserService {
      * @param sysUser
      */
     void editUser(SysUser sysUser);
+
+    /**
+     * Delete user information based on ID
+     * @param id
+     */
+    void deleteById(Long id);
 }

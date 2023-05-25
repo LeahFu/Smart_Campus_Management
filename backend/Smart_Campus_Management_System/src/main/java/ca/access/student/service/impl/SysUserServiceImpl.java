@@ -85,4 +85,14 @@ public class SysUserServiceImpl implements ISysUserService {
         BeanUtil.copyProperties(sysUser,dbSysUser, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         sysUserRepository.save(dbSysUser);
     }
+
+    /**
+     * Delete user information based on ID
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) {
+        sysUserRepository.deleteById(id);
+    }
 }

@@ -81,4 +81,18 @@ public class UserController {
         sysUserService.editUser(sysUser);
         return BaseResult.success("Refresh success");
     }
+
+    /**
+     * Delete user information
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public  BaseResult delete(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to delete");
+        }
+        sysUserService.deleteById(id);
+        return BaseResult.success("Successfully deleted");
+    }
 }
