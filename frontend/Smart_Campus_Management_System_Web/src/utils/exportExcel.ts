@@ -41,4 +41,29 @@ export const exportExcel = async ({column,data,filename,autoWidth,format})=> {
         columnsName.push(obj)
     })
     worksheet.columns = columnsName
+    // Add row
+    worksheet.addRows(data)
+    // Write to file
+    const uint8Array =
+        format === "xlsx"
+            ? await workbook.xlsx.writeBuffer()
+            : await workbook.csv.writeBuffer()
+    const blob = new Blob([uint8Array],{type: 'application/octet-binary'})
+    // Determine whether to allow users to save files on the client
+    if(window.navigator.msSaveOrOpenBlob){
+        // msSaveOrOpenBlob return boolean
+        navigator.msSaveBlob(blob, filename + `.${format}`);
+        // Save locally
+    }else {
+        // Download label "a"
+        const link = document.createElement("a");
+        // The href attribute specifies the download link
+        link.href = window.URL.createObjectURL(blob);
+        // The download attribute specifies the file name
+        link.download = filename + `.${format}`;
+        // The click() event triggers the download
+        link.click();
+        // Free memory
+        window.URL.revokeObjectURL(link.href);
+    }
 }

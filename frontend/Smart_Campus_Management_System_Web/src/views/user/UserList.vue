@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { reactive,toRefs,onMounted,watch,ref } from 'vue'
-import {getUserApi, getUserListApi} from "../../api/user/user.ts";
+import {deleteUserApi, getUserApi, getUserListApi} from "../../api/user/user.ts";
 import { formatTime } from "../../utils/date"
 import AddUser from './components/AddUser.vue'
 import EditUser from "./components/EditUser.vue";
 import {ElMessage, ElNotification, ElMessageBox} from 'element-plus'
+import {exportExcel} from "../../utils/exportExcel.ts";
 
 // add user popup status
 const userDialogFormVisible = ref(false)
@@ -121,6 +122,26 @@ const delUser = async (id:number)=> {
         ElMessage.error('Failed to delete')
     }
 }
+// Define the column name object that needs to be exported
+const column = [
+    {name: 'id',label: 'id'},
+    {name: 'username',label: 'username'},
+    {name: 'realname',label: 'realname'},
+    {name: 'gender',label: 'gender'},
+    {name: 'status',label: 'status'},
+    {name: 'email',label: 'email'},
+    {name: 'remark',label: 'remark'}
+]
+// Export excel function
+const exportExcelAction = () => {
+    exportExcel({
+        column,
+        data:state.tableData,
+        filename: 'user info data',
+        format: 'xlsx',
+        autoWidth: true,
+    })
+}
 onMounted(() => {
     loadData(state);
 })
@@ -152,9 +173,9 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
            </el-col>
            <el-col :span="8">
              <div class="my-button">
-               <el-button plain style="width: 50%;" color="#2fa7b9" @click="addUser">add user</el-button>
+               <el-button plain style="width: 50%;" color="#2fa7b9" @click="addUser">Add User</el-button>
                <el-button @click="exportExcelAction" type="primary">
-               <el-icon style="margin-right: 6px"><Download /></el-icon>export Excel
+               <el-icon style="margin-right: 6px"><Download/></el-icon>Export Excel
                </el-button>
              </div>
            </el-col>
@@ -295,5 +316,10 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
  .my-header {
      display: flex;
      justify-content: flex-start;
+ }
+ /*custom button style*/
+ .my-button {
+     display: flex;
+     justify-content:space-between;
  }
 </style>
