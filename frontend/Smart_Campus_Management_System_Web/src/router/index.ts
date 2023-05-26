@@ -30,7 +30,18 @@ const routes = [{
             name: 'user',
             meta: {title:'user management'},
             component:()=>import('../views/user/UserList.vue')
-        }]
+        },
+            {
+                path: 'role',
+                name: 'Role',
+                meta: {
+                    title: 'role management',
+                    icon: 'Stamp',
+                    role: ['ROLE_ADMIN']
+                },
+                component: ()=> import('../views/role/RoleList.vue')
+            }
+        ]
     }
 ]
 //3. Create routing instance and pass routes configuration
