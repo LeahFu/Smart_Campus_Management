@@ -1,5 +1,6 @@
 package ca.access.student.service;
 
+import ca.access.student.domain.SysRole;
 import ca.access.student.service.dto.RoleQueryCriteria;
 import org.springframework.data.domain.Pageable;
 
@@ -16,4 +17,11 @@ public interface IRoleService {
      * @return
      */
     Object getList(RoleQueryCriteria queryCriteria, Pageable pageable);
+
+    /**
+     * Add role information
+     * @param sysRole
+     * @return
+     */
+    boolean addRole(SysRole sysRole);
 }

@@ -37,4 +37,16 @@ public class SysRoleServiceImpl implements IRoleService {
                 -> QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page);
     }
+
+    /**
+     * Add role information
+     * @param sysRole
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addRole(SysRole sysRole) {
+        SysRole dbSysRole = sysRoleRepository.save(sysRole);
+        return dbSysRole.getId() != null;
+    }
 }

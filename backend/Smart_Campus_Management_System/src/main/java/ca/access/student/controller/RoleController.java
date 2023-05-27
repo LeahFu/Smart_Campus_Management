@@ -1,5 +1,7 @@
 package ca.access.student.controller;
 
+import ca.access.base.BaseResult;
+import ca.access.student.domain.SysRole;
 import ca.access.student.service.IRoleService;
 import ca.access.student.service.dto.RoleQueryCriteria;
 import ca.access.utils.PageUtil;
@@ -10,10 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: Lei Fu
@@ -41,5 +40,20 @@ public class RoleController {
         Pageable pageable = PageRequest.of(pageVo.getPageIndex()-1, pageVo.getPageSize(),
                 Sort.Direction.DESC,"id");
         return new ResponseEntity<>(roleService.getList(queryCriteria,pageable), HttpStatus.OK);
+    }
+
+    /**
+     * Add role information
+     * @param sysRole
+     * @return
+     */
+    @PostMapping
+    public BaseResult addRole(@RequestBody SysRole sysRole){
+        boolean result = roleService.addRole(sysRole);
+        if(result){
+            return BaseResult.success("Successfully added role!");
+        }else {
+            return BaseResult.fail("Failed to add role");
+        }
     }
 }
