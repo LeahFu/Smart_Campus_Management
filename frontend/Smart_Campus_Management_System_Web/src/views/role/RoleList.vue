@@ -3,6 +3,9 @@ import { ref, reactive,toRefs,onMounted } from 'vue'
 import { formatTime } from "../../utils/date"
 import {getRoleListApi} from "../../api/role/role.ts";
 import {ElMessage} from 'element-plus'
+import AddRole from "./components/AddRole.vue";
+const addTitle = ref('Add role')
+const addRoleDialogFormVisible = ref(false)
 const state = reactive({
     // Search content
     searchValue: "",
@@ -61,6 +64,10 @@ const Nindex = (index:number) => {
     const page = state.pageIndex // current page number
     const pagesize = state.pageSize // Items per page
     return index + 1 + (page - 1) * pagesize
+}
+// Add role
+const addRole = ()=> {
+    addRoleDialogFormVisible.value = true
 }
 //Load data after mount
 onMounted(() => {
@@ -161,6 +168,21 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 <!--page end-->
 </el-card>
 
+<!--Add role pop-up box start-->
+<el-dialog  align-center v-model="addRoleDialogFormVisible"   width="42%" destroy-on-close>
+<template #header="{ close, titleId, titleClass }">
+    <div class="my-header">
+        <el-icon size="26px"><EditPen /></el-icon>
+        <h1 id="titleId">{{addTitle}}</h1>
+    </div>
+
+</template>
+<!--Add role component start-->
+<AddRole @closeAddRoleForm="closeAddRoleForm" @success="success"/>
+<!--Add role component end-->
+</el-dialog>
+<!--Add role pop-up box end-->
+
 <style scoped>
 .card-header {
     display: flex;
@@ -183,5 +205,10 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 .el-pagination {
     margin-top: 20px;
     justify-content: center;
+}
+/*Customize the header style of the user pop-up box*/
+.my-header {
+    display: flex;
+    justify-content: flex-start;
 }
 </style>
