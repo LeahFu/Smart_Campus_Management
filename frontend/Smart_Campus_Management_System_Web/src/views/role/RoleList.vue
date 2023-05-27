@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive,toRefs,onMounted } from 'vue'
+import { formatTime } from "../../utils/date"
 import {getRoleListApi} from "../../api/role/role.ts";
+import {ElMessage} from 'element-plus'
 const state = reactive({
     // Search content
     searchValue: "",
@@ -29,6 +31,36 @@ const loadData = async (state: any)=> {
     state.tableData = data.content
     state.total = data.totalElements
     state.loading = false
+}
+// Refresh list data
+const refresh = () => {
+    // Search data
+    state.searchValue = ""
+    // Refresh data
+    loadData(state);
+}
+// Search
+const search = () => {
+    if (state.searchValue !== null) {
+        ElMessage({
+            type: 'success',
+            message: `Key words“${state.searchValue}”The search content is as follows: `,
+        })
+        loadData(state)
+    }
+}
+// The execution event of switching pages
+// val : the current page number
+const changePage = (val:number) => {
+    state.pageIndex = val;
+    loadData(state);
+}
+// Deal with the serial number problem after page turning
+const Nindex = (index:number) => {
+    // Current page number - 1 * number of data items per page + 1
+    const page = state.pageIndex // current page number
+    const pagesize = state.pageSize // Items per page
+    return index + 1 + (page - 1) * pagesize
 }
 //Load data after mount
 onMounted(() => {
