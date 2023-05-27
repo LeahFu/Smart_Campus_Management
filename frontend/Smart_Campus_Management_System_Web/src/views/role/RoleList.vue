@@ -14,6 +14,25 @@ const state = reactive({
     // Data loading
     loading: false,
 })
+// Get role list data
+const loadData = async (state: any)=> {
+    state.loading = true
+    // Clear the data first
+    state.tableData=[]
+    const params = {
+        'pageIndex':state.pageIndex,
+        'pageSize': state.pageSize,
+        'searchValue': state.searchValue
+    }
+    const { data } = await getRoleListApi(params)
+    state.tableData = data.content
+    state.total = data.totalElements
+    state.loading = false
+}
+//Load data after mount
+onMounted(() => {
+    loadData(state);
+})
 const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 </script>
 
