@@ -1,7 +1,13 @@
 package ca.access.student.service.impl;
 
+import ca.access.student.domain.SysRole;
 import ca.access.student.repository.SysRoleRepository;
 import ca.access.student.service.IRoleService;
+import ca.access.student.service.dto.RoleQueryCriteria;
+import ca.access.utils.PageUtil;
+import ca.access.utils.QueryHelp;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,5 +23,18 @@ public class SysRoleServiceImpl implements IRoleService {
 
     public SysRoleServiceImpl(SysRoleRepository sysRoleRepository) {
         this.sysRoleRepository = sysRoleRepository;
+    }
+
+    /**
+     * Get role list data
+     * @param queryCriteria
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Object getList(RoleQueryCriteria queryCriteria, Pageable pageable) {
+        Page<SysRole> page = sysRoleRepository.findAll((root, query, criteriaBuilder)
+                -> QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page);
     }
 }
