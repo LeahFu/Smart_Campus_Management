@@ -7,3 +7,11 @@ export function getRoleListApi(data:object) {
         params: data
     })
 }
+// Add role
+export function addRoleApi(data:object) {
+    return request({
+        url: 'role',
+        method: 'post',
+        data
+    })
+}

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
+import {ElMessage, FormInstance} from "element-plus";
+import {addRoleApi} from "../../../api/role/role.ts";
 
 const subLoading = ref(false)
 const formRole = reactive({
@@ -7,6 +9,26 @@ const formRole = reactive({
     code: '',
     remarks: ''
 })
+// Add role
+const addRole = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
+        subLoading.value = true
+        if (valid) {
+            const { data } =  await addRoleApi(formRole)
+            if(data.status===200){
+                ElMessage.success(data.message)
+                emit('success')
+            }else {
+                ElMessage.error(data.message)
+            }
+        } else {
+            ElMessage.error('Submission failed, you still have unfilled items!')
+            console.log('error submit!', fields)
+        }
+        subLoading.value = false
+    })
+}
 </script>
 
 <template>
