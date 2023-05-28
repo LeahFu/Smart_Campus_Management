@@ -1,6 +1,7 @@
 package ca.access.base;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.Getter;
@@ -8,6 +9,9 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.File;
 import java.io.Serializable;
@@ -23,6 +27,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
     /**
      * create time
@@ -34,7 +39,8 @@ public class BaseEntity implements Serializable {
     /**
      * create ID
      */
-    @Column(name = "create_by")
+    @Column(name = "create_by",nullable = false)
+    @CreatedBy
     private Long createBy;
 
     /**
@@ -44,7 +50,8 @@ public class BaseEntity implements Serializable {
     @Column(name = "update_time")
     private Timestamp updateTime;
 
-    @Column(name = "update_by")
+    @Column(name = "update_by",nullable = false)
+    @LastModifiedBy
     private Long updateBy;
 
     /**

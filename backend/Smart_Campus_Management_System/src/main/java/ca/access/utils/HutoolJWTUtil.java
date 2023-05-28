@@ -3,6 +3,7 @@ package ca.access.utils;
 import ca.access.student.domain.SysUser;
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTPayload;
 import cn.hutool.jwt.JWTUtil;
 
@@ -36,6 +37,16 @@ public class HutoolJWTUtil {
         String key = "www.access.ca";
         String token = JWTUtil.createToken(payload,key.getBytes());
         return token;
+    }
 
+    /**
+     * Analyze token
+     * @param token
+     * @return
+     */
+    public static Long parseToken(String token){
+        final JWT jwt = JWTUtil.parseToken(token);
+        String aid = jwt.getPayload("aid").toString();
+        return Long.parseLong(aid);
     }
 }
