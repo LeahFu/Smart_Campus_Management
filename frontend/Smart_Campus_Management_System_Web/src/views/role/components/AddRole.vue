@@ -2,7 +2,13 @@
 import {ref, reactive} from 'vue'
 import {ElMessage, FormInstance} from "element-plus";
 import {addRoleApi} from "../../../api/role/role.ts";
-
+import type { FormInstance, FormRules } from 'element-plus'
+const ruleFormRef = ref<FormInstance>()
+// Define form constraint rule objects
+const rules = reactive<FormRules>({
+    name: [{ required: true, message: 'Role name cannot be empty', trigger: 'blur' }],
+    code: [{ required: true, message: 'Role code cannot be empty', trigger: 'blur' }],
+})
 const subLoading = ref(false)
 const emit = defineEmits(['closeAddRoleForm','success'])
 const formRole = reactive({
@@ -37,7 +43,7 @@ const close = ()=> {
 </script>
 
 <template>
-    <el-form :model="formRole"  label-width="80px">
+    <el-form ref="ruleFormRef" :rules="rules" :model="formRole"  label-width="80px">
         <el-row>
             <el-col :span="12">
                 <el-form-item label="role name" prop="name">

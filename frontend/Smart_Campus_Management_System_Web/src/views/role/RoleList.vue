@@ -73,6 +73,11 @@ const addRole = ()=> {
 const closeAddRoleForm = ()=> {
     addRoleDialogFormVisible.value = false
 }
+// Submit form callback function
+const success = ()=> {
+    loadData(state);
+    closeAddRoleForm();
+}
 //Load data after mount
 onMounted(() => {
     loadData(state);
