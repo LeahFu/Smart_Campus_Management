@@ -4,6 +4,7 @@ import {ElMessage, FormInstance} from "element-plus";
 import {addRoleApi} from "../../../api/role/role.ts";
 
 const subLoading = ref(false)
+const emit = defineEmits(['closeAddRoleForm','success'])
 const formRole = reactive({
     name: '',
     code: '',
@@ -28,6 +29,10 @@ const addRole = async (formEl: FormInstance | undefined) => {
         }
         subLoading.value = false
     })
+}
+// Cancel form
+const close = ()=> {
+    emit('closeAddRoleForm')
 }
 </script>
 

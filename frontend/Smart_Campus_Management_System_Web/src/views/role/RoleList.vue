@@ -69,6 +69,10 @@ const Nindex = (index:number) => {
 const addRole = ()=> {
     addRoleDialogFormVisible.value = true
 }
+// Close the new role pop-up box
+const closeAddRoleForm = ()=> {
+    addRoleDialogFormVisible.value = false
+}
 //Load data after mount
 onMounted(() => {
     loadData(state);
@@ -110,79 +114,75 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
                 <!--Search area end-->
             </div>
         </template>
+        <!--head end-->
+        <!--table-box start-->
+        <div class="table-box">
+          <el-table element-loading-text="Loading..." v-loading="loading" :data="tableData"
+            style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
+            :row-class-name="rowClassName"
+            :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
 
-    </el-card>
-</template>
-<!--head end-->
-<!--table-box start-->
-<div class="table-box">
-<el-table element-loading-text="Loading..." v-loading="loading" :data="tableData"
-          style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
-          :row-class-name="rowClassName"
-          :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
-
-    <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
-    <el-table-column label="role name">
-        <template #default="scope">
-            <el-tooltip :content="scope.row.name" palacement="top" effect="light">
-                <span class="highlight">{{scope.row.name}}</span>
-            </el-tooltip>
-        </template>
-    </el-table-column>
-    <el-table-column label="role code">
-        <template #default="scope">
-            <el-tooltip :content="scope.row.code" palacement="top" effect="light">
-                <span class="highlight">{{scope.row.code}}</span>
-            </el-tooltip>
-        </template>
-    </el-table-column>
-    <el-table-column label="created time">
-        <template #default="scope">
-            <el-tooltip :content="scope.row.createTime" placement="top" effect="light">
-                <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
-            </el-tooltip>
-        </template>
-    </el-table-column>
-    <el-table-column label="operate">
-        <template #default="scope">
-            <el-button size="small" @click="editRole(scope.row.id)"
+             <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
+             <el-table-column label="role name">
+                <template #default="scope">
+                   <el-tooltip :content="scope.row.name" palacement="top" effect="light">
+                      <span class="highlight">{{scope.row.name}}</span>
+                   </el-tooltip>
+                </template>
+             </el-table-column>
+             <el-table-column label="role code">
+                <template #default="scope">
+                   <el-tooltip :content="scope.row.code" palacement="top" effect="light">
+                      <span class="highlight">{{scope.row.code}}</span>
+                   </el-tooltip>
+                </template>
+             </el-table-column>
+             <el-table-column label="created time">
+                <template #default="scope">
+                   <el-tooltip :content="scope.row.createTime" placement="top" effect="light">
+                      <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
+                   </el-tooltip>
+                </template>
+             </el-table-column>
+             <el-table-column label="operate">
+                <template #default="scope">
+                   <el-button size="small" @click="editRole(scope.row.id)"
                        style="margin: 0 0 10px 10px;">Edit</el-button>
-            <el-popconfirm width="200px" confirm-button-text="Submit" cancel-button-text="Cancel" :icon="Delete"
+                    <el-popconfirm width="200px" confirm-button-text="Submit" cancel-button-text="Cancel" :icon="Delete"
                            icon-color="#626AEF" :title="'Are you sure you want to delete “'+scope.row.name+'” ？'"
                            @confirm="delRole( scope.row.id)">
-                <template #reference>
-                    <el-button size="small" type="danger" style="margin-bottom: 10px;">Delete</el-button>
+                        <template #reference>
+                          <el-button size="small" type="danger" style="margin-bottom: 10px;">Delete</el-button>
+                        </template>
+                    </el-popconfirm>
                 </template>
-            </el-popconfirm>
-        </template>
-    </el-table-column>
-
-</el-table>
-</div>
-<!--table-box end-->
-<!--page start-->
-<el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
+             </el-table-column>
+          </el-table>
+        </div>
+        <!--table-box end-->
+        <!--page start-->
+        <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
                v-model:page-size="pageSize"
                @current-change="changePage"
                :page-sizes="[10, 20, 30, 40]"/>
-<!--page end-->
-</el-card>
+        <!--page end-->
+    </el-card>
 
-<!--Add role pop-up box start-->
-<el-dialog  align-center v-model="addRoleDialogFormVisible"   width="42%" destroy-on-close>
-<template #header="{ close, titleId, titleClass }">
-    <div class="my-header">
-        <el-icon size="26px"><EditPen /></el-icon>
-        <h1 id="titleId">{{addTitle}}</h1>
-    </div>
+    <!--Add role pop-up box start-->
+    <el-dialog  align-center v-model="addRoleDialogFormVisible"   width="42%" destroy-on-close>
+       <template #header="{ close, titleId, titleClass }">
+          <div class="my-header">
+             <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{addTitle}}</h1>
+          </div>
+       </template>
+    <!--Add role component start-->
+    <AddRole @closeAddRoleForm="closeAddRoleForm" @success="success"/>
+    <!--Add role component end-->
+    </el-dialog>
+    <!--Add role pop-up box end-->
 
 </template>
-<!--Add role component start-->
-<AddRole @closeAddRoleForm="closeAddRoleForm" @success="success"/>
-<!--Add role component end-->
-</el-dialog>
-<!--Add role pop-up box end-->
-
 <style scoped>
 .card-header {
     display: flex;
