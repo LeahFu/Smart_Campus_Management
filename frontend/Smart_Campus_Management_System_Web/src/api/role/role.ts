@@ -30,3 +30,10 @@ export function editRoleApi(data:object) {
         data
     })
 }
+// Delete role information based on ID
+export function deleteRoleApi(id:number) {
+    return request({
+        url: `role/${id}`,
+        method: 'delete'
+    })
+}

@@ -94,6 +94,16 @@ const success = ()=> {
     closeAddRoleForm();
     closeEditRoleForm();
 }
+// Delete role information
+const delRole = async (id:number)=> {
+    const { data } = await deleteRoleApi(id)
+    if(data.status===200){
+        ElMessage.success('Successfully deleted')
+        await loadData(state);
+    }else {
+        ElMessage.error('Failed to delete')
+    }
+}
 //Load data after mount
 onMounted(() => {
     loadData(state);
