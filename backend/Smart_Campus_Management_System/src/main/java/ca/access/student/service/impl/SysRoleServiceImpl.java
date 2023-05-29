@@ -6,6 +6,8 @@ import ca.access.student.service.IRoleService;
 import ca.access.student.service.dto.RoleQueryCriteria;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -58,5 +60,17 @@ public class SysRoleServiceImpl implements IRoleService {
     @Override
     public SysRole getById(Long id) {
         return sysRoleRepository.findById(id).orElseGet(SysRole::new);
+    }
+
+    /**
+     * Update role information
+     * @param sysRole
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editRole(SysRole sysRole) {
+        SysRole dbSysRole = sysRoleRepository.getReferenceById(sysRole.getId());
+        BeanUtil.copyProperties(sysRole,dbSysRole, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        sysRoleRepository.save(dbSysRole);
     }
 }

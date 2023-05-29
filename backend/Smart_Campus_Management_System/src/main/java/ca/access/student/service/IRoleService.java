@@ -31,4 +31,10 @@ public interface IRoleService {
      * @return
      */
     SysRole getById(Long id);
+
+    /**
+     * Update role information
+     * @param sysRole
+     */
+    void editRole(SysRole sysRole);
 }

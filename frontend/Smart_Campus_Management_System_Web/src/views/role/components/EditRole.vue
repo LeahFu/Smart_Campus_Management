@@ -3,6 +3,7 @@ import { ref, reactive } from 'vue'
 import editRole from "./EditRole.vue";
 import type { FormInstance, FormRules } from 'element-plus'
 import {ElMessage} from 'element-plus'
+import {editRoleApi} from "../../../api/role/role.ts";
 const subLoading = ref(false)
 const formRole = reactive({
     id: 0,
@@ -16,7 +17,7 @@ const roleInfo = ref(props.roleInfo)
 for (const key in formRole) {
     formRole[key] = roleInfo.value[key]
 }
-// Edit role information
+// Update role information
 const editRole = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
     await formEl.validate(async (valid, fields) => {

@@ -22,7 +22,7 @@ export function getRoleApi(id:number) {
         method: 'get'
     })
 }
-// Edit role information
+// Update role information
 export function editRoleApi(data:object) {
     return request({
         url: 'role',

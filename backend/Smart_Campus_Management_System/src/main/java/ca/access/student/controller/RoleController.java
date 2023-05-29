@@ -71,4 +71,15 @@ public class RoleController {
         SysRole dbSysRole = roleService.getById(id);
         return BaseResult.success(dbSysRole);
     }
+
+    /**
+     * Update role information
+     * @param sysRole
+     * @return
+     */
+    @PutMapping
+    public BaseResult editRole(@RequestBody SysRole sysRole){
+        roleService.editRole(sysRole);
+        return BaseResult.success("Update completed");
+    }
 }
