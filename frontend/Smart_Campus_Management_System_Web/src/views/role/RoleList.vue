@@ -5,6 +5,7 @@ import {deleteRoleApi, getRoleApi, getRoleListApi} from "../../api/role/role.ts"
 import {ElMessage} from 'element-plus'
 import AddRole from "./components/AddRole.vue";
 import EditRole from "./components/EditRole.vue";
+import {exportExcel} from "../../utils/exportExcel.ts";
 const addTitle = ref('Add role')
 const addRoleDialogFormVisible = ref(false)
 const state = reactive({
@@ -103,6 +104,23 @@ const delRole = async (id:number)=> {
     }else {
         ElMessage.error('Failed to delete')
     }
+}
+// Export list
+const column = [
+    {name: 'id',label: 'role id'},
+    {name: 'name',label: 'role name'},
+    {name: 'code',label: 'role code'},
+    {name: 'remarks',label: 'remarks'}
+]
+// Export Excel
+const exportExcelAction = () => {
+    exportExcel({
+        column,
+        data:state.tableData,
+        filename: 'Role information data',
+        format: 'xlsx',
+        autoWidth: true,
+    })
 }
 //Load data after mount
 onMounted(() => {
@@ -255,5 +273,10 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 .my-header {
     display: flex;
     justify-content: flex-start;
+}
+/*Custom button style*/
+.my-button {
+    display: flex;
+    justify-content:space-between;
 }
 </style>
