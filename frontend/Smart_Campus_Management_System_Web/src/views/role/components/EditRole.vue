@@ -1,6 +1,20 @@
 <script setup lang="ts">
-
+import { ref, reactive } from 'vue'
 import editRole from "./EditRole.vue";
+
+const subLoading = ref(false)
+const formRole = reactive({
+    id: 0,
+    code: '',
+    name: '',
+    remarks: ''
+})
+const props = defineProps(['roleInfo'])
+const roleInfo = ref(props.roleInfo)
+// Fill the form with data
+for (const key in formRole) {
+    formRole[key] = roleInfo.value[key]
+}
 </script>
 
 <template>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive,toRefs,onMounted } from 'vue'
 import { formatTime } from "../../utils/date"
-import {getRoleListApi} from "../../api/role/role.ts";
+import {getRoleApi, getRoleListApi} from "../../api/role/role.ts";
 import {ElMessage} from 'element-plus'
 import AddRole from "./components/AddRole.vue";
+import EditRole from "./components/EditRole.vue";
 const addTitle = ref('Add role')
 const addRoleDialogFormVisible = ref(false)
 const state = reactive({
@@ -68,6 +69,16 @@ const Nindex = (index:number) => {
 // Add role
 const addRole = ()=> {
     addRoleDialogFormVisible.value = true
+}
+// Edit role pop-up box status
+const editRoleDialogFormVisible = ref(false)
+const editTitle = ref('Edit role')
+// Edit role information
+const roleInfo = ref()
+const editRole = async (id:number)=> {
+    const { data } = await getRoleApi(id)
+    roleInfo.value = data.result
+    editRoleDialogFormVisible.value = true
 }
 // Close the new role pop-up box
 const closeAddRoleForm = ()=> {
@@ -151,7 +162,7 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
              </el-table-column>
              <el-table-column label="operate">
                 <template #default="scope">
-                   <el-button size="small" @click="editRole(scope.row.id)"
+                   <el-button size="small" @click="EditRole(scope.row.id)"
                        style="margin: 0 0 10px 10px;">Edit</el-button>
                     <el-popconfirm width="200px" confirm-button-text="Submit" cancel-button-text="Cancel" :icon="Delete"
                            icon-color="#626AEF" :title="'Are you sure you want to delete “'+scope.row.name+'” ？'"
@@ -187,6 +198,20 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
     </el-dialog>
     <!--Add role pop-up box end-->
 
+    <!--Edit role pop-up box start-->
+    <el-dialog  align-center v-model="editRoleDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{editTitle}}</h1>
+            </div>
+
+        </template>
+        <!--Edit role component start-->
+        <EditRole :roleInfo="roleInfo" @closeEditRoleForm="closeEditRoleForm" @success="success"/>
+        <!--Edit role component end-->
+    </el-dialog>
+    <!--Edit role pop-up box end-->
 </template>
 <style scoped>
 .card-header {
