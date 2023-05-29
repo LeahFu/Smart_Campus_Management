@@ -24,4 +24,11 @@ public interface IRoleService {
      * @return
      */
     boolean addRole(SysRole sysRole);
+
+    /**
+     * Get details by id
+     * @param id
+     * @return
+     */
+    SysRole getById(Long id);
 }

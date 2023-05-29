@@ -49,4 +49,14 @@ public class SysRoleServiceImpl implements IRoleService {
         SysRole dbSysRole = sysRoleRepository.save(sysRole);
         return dbSysRole.getId() != null;
     }
+
+    /**
+     * Get details by id
+     * @param id
+     * @return
+     */
+    @Override
+    public SysRole getById(Long id) {
+        return sysRoleRepository.findById(id).orElseGet(SysRole::new);
+    }
 }

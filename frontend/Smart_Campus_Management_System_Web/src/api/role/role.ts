@@ -15,3 +15,10 @@ export function addRoleApi(data:object) {
         data
     })
 }
+// Get role details by id
+export function getRoleApi(id:number) {
+    return request({
+        url: `role/${id}`,
+        method: 'get'
+    })
+}

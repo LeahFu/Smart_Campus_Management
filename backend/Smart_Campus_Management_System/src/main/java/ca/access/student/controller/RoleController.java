@@ -1,6 +1,7 @@
 package ca.access.student.controller;
 
 import ca.access.base.BaseResult;
+import ca.access.exception.BadRequestException;
 import ca.access.student.domain.SysRole;
 import ca.access.student.service.IRoleService;
 import ca.access.student.service.dto.RoleQueryCriteria;
@@ -55,5 +56,19 @@ public class RoleController {
         }else {
             return BaseResult.fail("Failed to add role");
         }
+    }
+
+    /**
+     * Get role details by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public BaseResult detail(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to get information");
+        }
+        SysRole dbSysRole = roleService.getById(id);
+        return BaseResult.success(dbSysRole);
     }
 }
