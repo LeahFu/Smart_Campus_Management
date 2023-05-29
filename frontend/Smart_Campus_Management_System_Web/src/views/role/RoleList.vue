@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive,toRefs,onMounted } from 'vue'
 import { formatTime } from "../../utils/date"
-import {getRoleApi, getRoleListApi} from "../../api/role/role.ts";
+import {deleteRoleApi, getRoleApi, getRoleListApi} from "../../api/role/role.ts";
 import {ElMessage} from 'element-plus'
 import AddRole from "./components/AddRole.vue";
 import EditRole from "./components/EditRole.vue";

@@ -73,4 +73,14 @@ public class SysRoleServiceImpl implements IRoleService {
         BeanUtil.copyProperties(sysRole,dbSysRole, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         sysRoleRepository.save(dbSysRole);
     }
+
+    /**
+     * Delete role information based on ID
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) {
+        sysRoleRepository.deleteById(id);
+    }
 }

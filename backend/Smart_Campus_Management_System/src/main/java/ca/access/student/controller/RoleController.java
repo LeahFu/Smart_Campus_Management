@@ -82,4 +82,18 @@ public class RoleController {
         roleService.editRole(sysRole);
         return BaseResult.success("Update completed");
     }
+
+    /**
+     * Delete role information based on ID
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public BaseResult delete(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to delete information");
+        }
+        roleService.deleteById(id);
+        return BaseResult.success("Successfully deleted");
+    }
 }

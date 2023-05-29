@@ -37,4 +37,10 @@ public interface IRoleService {
      * @param sysRole
      */
     void editRole(SysRole sysRole);
+
+    /**
+     * Delete role information based on ID
+     * @param id
+     */
+    void deleteById(Long id);
 }
