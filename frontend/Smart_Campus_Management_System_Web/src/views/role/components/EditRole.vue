@@ -5,6 +5,12 @@ import type { FormInstance, FormRules } from 'element-plus'
 import {ElMessage} from 'element-plus'
 import {editRoleApi} from "../../../api/role/role.ts";
 const subLoading = ref(false)
+const ruleFormRef = ref<FormInstance>()
+// Define form constraint rule objects
+const rules = reactive<FormRules>({
+    name: [{ required: true, message: 'Role name can not be empty', trigger: 'blur' }],
+    code: [{ required: true, message: 'Role code can not be empty', trigger: 'blur' }],
+})
 const formRole = reactive({
     id: 0,
     code: '',
@@ -13,6 +19,7 @@ const formRole = reactive({
 })
 const props = defineProps(['roleInfo'])
 const roleInfo = ref(props.roleInfo)
+const emit = defineEmits(['closeEditRoleForm','success'])
 // Fill the form with data
 for (const key in formRole) {
     formRole[key] = roleInfo.value[key]
@@ -37,10 +44,14 @@ const editRole = async (formEl: FormInstance | undefined) => {
         subLoading.value = false
     })
 }
+// Cancel form
+const close = ()=> {
+    emit('closeEditRoleForm')
+}
 </script>
 
 <template>
-    <el-form :model="formRole" label-width="80px">
+    <el-form ref="ruleFormRef" :rules="rules" :model="formRole" label-width="80px">
         <el-row>
             <el-col :span="12">
                 <el-form-item label="role name" prop="name">

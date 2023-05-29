@@ -80,14 +80,19 @@ const editRole = async (id:number)=> {
     roleInfo.value = data.result
     editRoleDialogFormVisible.value = true
 }
-// Close the new role pop-up box
+// Close add role pop-up box
 const closeAddRoleForm = ()=> {
     addRoleDialogFormVisible.value = false
+}
+// Close edit role pop-up box
+const closeEditRoleForm = ()=> {
+    editRoleDialogFormVisible.value = false
 }
 // Submit form callback function
 const success = ()=> {
     loadData(state);
     closeAddRoleForm();
+    closeEditRoleForm();
 }
 //Load data after mount
 onMounted(() => {
