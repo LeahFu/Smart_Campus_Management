@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import {Search} from "@element-plus/icons-vue";
+import {formatTime} from "../../utils/date.ts";
 </script>
 
 <template>
@@ -38,6 +39,55 @@ import {Search} from "@element-plus/icons-vue";
             </div>
         </template>
         <!--head end-->
+        <!--table-box area start-->
+        <div class="table-box">
+            <el-table element-loading-text="Loading..." v-loading="loading" :data="tableData"
+                      style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
+                      :row-class-name="rowClassName"
+                      :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
+
+                <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
+
+                <el-table-column label="class code">
+                    <template #default="scope">
+                        <span>{{scope.row.code}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="class name">
+                    <template #default="scope">
+                        <span>{{scope.row.name}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="grade">
+                    <template #default="scope">
+                        <span>{{scope.row.grade}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="class">
+                    <template #default="scope">
+                        <span>{{scope.row.clazz}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="class size">
+                    <template #default="scope">
+                        <span>{{scope.row.students.length}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="created time">
+                    <template #default="scope">
+                        <el-tooltip :content="formatTime(scope.row.createTime, 'yyyy-MM-dd')" placement="top" effect="light">
+                            <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <!--table-box area end-->
 </template>
 
 <style scoped>
