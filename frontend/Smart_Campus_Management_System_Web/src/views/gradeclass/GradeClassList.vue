@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive,toRefs, ref  } from 'vue'
+import { reactive,toRefs, ref, onMounted } from 'vue'
 import {Search} from "@element-plus/icons-vue";
 import {formatTime} from "../../utils/date.ts";
 
@@ -13,7 +13,26 @@ const state = reactive({
     pageIndex: 1, // current page number
     loading: false, // data loading
 })
+// Get class list data
+const loadData = async (state: any)=> {
+    state.loading = true
+    // Clear the data first
+    state.tableData=[]
+    const params = {
+        'pageIndex':state.pageIndex,
+        'pageSize': state.pageSize,
+        'searchValue': state.searchValue
+    }
+    const { data } = await getGradeClassListApi(params)
+    state.tableData = data.content
+    state.total = data.totalElements
+    state.loading = false
+}
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
+//Load data after mount
+onMounted(() => {
+    loadData(state);
+})
 </script>
 
 <template>
