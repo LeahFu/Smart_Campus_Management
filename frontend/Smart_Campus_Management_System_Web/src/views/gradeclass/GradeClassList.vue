@@ -41,5 +41,18 @@ import {Search} from "@element-plus/icons-vue";
 </template>
 
 <style scoped>
-
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-header h3 {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+:deep(.el-card__header) {
+    border-bottom: 1px solid rgb(238 238 238);
+    color: #178557;
+}
 </style>

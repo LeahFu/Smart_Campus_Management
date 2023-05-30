@@ -42,6 +42,21 @@ const routes = [{
                 component: ()=> import('../views/role/RoleList.vue')
             }
         ]
+    },
+    {
+        path:'/base',
+        name:'base',
+        meta:{ title:'Data management'},
+        redirect: '/base/gradeclass',
+        component:()=> import('../views/layout/Index.vue'),
+        children: [
+            {
+                path:'gradeclass',
+                name:'gradeclass',
+                meta:{title: 'Class management'},
+                component:()=>import('../views/gradeclass/GradeClassList.vue')
+            }
+        ]
     }
 ]
 //3. Create routing instance and pass routes configuration
