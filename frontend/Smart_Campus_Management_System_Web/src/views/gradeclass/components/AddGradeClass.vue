@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
+import addGradeClass from "./AddGradeClass.vue";
+import {ElMessage} from 'element-plus'
 const subLoading = ref(false)
 const formGradeClass = reactive({
     name: '',
@@ -8,6 +10,26 @@ const formGradeClass = reactive({
     grade: 2023,
     remarks: ''
 })
+// Add class information
+const addGradeClass = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
+        subLoading.value = true
+        if (valid) {
+            const { data } =  await addGradeClassApi(formGradeClass)
+            if(data.status===200){
+                ElMessage.success(data.message)
+                emit('success')
+            }else {
+                ElMessage.error(data.message)
+            }
+        } else {
+            ElMessage.error('Submission failed, you still have unfilled items!')
+            console.log('error submit!', fields)
+        }
+        subLoading.value = false
+    })
+}
 </script>
 
 <template>

@@ -7,3 +7,11 @@ export function getGradeClassListApi(data:object) {
         params: data
     })
 }
+// Add class information
+export function addGradeClassApi(data:object) {
+    return request({
+        url: 'gradeclass',
+        method: 'post',
+        data
+    })
+}
