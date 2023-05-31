@@ -1,5 +1,6 @@
 package ca.access.student.service;
 
+import ca.access.student.domain.GradeClass;
 import ca.access.student.service.dto.GradeClassQueryCriteria;
 import org.springframework.data.domain.Pageable;
 
@@ -16,4 +17,11 @@ public interface IGradeClassService {
      * @return
      */
     Object getList(GradeClassQueryCriteria queryCriteria, Pageable pageable);
+
+    /**
+     * Add class information
+     * @param gradeClass
+     * @return
+     */
+    boolean addGradeClass(GradeClass gradeClass);
 }

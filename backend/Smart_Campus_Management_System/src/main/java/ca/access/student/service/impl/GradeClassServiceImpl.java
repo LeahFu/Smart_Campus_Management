@@ -37,4 +37,16 @@ public class GradeClassServiceImpl implements IGradeClassService {
         QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page);
     }
+
+    /**
+     * Add class information
+     * @param gradeClass
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addGradeClass(GradeClass gradeClass) {
+        GradeClass dbGradeClass = gradeClassRepository.save(gradeClass);
+        return dbGradeClass.getId() != null;
+    }
 }

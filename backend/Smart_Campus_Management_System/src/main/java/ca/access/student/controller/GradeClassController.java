@@ -1,5 +1,7 @@
 package ca.access.student.controller;
 
+import ca.access.base.BaseResult;
+import ca.access.student.domain.GradeClass;
 import ca.access.student.service.IGradeClassService;
 import ca.access.student.service.dto.GradeClassQueryCriteria;
 import ca.access.utils.PageVo;
@@ -9,9 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: Lei Fu
@@ -38,5 +38,19 @@ public class GradeClassController {
         Pageable pageable = PageRequest.of(pageVo.getPageIndex()-1,pageVo.getPageSize(),
                 Sort.Direction.DESC,"id");
         return new ResponseEntity<>(gradeClassService.getList(queryCriteria,pageable), HttpStatus.OK);
+    }
+    /**
+     * Add class information
+     * @param gradeClass
+     * @return
+     */
+    @PostMapping
+    public BaseResult addGradeClass(@RequestBody GradeClass gradeClass){
+        boolean result= gradeClassService.addGradeClass(gradeClass);
+        if(result){
+            return BaseResult.success("Added successfully");
+        }else {
+            return BaseResult.fail("Add failed");
+        }
     }
 }

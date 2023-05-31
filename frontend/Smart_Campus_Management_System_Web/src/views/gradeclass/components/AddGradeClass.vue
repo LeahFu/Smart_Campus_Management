@@ -2,7 +2,9 @@
 import {ref, reactive} from 'vue'
 import addGradeClass from "./AddGradeClass.vue";
 import {ElMessage} from 'element-plus'
+import {addGradeClassApi} from "../../../api/gradeclass/gradeclass.ts";
 const subLoading = ref(false)
+const {data} = await addGradeClassApi(formGradeClass)
 const formGradeClass = reactive({
     name: '',
     code: '',
