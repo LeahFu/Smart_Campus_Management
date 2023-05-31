@@ -66,7 +66,16 @@ const addGradeClass = ()=> {
 }
 // Add class pop-up box status
 const addGradeClassDialogFormVisible = ref(false)
+// Close add class pop-up box
+const closeAddGradeClassForm = ()=> {
+    addGradeClassDialogFormVisible.value = false
+}
+// Submit form callback function
+const success = ()=> {
+    loadData(state);
+    closeAddGradeClassForm()
 
+}
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 //Load data after mount
 onMounted(() => {
@@ -190,7 +199,7 @@ onMounted(() => {
 
         </template>
         <!--Add class components start-->
-
+        <AddGradeClass @closeAddGradeClassForm="closeAddGradeClassForm" @success="success"/>
         <!--Add class components end-->
     </el-dialog>
     <!--Add class pop-up box end-->

@@ -3,6 +3,7 @@ import {ref, reactive} from 'vue'
 import addGradeClass from "./AddGradeClass.vue";
 import {ElMessage} from 'element-plus'
 import {addGradeClassApi} from "../../../api/gradeclass/gradeclass.ts";
+const emit = defineEmits(['closeAddGradeClassForm','success'])
 const subLoading = ref(false)
 const {data} = await addGradeClassApi(formGradeClass)
 const formGradeClass = reactive({
@@ -31,6 +32,10 @@ const addGradeClass = async (formEl: FormInstance | undefined) => {
         }
         subLoading.value = false
     })
+}
+// Cancel form
+const close = ()=> {
+    emit('closeAddGradeClassForm')
 }
 </script>
 
