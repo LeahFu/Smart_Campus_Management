@@ -2,6 +2,7 @@
 import { reactive,toRefs, ref, onMounted } from 'vue'
 import {Search} from "@element-plus/icons-vue";
 import {formatTime} from "../../utils/date.ts";
+import {ElMessage} from 'element-plus'
 import {getGradeClassListApi} from "../../api/gradeclass/gradeclass.ts";
 
 const state = reactive({
@@ -28,6 +29,35 @@ const loadData = async (state: any)=> {
     state.tableData = data.content
     state.total = data.totalElements
     state.loading = false
+}
+// Refresh button
+const refresh = () => {
+    // Search form content
+    state.searchValue = ""
+    // Refresh data
+    loadData(state);
+}
+// Search
+const search = () => {
+    if (state.searchValue !== null) {
+        ElMessage({
+            type: 'success',
+            message: `Keywords“${state.searchValue}”The search content is as follows`,
+        })
+        loadData(state)
+    }
+}
+// Execution event for switching pages (val : current page number)
+const changePage = (val) => {
+    state.pageIndex = val;
+    loadData(state);
+}
+// Process the data sequence number of the list
+const Nindex = (index) => {
+    // Current page number - 1 * number of data items per page + 1
+    const page = state.pageIndex // current page number
+    const pagesize = state.pageSize // number of data items per page
+    return index + 1 + (page - 1) * pagesize
 }
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 //Load data after mount
