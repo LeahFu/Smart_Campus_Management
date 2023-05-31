@@ -4,6 +4,7 @@ import {Search} from "@element-plus/icons-vue";
 import {formatTime} from "../../utils/date.ts";
 import {ElMessage} from 'element-plus'
 import {getGradeClassListApi} from "../../api/gradeclass/gradeclass.ts";
+import AddGradeClass from "./components/AddGradeClass.vue";
 
 const state = reactive({
     // Search form content
@@ -59,6 +60,13 @@ const Nindex = (index) => {
     const pagesize = state.pageSize // number of data items per page
     return index + 1 + (page - 1) * pagesize
 }
+// Add class
+const addGradeClass = ()=> {
+    addGradeClassDialogFormVisible.value = true
+}
+// Add class pop-up box status
+const addGradeClassDialogFormVisible = ref(false)
+
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 //Load data after mount
 onMounted(() => {
@@ -68,14 +76,14 @@ onMounted(() => {
 
 <template>
     <el-card class="box-card">
-        <!--head start-->
+        <!--Head start-->
         <template #header>
             <div class="card-header">
                 <h3>
                     <el-icon style="margin-right: 10px;"><UserFilled /></el-icon>Class Management
                 </h3>
 
-                <!--search area start-->
+                <!--Search area start-->
                 <div class="card-search">
                     <el-row :gutter="10">
                         <el-col :span="10">
@@ -97,11 +105,11 @@ onMounted(() => {
                         </el-col>
                     </el-row>
                 </div>
-                <!--search area end-->
+                <!--Search area end-->
             </div>
         </template>
-        <!--head end-->
-        <!--table-box area start-->
+        <!--Head end-->
+        <!--Table-box area start-->
         <div class="table-box">
             <el-table element-loading-text="Loading..." v-loading="loading" :data="tableData"
                       style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
@@ -163,14 +171,29 @@ onMounted(() => {
                 </el-table-column>
             </el-table>
         </div>
-        <!--table-box area end-->
+        <!--Table-box area end-->
 
-        <!--page start-->
+        <!--Pagination start-->
         <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
                        v-model:page-size="pageSize"
                        @current-change="changePage"
                        :page-sizes="[10, 20, 30, 40]"/>
-        <!--page end-->
+        <!--Pagination end-->
+    </el-card>
+    <!--Add class pop-up box start-->
+    <el-dialog  align-center v-model="addGradeClassDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{addTitle}}</h1>
+            </div>
+
+        </template>
+        <!--Add class components start-->
+
+        <!--Add class components end-->
+    </el-dialog>
+    <!--Add class pop-up box end-->
 </template>
 
 <style scoped>
@@ -195,5 +218,10 @@ onMounted(() => {
 .el-pagination {
     margin-top: 20px;
     justify-content: center;
+}
+/*Add class pop-up box -- customize header style*/
+.my-header {
+    display: flex;
+    justify-content: flex-start;
 }
 </style>

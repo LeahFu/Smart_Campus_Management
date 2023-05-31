@@ -1,5 +1,13 @@
 <script setup lang="ts">
-
+import {ref, reactive} from 'vue'
+const subLoading = ref(false)
+const formGradeClass = reactive({
+    name: '',
+    code: '',
+    clazz: '',
+    grade: 2023,
+    remarks: ''
+})
 </script>
 
 <template>
