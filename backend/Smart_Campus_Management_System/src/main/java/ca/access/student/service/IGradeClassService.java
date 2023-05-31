@@ -24,4 +24,11 @@ public interface IGradeClassService {
      * @return
      */
     boolean addGradeClass(GradeClass gradeClass);
+
+    /**
+     * Get class details by ID
+     * @param id
+     * @return
+     */
+    GradeClass getById(Long id);
 }

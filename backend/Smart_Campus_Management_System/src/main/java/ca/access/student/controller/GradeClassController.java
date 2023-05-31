@@ -1,6 +1,7 @@
 package ca.access.student.controller;
 
 import ca.access.base.BaseResult;
+import ca.access.exception.BadRequestException;
 import ca.access.student.domain.GradeClass;
 import ca.access.student.service.IGradeClassService;
 import ca.access.student.service.dto.GradeClassQueryCriteria;
@@ -52,5 +53,18 @@ public class GradeClassController {
         }else {
             return BaseResult.fail("Add failed");
         }
+    }
+    /**
+     * Get class details by ID
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public BaseResult detail(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to get information");
+        }
+        GradeClass dbGradeClass = gradeClassService.getById(id);
+        return BaseResult.success(dbGradeClass);
     }
 }

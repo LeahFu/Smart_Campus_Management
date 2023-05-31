@@ -2,6 +2,7 @@
 import {ref, reactive} from 'vue'
 import addGradeClass from "./AddGradeClass.vue";
 import {ElMessage} from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import {addGradeClassApi} from "../../../api/gradeclass/gradeclass.ts";
 const emit = defineEmits(['closeAddGradeClassForm','success'])
 const subLoading = ref(false)
@@ -12,6 +13,14 @@ const formGradeClass = reactive({
     clazz: '',
     grade: 2023,
     remarks: ''
+})
+const ruleFormRef = ref<FormInstance>()
+// Define form constraint rule object
+const rules = reactive<FormRules>({
+    name: [{ required: true, message: 'Class name can not be empty', trigger: 'blur' }],
+    code: [{ required: true, message: 'Class code can not be empty', trigger: 'blur' }],
+    grade: [{ required: true, message: 'Grade can not be empty', trigger: 'blur' }],
+    clazz: [{ required: true, message: 'Class can not be empty', trigger: 'blur' }]
 })
 // Add class information
 const addGradeClass = async (formEl: FormInstance | undefined) => {
@@ -40,7 +49,7 @@ const close = ()=> {
 </script>
 
 <template>
-    <el-form  :model="formGradeClass"  label-width="80px">
+    <el-form ref="ruleFormRef" :rules="rules"  :model="formGradeClass"  label-width="80px">
         <el-row>
             <el-col :span="12">
                 <el-form-item label="class code" prop="code">
@@ -77,7 +86,7 @@ const close = ()=> {
 
     <div class="dialong__button--wrap">
         <el-button @click="close">Cancel</el-button>
-        <el-button color="#178557" :loading="subLoading" type="success" @click="addGradeClass">Save</el-button>
+        <el-button color="#178557" :loading="subLoading" type="success" @click="addGradeClass(ruleFormRef)">Save</el-button>
     </div>
 </template>
 

@@ -15,3 +15,10 @@ export function addGradeClassApi(data:object) {
         data
     })
 }
+// Get class details by ID
+export function getGradeClassApi(id:number) {
+    return request({
+        url: `gradeclass/${id}`,
+        method: 'get'
+    })
+}

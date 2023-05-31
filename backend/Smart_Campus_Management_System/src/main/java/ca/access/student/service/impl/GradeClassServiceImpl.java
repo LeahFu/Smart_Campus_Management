@@ -49,4 +49,14 @@ public class GradeClassServiceImpl implements IGradeClassService {
         GradeClass dbGradeClass = gradeClassRepository.save(gradeClass);
         return dbGradeClass.getId() != null;
     }
+
+    /**
+     * Get class details by ID
+     * @param id
+     * @return
+     */
+    @Override
+    public GradeClass getById(Long id) {
+        return gradeClassRepository.findById(id).orElseGet(GradeClass::new);
+    }
 }
