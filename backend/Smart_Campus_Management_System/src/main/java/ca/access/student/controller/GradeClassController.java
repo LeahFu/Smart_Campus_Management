@@ -1,6 +1,15 @@
 package ca.access.student.controller;
 
 import ca.access.student.service.IGradeClassService;
+import ca.access.student.service.dto.GradeClassQueryCriteria;
+import ca.access.utils.PageVo;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,5 +25,18 @@ public class GradeClassController {
 
     public GradeClassController(IGradeClassService gradeClassService) {
         this.gradeClassService = gradeClassService;
+    }
+
+    /**
+     * Get class list data
+     * @param queryCriteria
+     * @param pageVo
+     * @return
+     */
+    @GetMapping
+    public ResponseEntity<Object> getList(GradeClassQueryCriteria queryCriteria, PageVo pageVo){
+        Pageable pageable = PageRequest.of(pageVo.getPageIndex()-1,pageVo.getPageSize(),
+                Sort.Direction.DESC,"id");
+        return new ResponseEntity<>(gradeClassService.getList(queryCriteria,pageable), HttpStatus.OK);
     }
 }
