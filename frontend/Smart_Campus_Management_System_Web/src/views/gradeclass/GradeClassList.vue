@@ -3,8 +3,9 @@ import { reactive,toRefs, ref, onMounted } from 'vue'
 import {Search} from "@element-plus/icons-vue";
 import {formatTime} from "../../utils/date.ts";
 import {ElMessage} from 'element-plus'
-import {getGradeClassListApi} from "../../api/gradeclass/gradeclass.ts";
+import {getGradeClassApi, getGradeClassListApi} from "../../api/gradeclass/gradeclass.ts";
 import AddGradeClass from "./components/AddGradeClass.vue";
+import EditGradeClass from "./components/EditGradeClass.vue";
 
 const state = reactive({
     // Search form content
@@ -75,6 +76,15 @@ const success = ()=> {
     loadData(state);
     closeAddGradeClassForm()
 
+}
+// Edit class popup status
+const editGradeClassDialogFormVisible = ref(false)
+// Edit class information 
+const gradeClassInfo = ref()
+const editGradeClass = async (id:number)=> {
+    const { data } = await getGradeClassApi(id)
+    gradeClassInfo.value = data.result
+    editGradeClassDialogFormVisible.value = true
 }
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 //Load data after mount
@@ -203,6 +213,21 @@ onMounted(() => {
         <!--Add class components end-->
     </el-dialog>
     <!--Add class pop-up box end-->
+
+    <!--Edit class pop-up box start-->
+    <el-dialog  align-center v-model="editGradeClassDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{editTitle}}</h1>
+            </div>
+
+        </template>
+        <!--Edit class components start-->
+        <EditGradeClass :gradeClassInfo="gradeClassInfo" @closeEditGradeClassForm="closeEditGradeClassForm" @success="success"/>
+        <!--Edit class components end-->
+    </el-dialog>
+    <!--Edit class pop-up box end-->
 </template>
 
 <style scoped>

@@ -1,5 +1,21 @@
 <script setup lang="ts">
-
+import { ref, reactive } from 'vue'
+const subLoading = ref(false)
+const formGradeClass = reactive({
+    id: 0,
+    name: '',
+    code: '',
+    clazz: 1,
+    grade: 2023,
+    remarks: ''
+})
+// Get the class details passed by the parent component
+const props = defineProps(['gradeClassInfo'])
+const gradeClassInfo = ref(props.gradeClassInfo)
+// Fill the form with data
+for (const key in formGradeClass) {
+    formGradeClass[key] = gradeClassInfo.value[key]
+}
 </script>
 
 <template>
@@ -45,5 +61,8 @@
 </template>
 
 <style scoped>
-
+.dialong__button--wrap {
+    text-align: center;
+    margin-top: 20px;
+}
 </style>
