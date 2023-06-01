@@ -6,6 +6,8 @@ import ca.access.student.service.IGradeClassService;
 import ca.access.student.service.dto.GradeClassQueryCriteria;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -58,5 +60,17 @@ public class GradeClassServiceImpl implements IGradeClassService {
     @Override
     public GradeClass getById(Long id) {
         return gradeClassRepository.findById(id).orElseGet(GradeClass::new);
+    }
+
+    /**
+     * Update class information
+     * @param gradeClass
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editGradeClass(GradeClass gradeClass) {
+        GradeClass dbGradeClass = gradeClassRepository.getReferenceById(gradeClass.getId());
+        BeanUtil.copyProperties(gradeClass,dbGradeClass, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        gradeClassRepository.save(dbGradeClass);
     }
 }

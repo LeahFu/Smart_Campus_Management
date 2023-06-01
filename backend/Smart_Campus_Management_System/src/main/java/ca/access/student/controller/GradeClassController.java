@@ -67,4 +67,14 @@ public class GradeClassController {
         GradeClass dbGradeClass = gradeClassService.getById(id);
         return BaseResult.success(dbGradeClass);
     }
+    /**
+     * Update class information
+     * @param gradeClass
+     * @return
+     */
+    @PutMapping
+    public BaseResult editGradeClass(@RequestBody GradeClass gradeClass){
+        gradeClassService.editGradeClass(gradeClass);
+        return BaseResult.success("Update completed");
+    }
 }

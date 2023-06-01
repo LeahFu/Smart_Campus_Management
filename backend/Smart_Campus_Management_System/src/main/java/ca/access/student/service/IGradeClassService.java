@@ -31,4 +31,10 @@ public interface IGradeClassService {
      * @return
      */
     GradeClass getById(Long id);
+
+    /**
+     * Update class information
+     * @param gradeClass
+     */
+    void editGradeClass(GradeClass gradeClass);
 }
