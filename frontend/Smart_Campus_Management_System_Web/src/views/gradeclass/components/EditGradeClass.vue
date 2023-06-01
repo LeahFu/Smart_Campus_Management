@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import {ElMessage} from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import {editGradeClassApi} from "../../../api/gradeclass/gradeclass.ts";
 const subLoading = ref(false)
 const formGradeClass = reactive({
@@ -11,9 +12,20 @@ const formGradeClass = reactive({
     grade: 2023,
     remarks: ''
 })
+// Define a form instance
+const ruleFormRef = ref<FormInstance>()
+// Define form constraint rule object
+const rules = reactive<FormRules>({
+    name: [{ required: true, message: 'Class name can not be empty', trigger: 'blur' }],
+    code: [{ required: true, message: 'Class code can not be empty', trigger: 'blur' }],
+    grade: [{ required: true, message: 'Grade can not be empty', trigger: 'blur' }],
+    clazz: [{ required: true, message: 'Class can not be empty', trigger: 'blur' }]
+})
+
 // Get the class details passed by the parent component
 const props = defineProps(['gradeClassInfo'])
 const gradeClassInfo = ref(props.gradeClassInfo)
+const emit = defineEmits(['closeEditGradeClassForm','success'])
 // Fill the form with data
 for (const key in formGradeClass) {
     formGradeClass[key] = gradeClassInfo.value[key]
@@ -38,10 +50,14 @@ const editGradeClass = async (formEl: FormInstance | undefined) => {
         subLoading.value = false
     })
 }
+// Cancel form
+const close = ()=> {
+    emit('closeEditGradeClassForm')
+}
 </script>
 
 <template>
-    <el-form  :model="formGradeClass"  label-width="80px">
+    <el-form ref="ruleFormRef" :rules="rules" :model="formGradeClass"  label-width="80px">
         <el-row>
             <el-col :span="12">
                 <el-form-item label="class code" prop="code">

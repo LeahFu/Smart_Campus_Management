@@ -71,12 +71,6 @@ const addGradeClassDialogFormVisible = ref(false)
 const closeAddGradeClassForm = ()=> {
     addGradeClassDialogFormVisible.value = false
 }
-// Submit form callback function
-const success = ()=> {
-    loadData(state);
-    closeAddGradeClassForm()
-
-}
 // Edit class popup status
 const editGradeClassDialogFormVisible = ref(false)
 // Edit class information
@@ -85,6 +79,16 @@ const editGradeClass = async (id:number)=> {
     const { data } = await getGradeClassApi(id)
     gradeClassInfo.value = data.result
     editGradeClassDialogFormVisible.value = true
+}
+// Close edit class popup
+const closeEditGradeClassForm = ()=> {
+    editGradeClassDialogFormVisible.value = false
+}
+// Submit form callback function
+const success = ()=> {
+    loadData(state);
+    closeAddGradeClassForm()
+    closeEditGradeClassForm()
 }
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 //Load data after mount
