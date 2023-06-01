@@ -6,6 +6,7 @@ import {ElMessage} from 'element-plus'
 import {getGradeClassApi, getGradeClassListApi} from "../../api/gradeclass/gradeclass.ts";
 import AddGradeClass from "./components/AddGradeClass.vue";
 import EditGradeClass from "./components/EditGradeClass.vue";
+import {exportExcel} from "../../utils/exportExcel.ts";
 
 const state = reactive({
     // Search form content
@@ -99,6 +100,24 @@ const delGradeClass = async (id:number)=> {
     }else {
         ElMessage.error('Failed to delete')
     }
+}
+// Export list
+const column = [
+    {name: 'id',label: 'class id'},
+    {name: 'name',label: 'class name'},
+    {name: 'code',label: 'class code'},
+    {name: 'grade',label: 'grade'},
+    {name: 'clazz',label: 'class'},
+    {name: 'remarks',label: 'remarks'}
+]
+const exportExcelAction = () => {
+    exportExcel({
+        column,
+        data:state.tableData,
+        filename: 'class information data',
+        format: 'xlsx',
+        autoWidth: true,
+    })
 }
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 //Load data after mount
@@ -271,5 +290,11 @@ onMounted(() => {
 .my-header {
     display: flex;
     justify-content: flex-start;
+}
+
+/*Custom button style*/
+.my-button {
+    display: flex;
+    justify-content:space-between;
 }
 </style>
