@@ -22,3 +22,11 @@ export function getGradeClassApi(id:number) {
         method: 'get'
     })
 }
+// Update class information
+export function editGradeClassApi(data:object) {
+    return request({
+        url: 'gradeclass',
+        method: 'put',
+        data
+    })
+}

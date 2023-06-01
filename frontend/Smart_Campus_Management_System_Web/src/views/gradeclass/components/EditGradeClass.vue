@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import {ElMessage} from 'element-plus'
+import {editGradeClassApi} from "../../../api/gradeclass/gradeclass.ts";
 const subLoading = ref(false)
 const formGradeClass = reactive({
     id: 0,
@@ -15,6 +17,26 @@ const gradeClassInfo = ref(props.gradeClassInfo)
 // Fill the form with data
 for (const key in formGradeClass) {
     formGradeClass[key] = gradeClassInfo.value[key]
+}
+// Edit class information
+const editGradeClass = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
+        subLoading.value = true
+        if (valid) {
+            const { data } =  await editGradeClassApi(formGradeClass)
+            if(data.status===200){
+                ElMessage.success(data.message)
+                emit('success')
+            }else {
+                ElMessage.error(data.message)
+            }
+        } else {
+            ElMessage.error('Submission failed, you still have unfilled items!')
+            console.log('error submit!', fields)
+        }
+        subLoading.value = false
+    })
 }
 </script>
 
