@@ -90,6 +90,16 @@ const success = ()=> {
     closeAddGradeClassForm()
     closeEditGradeClassForm()
 }
+// Delete class information
+const delGradeClass = async (id:number)=> {
+    const { data } = await deleteGradeClassApi(id)
+    if(data.status===200){
+        ElMessage.success('Successfully deleted')
+        await loadData(state);
+    }else {
+        ElMessage.error('Failed to delete')
+    }
+}
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 //Load data after mount
 onMounted(() => {

@@ -73,4 +73,14 @@ public class GradeClassServiceImpl implements IGradeClassService {
         BeanUtil.copyProperties(gradeClass,dbGradeClass, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         gradeClassRepository.save(dbGradeClass);
     }
+
+    /**
+     * Delete class information based on ID
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) {
+            gradeClassRepository.deleteById(id);
+    }
 }

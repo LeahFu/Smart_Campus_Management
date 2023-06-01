@@ -30,3 +30,10 @@ export function editGradeClassApi(data:object) {
         data
     })
 }
+// Delete class information based on ID
+export function deleteGradeClassApi(id:number) {
+    return request({
+        url: `gradeclass/${id}`,
+        method: 'delete'
+    })
+}

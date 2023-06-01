@@ -37,4 +37,10 @@ public interface IGradeClassService {
      * @param gradeClass
      */
     void editGradeClass(GradeClass gradeClass);
+
+    /**
+     * Delete class information based on ID
+     * @param id
+     */
+    void deleteById(Long id);
 }

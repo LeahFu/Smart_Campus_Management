@@ -77,4 +77,17 @@ public class GradeClassController {
         gradeClassService.editGradeClass(gradeClass);
         return BaseResult.success("Update completed");
     }
+    /**
+     * Delete class information based on ID
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public BaseResult delete(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to delete information");
+        }
+        gradeClassService.deleteById(id);
+        return BaseResult.success("Successfully deleted");
+    }
 }
