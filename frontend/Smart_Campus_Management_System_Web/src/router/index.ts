@@ -55,6 +55,12 @@ const routes = [{
                 name:'gradeclass',
                 meta:{title: 'Class management'},
                 component:()=>import('../views/gradeclass/GradeClassList.vue')
+            },
+            {
+                path:'student',
+                name:'student',
+                meta:{title: 'Student management'},
+                component:()=>import('../views/student/StudentList.vue')
             }
         ]
     }
