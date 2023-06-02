@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { reactive, toRefs, ref  } from 'vue'
-
+import { reactive, toRefs, ref, onMounted } from 'vue'
+import { getStudentListApi} from "../../api/student/student"
 const state = reactive({
     // Search form content
     searchValue: "",
@@ -12,6 +12,25 @@ const state = reactive({
     loading: false, // data loading
 })
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
+// Get student list data
+const loadData = async (state: any)=> {
+    state.loading = true
+    // Clear the data first
+    state.tableData=[]
+    const params = {
+        'pageIndex':state.pageIndex,
+        'pageSize': state.pageSize,
+        'searchValue': state.searchValue
+    }
+    const { data } = await getStudentListApi(params)
+    state.tableData = data.content
+    state.total = data.totalElements
+    state.loading = false
+}
+// Load data after mount
+onMounted(() => {
+    loadData(state);
+})
 </script>
 
 <template>
