@@ -1,7 +1,13 @@
 package ca.access.student.service.impl;
 
+import ca.access.student.domain.Student;
 import ca.access.student.repository.StudentRepository;
 import ca.access.student.service.IStudentService;
+import ca.access.student.service.dto.StudentQueryCriteria;
+import ca.access.utils.PageUtil;
+import ca.access.utils.QueryHelp;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,5 +23,17 @@ public class StudentServiceImpl implements IStudentService {
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+    }
+
+    /**
+     * Get student list data
+     * @param queryCriteria
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Object getList(StudentQueryCriteria queryCriteria, Pageable pageable) {
+        Page<Student> page = studentRepository.findAll((root, query, criteriaBuilder) -> QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page);
     }
 }

@@ -72,7 +72,7 @@ onMounted(() => {
                 <el-table-column label="Serial number" width="100" type="index" :index="Nindex"/>
                 <el-table-column label="Student number">
                     <template #default="scope">
-                        <span>{{scope.row.stuno}}</span>
+                        <span>{{scope.row.studentNumber}}</span>
                     </template>
                 </el-table-column>
 
@@ -90,7 +90,7 @@ onMounted(() => {
 
                 <el-table-column label="Gender">
                     <template #default="scope">
-                        <span>{{scope.row.sex}}</span>
+                        <span>{{scope.row.gender}}</span>
                     </template>
                 </el-table-column>
 
@@ -102,13 +102,13 @@ onMounted(() => {
 
                 <el-table-column label="Email">
                     <template #default="scope">
-                        <span>{{scope.row.qq}}</span>
+                        <span>{{scope.row.email}}</span>
                     </template>
                 </el-table-column>
 
                 <el-table-column label="Created time">
                     <template #default="scope">
-                        <span>{{scope.row.createTime}}</span>
+                        <span>{{scope.row.createdTime}}</span>
                     </template>
                 </el-table-column>
 

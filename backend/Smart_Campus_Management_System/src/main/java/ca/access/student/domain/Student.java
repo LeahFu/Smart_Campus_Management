@@ -21,18 +21,18 @@ public class Student extends BaseEntity {
     /**
      * Student number
      */
-    @Column(name = "studentNumber",nullable = false)
+    @Column(name = "student_number",nullable = false)
     private String studentNumber;
     /**
      * Student name
      */
-    @Column(name = "studentName",nullable = false)
+    @Column(name = "student_name",nullable = false)
     private String name;
     /**
      * The class the student belongs to
      */
     @OneToOne
-    @JoinColumn(name = "gradeclass_id",referencedColumnName = "id")
+    @JoinColumn(name = "grade_class_id",referencedColumnName = "id")
     private GradeClass gradeClass;
     /**
      * Gender
