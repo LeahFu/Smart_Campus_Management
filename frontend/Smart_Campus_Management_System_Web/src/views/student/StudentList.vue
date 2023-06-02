@@ -1,5 +1,17 @@
 <script setup lang="ts">
+import { reactive, toRefs, ref  } from 'vue'
 
+const state = reactive({
+    // Search form content
+    searchValue: "",
+    // All information on the form
+    tableData: [],
+    total: 0,  // total number of items
+    pageSize: 10,  // rows per page
+    pageIndex: 1,  // current page number
+    loading: false, // data loading
+})
+const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 </script>
 
 <template>
@@ -75,6 +87,11 @@
                     </template>
                 </el-table-column>
 
+                <el-table-column label="Created time">
+                    <template #default="scope">
+                        <span>{{scope.row.createTime}}</span>
+                    </template>
+                </el-table-column>
 
                 <el-table-column label="Operate">
                     <template #default="scope">
@@ -93,6 +110,13 @@
             </el-table>
         </div>
         <!--Table-box  end-->
+        <!--Pagination start-->
+        <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
+                       v-model:page-size="pageSize"
+                       @current-change="changePage"
+                       :page-sizes="[10, 20, 30, 40]"/>
+        <!--Pagination end-->
+    </el-card>
 </template>
 
 <style scoped>
@@ -109,5 +133,13 @@
     :deep(.el-card__header) {
         border-bottom: 1px solid rgb(238 238 238);
         color: #178557;
+    }
+    /*Pagination style*/
+    :deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
+        background-color: #178557;
+    }
+    .el-pagination {
+        margin-top: 20px;
+        justify-content: center;
     }
 </style>
