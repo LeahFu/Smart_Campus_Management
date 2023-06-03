@@ -7,7 +7,7 @@ const studentNums = ref(0)
 const classNums = ref(0)
 const teacherNums = ref(0)
 const courseNums = ref(0)
-const legendData = ref(['总人数','平均成绩', '最高成绩', '最低成绩'])
+const legendData = ref(['total people','average score', 'highest score', 'minimum score'])
 const seriesData = ref([])
 const categoryData = ref([])
 

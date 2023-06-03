@@ -30,3 +30,18 @@ export function formatTime(time: any, fmt: string) {
         return fmt
     }
 }
+/**
+ * 计算天数
+ * @param time
+ */
+export function calculateDays(time:any) {
+    if (!time) return ''
+    else {
+        let day = Math.floor(new Date().getTime() / 1000) - (new Date(time)
+                    .getTime() /
+                1000),
+            day2 = Math.floor(day / (24 * 3600));
+        return day2
+    }
+
+}

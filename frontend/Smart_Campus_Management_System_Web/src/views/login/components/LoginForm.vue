@@ -5,6 +5,7 @@ import type { FormInstance } from 'element-plus'
 import { ElNotification } from "element-plus";
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../../../store/modules/user'
+import {loginApi} from "../../../api/login/login.ts";
 const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
 const passwordType = ref('password')
@@ -40,7 +41,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
                     username: data.result.username,
                     realname: data.result.realname,
                     email: data.result.email,
-                    sex: data.result.sex,
+                    gender: data.result.gender,
                     userIcon: data.result.userIcon,
                     createTime: data.result.createTime,
                     role: data.result.role

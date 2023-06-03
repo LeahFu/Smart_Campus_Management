@@ -13,6 +13,7 @@
     "axios": "^1.4.0",
     "element-plus": "^2.3.4",
     "exceljs": "^4.3.0",
+    "fast-glob": "^3.2.12",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.36",
     "pinia-plugin-persistedstate": "^3.1.0",
