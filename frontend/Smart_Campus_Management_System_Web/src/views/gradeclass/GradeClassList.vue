@@ -57,7 +57,7 @@ const changePage = (val) => {
 }
 // Process the data sequence number of the list
 const Nindex = (index) => {
-    // Current page number - 1 * number of data items per page + 1
+    // (Current page number - 1) * number of data items per page + 1
     const page = state.pageIndex // current page number
     const pagesize = state.pageSize // number of data items per page
     return index + 1 + (page - 1) * pagesize

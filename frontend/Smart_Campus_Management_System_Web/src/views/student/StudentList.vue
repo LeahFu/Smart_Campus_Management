@@ -46,6 +46,18 @@ const search = () => {
         loadData(state)
     }
 }
+// The execution event of switching pages (val : the current page number)
+const changePage = (val:number) => {
+    state.pageIndex = val;
+    loadData(state);
+}
+// Process the data sequence number of the list
+const Nindex = (index) => {
+    //  (Current page number - 1) * number of data items per page + 1
+    const page = state.pageIndex // Current page number
+    const pagesize = state.pageSize // Number of data items per page
+    return index + 1 + (page - 1) * pagesize
+}
 // Load data after mount
 onMounted(() => {
     loadData(state);
