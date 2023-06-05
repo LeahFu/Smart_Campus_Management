@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive, toRefs, ref, onMounted } from 'vue'
 import { getStudentListApi} from "../../api/student/student"
+import { formatTime } from "../../utils/date"
+import {ElMessage} from 'element-plus'
 const state = reactive({
     // Search form content
     searchValue: "",
@@ -26,6 +28,23 @@ const loadData = async (state: any)=> {
     state.tableData = data.content
     state.total = data.totalElements
     state.loading = false
+}
+// Refresh student list data
+const refresh = () => {
+    // Empty keywords
+    state.searchValue = ""
+    // Refresh data
+    loadData(state);
+}
+// Search
+const search = () => {
+    if (state.searchValue !== null) {
+        ElMessage({
+            type: 'success',
+            message: `Keywords: “${state.searchValue}” The search content is as follows`,
+        })
+        loadData(state)
+    }
 }
 // Load data after mount
 onMounted(() => {
@@ -108,7 +127,9 @@ onMounted(() => {
 
                 <el-table-column label="Created time">
                     <template #default="scope">
-                        <span>{{scope.row.createdTime}}</span>
+                        <el-tooltip :content="scope.row.createTime" placement="top" effect="light">
+                            <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
+                        </el-tooltip>
                     </template>
                 </el-table-column>
 
