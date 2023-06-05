@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author: Lei Fu
  * @date: 2023/05/29
@@ -30,61 +33,70 @@ public class GradeClassController {
 
     /**
      * Get class list data
+     *
      * @param queryCriteria
      * @param pageVo
      * @return
      */
     @GetMapping
-    public ResponseEntity<Object> getList(GradeClassQueryCriteria queryCriteria, PageVo pageVo){
-        Pageable pageable = PageRequest.of(pageVo.getPageIndex()-1,pageVo.getPageSize(),
-                Sort.Direction.DESC,"id");
-        return new ResponseEntity<>(gradeClassService.getList(queryCriteria,pageable), HttpStatus.OK);
+    public ResponseEntity<Object> getList(GradeClassQueryCriteria queryCriteria, PageVo pageVo) {
+        Pageable pageable = PageRequest.of(pageVo.getPageIndex() - 1, pageVo.getPageSize(),
+                Sort.Direction.DESC, "id");
+        return new ResponseEntity<>(gradeClassService.getList(queryCriteria, pageable), HttpStatus.OK);
     }
+
     /**
      * Add class information
+     *
      * @param gradeClass
      * @return
      */
     @PostMapping
-    public BaseResult addGradeClass(@RequestBody GradeClass gradeClass){
-        boolean result= gradeClassService.addGradeClass(gradeClass);
-        if(result){
+    public BaseResult addGradeClass(@RequestBody GradeClass gradeClass) {
+        boolean result = gradeClassService.addGradeClass(gradeClass);
+        if (result) {
             return BaseResult.success("Added successfully");
-        }else {
+        } else {
             return BaseResult.fail("Add failed");
         }
     }
+
     /**
      * Get class details by ID
+     *
      * @param id
      * @return
      */
     @GetMapping("/{id}")
-    public BaseResult detail(@PathVariable Long id){
-        if(null==id){
+    public BaseResult detail(@PathVariable Long id) {
+        if (null == id) {
             throw new BadRequestException("Failed to get information");
         }
         GradeClass dbGradeClass = gradeClassService.getById(id);
         return BaseResult.success(dbGradeClass);
     }
+
     /**
      * Update class information
+     *
      * @param gradeClass
      * @return
      */
     @PutMapping
-    public BaseResult editGradeClass(@RequestBody GradeClass gradeClass){
+    public BaseResult editGradeClass(@RequestBody GradeClass gradeClass) {
         gradeClassService.editGradeClass(gradeClass);
         return BaseResult.success("Update completed");
     }
+
     /**
      * Delete class information based on ID
+     *
      * @param id
      * @return
      */
     @DeleteMapping("/{id}")
-    public BaseResult delete(@PathVariable Long id){
-        if(null==id){
+    public BaseResult delete(@PathVariable Long id) {
+        if (null == id) {
             throw new BadRequestException("Failed to delete information");
         }
         gradeClassService.deleteById(id);

@@ -36,4 +36,16 @@ public class StudentServiceImpl implements IStudentService {
         Page<Student> page = studentRepository.findAll((root, query, criteriaBuilder) -> QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page);
     }
+
+    /**
+     * Add student information
+     * @param student
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addStudent(Student student) {
+        Student dbStudent = studentRepository.save(student);
+        return dbStudent.getId()!=null;
+    }
 }
