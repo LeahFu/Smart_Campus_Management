@@ -6,6 +6,7 @@ import ca.access.student.domain.GradeClass;
 import ca.access.student.service.IGradeClassService;
 import ca.access.student.service.dto.GradeClassQueryCriteria;
 import ca.access.utils.PageVo;
+import ca.access.utils.ResultVo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -102,4 +103,21 @@ public class GradeClassController {
         gradeClassService.deleteById(id);
         return BaseResult.success("Successfully deleted");
     }
+    /**
+     * Get information of all classes
+     * @param
+     * @return
+     */
+    @GetMapping(value = "/all")
+    public BaseResult getAll(){
+        List<GradeClass> list =  gradeClassService.queryAll( new GradeClassQueryCriteria());
+        List<ResultVo> result = list.stream().map(temp -> {
+            ResultVo obj = new ResultVo();
+            obj.setName(temp.getName());
+            obj.setId(temp.getId());
+            return obj;
+        }).collect(Collectors.toList());
+        return BaseResult.success(result);
+    }
 }
+

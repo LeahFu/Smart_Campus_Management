@@ -4,6 +4,8 @@ import ca.access.student.domain.GradeClass;
 import ca.access.student.service.dto.GradeClassQueryCriteria;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author: Lei Fu
  * @date: 2023/05/29
@@ -43,4 +45,11 @@ public interface IGradeClassService {
      * @param id
      */
     void deleteById(Long id);
+
+    /**
+     * Get information of all classes
+     * @param gradeClassQueryCriteria
+     * @return
+     */
+    List<GradeClass> queryAll(GradeClassQueryCriteria gradeClassQueryCriteria);
 }

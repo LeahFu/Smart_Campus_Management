@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: Lei Fu
  * @date: 2023/05/29
@@ -82,5 +84,14 @@ public class GradeClassServiceImpl implements IGradeClassService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
             gradeClassRepository.deleteById(id);
+    }
+
+    /**
+     * Get information of all classes
+     * @return
+     */
+    @Override
+    public List<GradeClass> queryAll(GradeClassQueryCriteria gradeClassQueryCriteria) {
+        return gradeClassRepository.findAll();
     }
 }
