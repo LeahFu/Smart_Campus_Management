@@ -8,3 +8,18 @@ export function getStudentListApi(data:object) {
         params: data
     })
 }
+// Add student information
+export function addStudentApi(data:object) {
+    return request({
+        url: 'student',
+        method: 'post',
+        data
+    })
+}
+// Get a list of all classes
+export function gradeClassListApi() {
+    return request({
+        url: 'gradeclass/all',
+        method: 'get'
+    })
+}

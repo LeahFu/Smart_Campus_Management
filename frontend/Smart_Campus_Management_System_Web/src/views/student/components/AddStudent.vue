@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
+import {ElMessage} from 'element-plus'
+import {addStudentApi, gradeClassListApi} from "../../../api/student/student.ts";
 const subLoading = ref(false)
 // Form object
 const formStudent = reactive({
@@ -13,6 +15,30 @@ const formStudent = reactive({
     email: '',
     remarks: ''
 })
+// Add student information
+const addStudent = async () => {
+        subLoading.value = true
+            const { data } =  await addStudentApi(formStudent)
+            if(data.status===200){
+                ElMessage.success(data.message)
+            }else {
+                ElMessage.error(data.message)
+            }
+        subLoading.value = false
+}
+// 定义班级下拉选择项
+const gradeClassOptions = ref<object[]>([])
+// 获取所有班级列表
+async function gradeClassList() {
+    try {
+        const { data } = await gradeClassListApi()
+        if (data.status === 200) {
+            gradeClassOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
 </script>
 
 <template>
