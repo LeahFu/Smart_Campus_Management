@@ -3,6 +3,7 @@ import { reactive, toRefs, ref, onMounted } from 'vue'
 import { getStudentListApi} from "../../api/student/student"
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
+import AddStudent from "./components/AddStudent.vue"
 const state = reactive({
     // Search form content
     searchValue: "",
@@ -57,6 +58,12 @@ const Nindex = (index) => {
     const page = state.pageIndex // Current page number
     const pagesize = state.pageSize // Number of data items per page
     return index + 1 + (page - 1) * pagesize
+}
+// Add student pop-up box status
+const addStudentDialogFormVisible = ref(false)
+// Add student
+const addStudent = ()=> {
+    addStudentDialogFormVisible.value = true
 }
 // Load data after mount
 onMounted(() => {
@@ -169,6 +176,20 @@ onMounted(() => {
                        :page-sizes="[10, 20, 30, 40]"/>
         <!--Pagination end-->
     </el-card>
+
+    <!--Add student pop-up box start-->
+    <el-dialog  align-center v-model="addStudentDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{addTitle}}</h1>
+            </div>
+        </template>
+        <!--Add student component start-->
+        <AddStudent />
+        <!--Add student component end-->
+    </el-dialog>
+    <!--Add student pop-up box end-->
 </template>
 
 <style scoped>
@@ -193,5 +214,10 @@ onMounted(() => {
     .el-pagination {
         margin-top: 20px;
         justify-content: center;
+    }
+    /*Add student pop-up box -- custom header styles*/
+    .my-header {
+        display: flex;
+        justify-content: flex-start;
     }
 </style>

@@ -1,6 +1,18 @@
 <script setup lang="ts">
-
-import addStudent from "./AddStudent.vue";
+import {ref, reactive} from 'vue'
+const subLoading = ref(false)
+// Form object
+const formStudent = reactive({
+    name: '',
+    stuno: '',
+    gender: '',
+    phone: '',
+    gradeClass: {
+        id: ''
+    },
+    email: '',
+    remarks: ''
+})
 </script>
 
 <template>
@@ -58,5 +70,8 @@ import addStudent from "./AddStudent.vue";
 </template>
 
 <style scoped>
-
+.dialong__button--wrap {
+    text-align: center;
+    margin-top: 20px;
+}
 </style>
