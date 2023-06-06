@@ -65,6 +65,10 @@ const addStudentDialogFormVisible = ref(false)
 const addStudent = ()=> {
     addStudentDialogFormVisible.value = true
 }
+// Close (add student) pop-up box
+const closeAddStudentForm = ()=> {
+    addStudentDialogFormVisible.value = false
+}
 // Load data after mount
 onMounted(() => {
     loadData(state);
@@ -186,7 +190,7 @@ onMounted(() => {
             </div>
         </template>
         <!--Add student component start-->
-        <AddStudent />
+        <AddStudent  @closeAddStudentForm="closeAddStudentForm" />
         <!--Add student component end-->
     </el-dialog>
     <!--Add student pop-up box end-->
@@ -219,5 +223,6 @@ onMounted(() => {
     .my-header {
         display: flex;
         justify-content: flex-start;
+        color: #178557;
     }
 </style>

@@ -2,6 +2,7 @@
 import {ref, reactive} from 'vue'
 import {ElMessage} from 'element-plus'
 import {addStudentApi, gradeClassListApi} from "../../../api/student/student.ts";
+const emit = defineEmits(['closeAddStudentForm'])
 const subLoading = ref(false)
 // Form object
 const formStudent = reactive({
@@ -38,6 +39,11 @@ async function gradeClassList() {
     } catch (e) {
         console.log(e)
     }
+}
+gradeClassList()
+// Cancel form
+const close = ()=> {
+    emit('closeAddStudentForm')
 }
 </script>
 
