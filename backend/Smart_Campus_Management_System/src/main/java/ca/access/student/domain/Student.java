@@ -21,12 +21,12 @@ public class Student extends BaseEntity {
     /**
      * Student number
      */
-    @Column(name = "student_number",nullable = false)
-    private String studentNumber;
+    @Column(name = "stuno",nullable = false)
+    private String stuno;
     /**
      * Student name
      */
-    @Column(name = "student_name",nullable = false)
+    @Column(name = "name",nullable = false)
     private String name;
     /**
      * The class the student belongs to

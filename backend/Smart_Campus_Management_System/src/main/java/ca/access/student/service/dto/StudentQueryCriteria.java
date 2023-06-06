@@ -11,8 +11,8 @@ import lombok.Data;
 @Data
 public class StudentQueryCriteria {
     /**
-     * Query by name,studentNumber,phone or email
+     * Query by name,stuno,phone or email
      */
-    @EnableAccessQuery(blurry = "name,studentNumber,phone,email")
+    @EnableAccessQuery(blurry = "name,stuno,phone,email")
     private String searchValue;
 }

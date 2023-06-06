@@ -69,6 +69,12 @@ const addStudent = ()=> {
 const closeAddStudentForm = ()=> {
     addStudentDialogFormVisible.value = false
 }
+// Submit form callback function
+const success = ()=> {
+    loadData(state);
+    closeAddStudentForm()
+
+}
 // Load data after mount
 onMounted(() => {
     loadData(state);
@@ -114,7 +120,7 @@ onMounted(() => {
                 <el-table-column label="Serial number" width="100" type="index" :index="Nindex"/>
                 <el-table-column label="Student number">
                     <template #default="scope">
-                        <span>{{scope.row.studentNumber}}</span>
+                        <span>{{scope.row.stuno}}</span>
                     </template>
                 </el-table-column>
 
@@ -150,8 +156,8 @@ onMounted(() => {
 
                 <el-table-column label="Created time">
                     <template #default="scope">
-                        <el-tooltip :content="scope.row.createTime" placement="top" effect="light">
-                            <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
+                        <el-tooltip :content="scope.row.createdTime" placement="top" effect="light">
+                            <span class="highlight">{{formatTime(scope.row.createdTime, 'yyyy-MM-dd')}}</span>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -190,7 +196,7 @@ onMounted(() => {
             </div>
         </template>
         <!--Add student component start-->
-        <AddStudent  @closeAddStudentForm="closeAddStudentForm" />
+        <AddStudent  @closeAddStudentForm="closeAddStudentForm" @success="success"/>
         <!--Add student component end-->
     </el-dialog>
     <!--Add student pop-up box end-->
