@@ -1,5 +1,26 @@
 <script setup lang="ts">
-
+import { ref, reactive } from 'vue'
+const subLoading = ref(false)
+// Form data object
+const formStudent = reactive({
+    id: 0,
+    name: '',
+    stuno: '',
+    gender: '',
+    phone: '',
+    gradeClass: {
+        id: ''
+    },
+    email: '',
+    remarks: ''
+})
+// Student information
+const props = defineProps(['studentInfo'])
+const studentInfo = ref(props.studentInfo)
+// Fill the form with data
+for (const key in formStudent) {
+    formStudent[key] = studentInfo.value[key]
+}
 </script>
 
 <template>
@@ -57,5 +78,8 @@
 </template>
 
 <style scoped>
-
+.dialong__button--wrap {
+    text-align: center;
+    margin-top: 20px;
+}
 </style>

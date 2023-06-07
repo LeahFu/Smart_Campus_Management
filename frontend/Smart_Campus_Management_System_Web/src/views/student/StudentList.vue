@@ -4,6 +4,7 @@ import { getStudentListApi} from "../../api/student/student"
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddStudent from "./components/AddStudent.vue"
+import EditStudent from "./components/EditStudent.vue"
 const state = reactive({
     // Search form content
     searchValue: "",
@@ -200,6 +201,8 @@ onMounted(() => {
         <!--Add student component end-->
     </el-dialog>
     <!--Add student pop-up box end-->
+
+
 </template>
 
 <style scoped>
