@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, toRefs, ref, onMounted } from 'vue'
-import { getStudentListApi} from "../../api/student/student"
+import {getStudentApi, getStudentListApi} from "../../api/student/student"
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddStudent from "./components/AddStudent.vue"
@@ -75,6 +75,15 @@ const success = ()=> {
     loadData(state);
     closeAddStudentForm()
 
+}
+// Edit student pop-up box status
+const editStudentDialogFormVisible = ref(false)
+// Edit student information
+const studentInfo = ref()
+const editStudent = async (id:number)=> {
+    const { data } = await getStudentApi(id)
+    studentInfo.value = data.result
+    editStudentDialogFormVisible.value = true
 }
 // Load data after mount
 onMounted(() => {
@@ -202,7 +211,20 @@ onMounted(() => {
     </el-dialog>
     <!--Add student pop-up box end-->
 
+    <!--Edit student pop-up box start-->
+    <el-dialog  align-center v-model="editStudentDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{editTitle}}</h1>
+            </div>
 
+        </template>
+        <!--Edit student component start-->
+        <EditStudent :studentInfo="studentInfo"  />
+        <!--Edit student component end-->
+    </el-dialog>
+    <!--Edit student pop-up box end-->
 </template>
 
 <style scoped>
