@@ -2,6 +2,7 @@
 import {ref, reactive} from 'vue'
 import {ElMessage} from 'element-plus'
 import {addStudentApi, gradeClassListApi} from "../../../api/student/student.ts";
+import type { FormInstance, FormRules } from 'element-plus'
 const emit = defineEmits(['closeAddStudentForm','success'])
 const subLoading = ref(false)
 // Form object
@@ -16,17 +17,36 @@ const formStudent = reactive({
     email: '',
     remarks: ''
 })
+// Define the form instance object
+const ruleFormRef = ref<FormInstance>()
+// Define Form Constraint Rule Objects
+const rules = reactive<FormRules>({
+    name: [{ required: true, message: 'Student name cannot be empty', trigger: 'blur' }],
+    gender: [{ required: true, message: 'Gender cannot be empty', trigger: 'blur' }],
+    phone: [{ required: true, message: 'Phone number cannot be empty', trigger: 'blur' }],
+    email: [{ required: true, message: 'Email cannot be empty', trigger: 'blur' }],
+    gradeClass: [{ required: true, message: 'Class cannot be empty', trigger: 'blur' }],
+    stuno: [{ required: true, message: 'Student number cannot be empty', trigger: 'blur' }],
+})
 // Add student information
-const addStudent = async () => {
+const addStudent = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
         subLoading.value = true
-            const { data } =  await addStudentApi(formStudent)
-            if(data.status===200){
+        if (valid) {
+            const {data} = await addStudentApi(formStudent)
+            if (data.status === 200) {
                 ElMessage.success(data.message)
                 emit('success')
-            }else {
+            } else {
                 ElMessage.error(data.message)
             }
+        } else {
+            ElMessage.error('Submission failed, you still have unfilled items!')
+            console.log('error submit!', fields)
+        }
         subLoading.value = false
+    })
 }
 
 const gradeClassOptions = ref<object[]>([])
@@ -49,7 +69,7 @@ const close = ()=> {
 </script>
 
 <template>
-    <el-form  :model="formStudent"  label-width="80px">
+    <el-form ref="ruleFormRef" :rules="rules"  :model="formStudent"  label-width="80px">
         <el-row>
             <el-col :span="12">
                 <el-form-item prop="gradeClass" label="class">
