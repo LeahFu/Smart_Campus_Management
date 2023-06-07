@@ -23,3 +23,10 @@ export function gradeClassListApi() {
         method: 'get'
     })
 }
+// Get student details based on ID
+export function getStudentApi(id:number) {
+    return request({
+        url: `student/${id}`,
+        method: 'get'
+    })
+}

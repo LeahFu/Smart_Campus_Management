@@ -1,6 +1,7 @@
 package ca.access.student.controller;
 
 import ca.access.base.BaseResult;
+import ca.access.exception.BadRequestException;
 import ca.access.student.service.dto.StudentQueryCriteria;
 import ca.access.student.service.IStudentService;
 import ca.access.student.domain.Student;
@@ -49,5 +50,18 @@ public class StudentController {
         }else {
             return BaseResult.fail("Add failed");
         }
+    }
+    /**
+     * Get student details based on ID
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public BaseResult detail(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to get information");
+        }
+        Student dbStudent = studentService.getById(id);
+        return BaseResult.success(dbStudent);
     }
 }

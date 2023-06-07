@@ -23,4 +23,10 @@ public interface IStudentService {
      * @return
      */
     boolean addStudent(Student student);
+    /**
+     * Get student details based on ID
+     * @param id
+     * @return
+     */
+    Student getById(Long id);
 }

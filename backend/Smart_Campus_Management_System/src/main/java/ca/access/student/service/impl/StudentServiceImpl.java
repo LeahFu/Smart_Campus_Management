@@ -48,4 +48,13 @@ public class StudentServiceImpl implements IStudentService {
         Student dbStudent = studentRepository.save(student);
         return dbStudent.getId()!=null;
     }
+    /**
+     * Get student details based on ID
+     * @param id
+     * @return
+     */
+    @Override
+    public Student getById(Long id) {
+            return studentRepository.findById(id).orElseGet(Student::new);
+    }
 }
