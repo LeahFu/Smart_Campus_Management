@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import {ElMessage} from 'element-plus'
+import {editStudentApi, gradeClassListApi} from "../../../api/student/student.ts";
 const subLoading = ref(false)
 // Form data object
 const formStudent = reactive({
@@ -21,6 +23,30 @@ const studentInfo = ref(props.studentInfo)
 for (const key in formStudent) {
     formStudent[key] = studentInfo.value[key]
 }
+// Edit student information
+const editStudent = async () => {
+        subLoading.value = true
+            const { data } =  await editStudentApi(formStudent)
+            if(data.status===200){
+                ElMessage.success(data.message)
+            }else {
+                ElMessage.error(data.message)
+            }
+        subLoading.value = false
+}
+const gradeClassOptions = ref<object[]>([])
+// Get a list of all classes
+async function gradeClassList() {
+    try {
+        const { data } = await gradeClassListApi()
+        if (data.status === 200) {
+            gradeClassOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+gradeClassList()
 </script>
 
 <template>

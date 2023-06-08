@@ -30,3 +30,11 @@ export function getStudentApi(id:number) {
         method: 'get'
     })
 }
+// Update student information
+export function editStudentApi(data:object) {
+    return request({
+        url: 'student',
+        method: 'put',
+        data
+    })
+}
