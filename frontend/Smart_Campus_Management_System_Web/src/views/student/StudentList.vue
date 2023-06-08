@@ -72,9 +72,9 @@ const closeAddStudentForm = ()=> {
 }
 // Submit form callback function
 const success = ()=> {
-    loadData(state);
+    loadData(state)
     closeAddStudentForm()
-
+    closeEditStudentForm()
 }
 // Edit student pop-up box status
 const editStudentDialogFormVisible = ref(false)
@@ -225,7 +225,7 @@ onMounted(() => {
 
         </template>
         <!--Edit student component start-->
-        <EditStudent :studentInfo="studentInfo" @closeEditStudentForm="closeEditStudentForm" />
+        <EditStudent :studentInfo="studentInfo" @closeEditStudentForm="closeEditStudentForm" @success="success" />
         <!--Edit student component end-->
     </el-dialog>
     <!--Edit student pop-up box end-->
