@@ -29,4 +29,10 @@ public interface IStudentService {
      * @return
      */
     Student getById(Long id);
+
+    /**
+     * Update student information
+     * @param student
+     */
+    void editStudent(Student student);
 }

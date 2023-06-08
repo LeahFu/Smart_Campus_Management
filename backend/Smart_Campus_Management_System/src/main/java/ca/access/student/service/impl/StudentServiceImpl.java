@@ -6,6 +6,8 @@ import ca.access.student.service.IStudentService;
 import ca.access.student.service.dto.StudentQueryCriteria;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,17 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public Student getById(Long id) {
             return studentRepository.findById(id).orElseGet(Student::new);
+    }
+
+    /**
+     * Update student information
+     * @param student
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editStudent(Student student) {
+        Student dbStudent = studentRepository.getReferenceById(student.getId());
+        BeanUtil.copyProperties(student,dbStudent, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        studentRepository.save(dbStudent);
     }
 }

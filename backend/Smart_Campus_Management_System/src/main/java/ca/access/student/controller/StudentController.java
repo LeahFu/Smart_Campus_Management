@@ -64,4 +64,14 @@ public class StudentController {
         Student dbStudent = studentService.getById(id);
         return BaseResult.success(dbStudent);
     }
+    /**
+     * Update student information
+     * @param student
+     * @return
+     */
+    @PutMapping
+    public BaseResult editStudent(@RequestBody Student student){
+        studentService.editStudent(student);
+        return BaseResult.success("Update completed");
+    }
 }
