@@ -16,6 +16,7 @@ const formStudent = reactive({
     email: '',
     remarks: ''
 })
+const emit = defineEmits(['closeEditStudentForm'])
 // Student information
 const props = defineProps(['studentInfo'])
 const studentInfo = ref(props.studentInfo)
@@ -47,6 +48,10 @@ async function gradeClassList() {
     }
 }
 gradeClassList()
+// Cancel form
+const close = ()=> {
+    emit('closeEditStudentForm')
+}
 </script>
 
 <template>

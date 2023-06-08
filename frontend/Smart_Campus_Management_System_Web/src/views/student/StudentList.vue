@@ -85,6 +85,10 @@ const editStudent = async (id:number)=> {
     studentInfo.value = data.result
     editStudentDialogFormVisible.value = true
 }
+// Close edit student pop-up box
+const closeEditStudentForm = ()=> {
+    editStudentDialogFormVisible.value = false
+}
 // Load data after mount
 onMounted(() => {
     loadData(state);
@@ -221,7 +225,7 @@ onMounted(() => {
 
         </template>
         <!--Edit student component start-->
-        <EditStudent :studentInfo="studentInfo"  />
+        <EditStudent :studentInfo="studentInfo" @closeEditStudentForm="closeEditStudentForm" />
         <!--Edit student component end-->
     </el-dialog>
     <!--Edit student pop-up box end-->
