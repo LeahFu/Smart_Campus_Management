@@ -5,6 +5,7 @@ import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddStudent from "./components/AddStudent.vue"
 import EditStudent from "./components/EditStudent.vue"
+import {exportExcel} from "../../utils/exportExcel.ts";
 const state = reactive({
     // Search form content
     searchValue: "",
@@ -99,6 +100,25 @@ const delStudent = async (id:number)=> {
         ElMessage.error('Failed to delete')
     }
 }
+// Export list
+const column = [
+    {name: 'id',label: 'student id'},
+    {name: 'name',label: 'student name'},
+    {name: 'stuno',label: 'student number'},
+    {name: 'gender',label: 'gender'},
+    {name: 'phone',label: 'phone'},
+    {name: 'email',label: 'email'}
+]
+// Export data
+const exportExcelAction = () => {
+    exportExcel({
+        column,
+        data:state.tableData,
+        filename: 'student information',
+        format: 'xlsx',
+        autoWidth: true,
+    })
+}
 // Load data after mount
 onMounted(() => {
     loadData(state);
@@ -124,7 +144,9 @@ onMounted(() => {
                         <el-col :span="11">
                             <div class="my-button">
                                 <el-button plain style="width: 100%;" color="#2fa7b9" @click="addStudent">Add student</el-button>
-
+                                <el-button @click="exportExcelAction" type="primary">
+                                    <el-icon style="margin-right: 1px"><Download /></el-icon>Export Excel
+                                </el-button>
                             </div>
                         </el-col>
 
@@ -269,5 +291,10 @@ onMounted(() => {
         display: flex;
         justify-content: flex-start;
         color: #178557;
+    }
+    /*Custom button style*/
+    .my-button {
+        display: flex;
+        justify-content:space-between;
     }
 </style>
