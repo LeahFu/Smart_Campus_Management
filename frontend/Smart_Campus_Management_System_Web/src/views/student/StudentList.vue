@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, toRefs, ref, onMounted } from 'vue'
-import {getStudentApi, getStudentListApi} from "../../api/student/student"
+import {deleteStudentApi, getStudentApi, getStudentListApi} from "../../api/student/student"
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddStudent from "./components/AddStudent.vue"
@@ -88,6 +88,16 @@ const editStudent = async (id:number)=> {
 // Close edit student pop-up box
 const closeEditStudentForm = ()=> {
     editStudentDialogFormVisible.value = false
+}
+// Delete student information
+const delStudent = async (id:number)=> {
+    const { data } = await deleteStudentApi(id)
+    if(data.status===200){
+        ElMessage.success('Successfully deleted')
+        await loadData(state);
+    }else {
+        ElMessage.error('Failed to delete')
+    }
 }
 // Load data after mount
 onMounted(() => {

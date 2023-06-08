@@ -74,4 +74,17 @@ public class StudentController {
         studentService.editStudent(student);
         return BaseResult.success("Update completed");
     }
+    /**
+     * Delete student information based on ID
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public BaseResult delete(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to delete information");
+        }
+        studentService.deleteById(id);
+        return BaseResult.success("Successfully deleted");
+    }
 }

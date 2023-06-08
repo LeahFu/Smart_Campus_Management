@@ -35,4 +35,9 @@ public interface IStudentService {
      * @param student
      */
     void editStudent(Student student);
+    /**
+     * Delete student information based on ID
+     * @param id
+     */
+    void deleteById(Long id);
 }

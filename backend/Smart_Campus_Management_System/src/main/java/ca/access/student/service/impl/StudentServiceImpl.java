@@ -71,4 +71,13 @@ public class StudentServiceImpl implements IStudentService {
         BeanUtil.copyProperties(student,dbStudent, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         studentRepository.save(dbStudent);
     }
+    /**
+     * Delete student information based on ID
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) {
+        studentRepository.deleteById(id);
+    }
 }

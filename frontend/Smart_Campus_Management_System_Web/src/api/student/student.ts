@@ -38,3 +38,10 @@ export function editStudentApi(data:object) {
         data
     })
 }
+// Delete student information based on ID
+export function deleteStudentApi(id:number) {
+    return request({
+        url: `student/${id}`,
+        method: 'delete'
+    })
+}
