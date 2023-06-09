@@ -1,5 +1,16 @@
 <script setup lang="ts">
-
+import { ref,reactive,toRefs } from 'vue'
+const state = reactive({
+    // Search keywords
+    searchValue: "",
+    // Table data
+    tableData: [],
+    total: 0, // Total items
+    pageSize: 10, // Items per page
+    pageIndex: 1, // Current page number
+    loading: false, // Data loading
+})
+const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 </script>
 
 <template>
@@ -78,6 +89,13 @@
             </el-table>
         </div>
         <!--Form area end-->
+
+        <!--分页 start-->
+        <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
+                       v-model:page-size="pageSize"
+                       :page-sizes="[10, 20, 30, 40]"/>
+        <!--分页 end-->
+    </el-card>
 </template>
 
 <style scoped>
@@ -94,5 +112,14 @@
 :deep(.el-card__header) {
     border-bottom: 1px solid rgb(238 238 238);
     color: #178557;
+}
+/*Pagination style*/
+:deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
+    background-color: #178557;
+}
+
+.el-pagination {
+    margin-top: 20px;
+    justify-content: center;
 }
 </style>
