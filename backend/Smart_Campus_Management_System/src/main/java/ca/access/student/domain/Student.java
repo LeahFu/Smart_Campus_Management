@@ -29,12 +29,6 @@ public class Student extends BaseEntity {
     @Column(name = "name",nullable = false)
     private String name;
     /**
-     * The class the student belongs to
-     */
-    @OneToOne
-    @JoinColumn(name = "grade_class_id",referencedColumnName = "id")
-    private GradeClass gradeClass;
-    /**
      * Gender
      */
     @Column(name = "gender",nullable = false)
@@ -49,4 +43,21 @@ public class Student extends BaseEntity {
      */
     @Column(name = "email",nullable = false)
     private String email;
+    /**
+     * The class the student belongs to
+     */
+    @ManyToOne
+    private GradeClass gradeClass;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", stuno='" + stuno + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

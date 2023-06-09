@@ -1,8 +1,12 @@
 package ca.access.student.domain;
 
 import ca.access.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: Lei Fu
@@ -39,4 +43,19 @@ public class GradeClass extends BaseEntity {
      */
     @Column(name = "clazz",nullable = false)
     private String clazz;
+
+    @JsonIgnoreProperties(ignoreUnknown = true, value = {"gradeClass"})
+    @OneToMany(mappedBy = "gradeClass",fetch=FetchType.EAGER)
+    private List<Student> students = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "GradeClass{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", grade=" + grade +
+                ", name='" + name + '\'' +
+                ", clazz='" + clazz + '\'' +
+                '}';
+    }
 }
