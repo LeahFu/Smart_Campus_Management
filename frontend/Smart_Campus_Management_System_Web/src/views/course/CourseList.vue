@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref,reactive,toRefs,onMounted} from 'vue'
+import {getCourseListApi} from "../../api/course/course.ts";
 const state = reactive({
     // Search keywords
     searchValue: "",
