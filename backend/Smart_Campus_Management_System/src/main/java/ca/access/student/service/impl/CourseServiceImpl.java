@@ -48,4 +48,13 @@ public class CourseServiceImpl implements ICourseService {
         Course dbCourse = courseRepository.save(course);
         return dbCourse.getId()!=null;
     }
+    /**
+     * Get course information by id
+     * @param id
+     * @return
+     */
+    @Override
+    public Course getById(Long id) {
+        return courseRepository.findById(id).orElseGet(Course::new);
+    }
 }

@@ -24,4 +24,10 @@ public interface ICourseService {
      * @return
      */
     boolean addCourse(Course course);
+    /**
+     * Get course information by id
+     * @param id
+     * @return
+     */
+    Course getById(Long id);
 }

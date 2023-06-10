@@ -16,3 +16,10 @@ export function addCourseApi(data:object) {
         data
     })
 }
+// Get course information by id
+export function getCourseApi(id:number) {
+    return request({
+        url: `course/${id}`,
+        method: 'get'
+    })
+}
