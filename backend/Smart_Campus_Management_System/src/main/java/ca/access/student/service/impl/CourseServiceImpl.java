@@ -1,8 +1,11 @@
 package ca.access.student.service.impl;
 
+import ca.access.student.domain.Course;
 import ca.access.student.repository.CourseRepository;
 import ca.access.student.service.ICourseService;
 import ca.access.student.service.dto.CourseQueryCriteria;
+import ca.access.utils.PageUtil;
+import ca.access.utils.QueryHelp;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

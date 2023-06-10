@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref,reactive,toRefs,onMounted} from 'vue'
 import {getCourseListApi} from "../../api/course/course.ts";
+import { formatTime } from "../../utils/date"
 const state = reactive({
     // Search keywords
     searchValue: "",
@@ -30,7 +31,13 @@ const loadData = async (state: any)=> {
 onMounted(() => {
     loadData(state);
 })
-
+// Refresh button
+const refresh = () => {
+    // Search content
+    state.searchValue = ""
+    // Update data
+    loadData(state);
+}
 </script>
 
 <template>
@@ -88,7 +95,7 @@ onMounted(() => {
 
                 <el-table-column label="created time">
                     <template #default="scope">
-                        <span>{{scope.row.createTime}}</span>
+                        <span class="highlight">{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
                     </template>
                 </el-table-column>
 
