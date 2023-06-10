@@ -50,6 +50,18 @@ const search = () => {
         })
     }
 }
+// The execution event of switching pages (val : the current page number)
+const changePage = (val:number) => {
+    state.pageIndex = val;
+    loadData(state);
+}
+// Process list data serial number
+const Nindex = (index:number) => {
+    // current page number - 1 * number of data items per page + 1
+    const page = state.pageIndex // current page number
+    const pagesize = state.pageSize // number of data items per page
+    return index + 1 + (page - 1) * pagesize
+}
 </script>
 
 <template>
@@ -129,11 +141,12 @@ const search = () => {
         </div>
         <!--Form area end-->
 
-        <!--分页 start-->
+        <!--Pagination start-->
         <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
                        v-model:page-size="pageSize"
+                       @current-change="changePage"
                        :page-sizes="[10, 20, 30, 40]"/>
-        <!--分页 end-->
+        <!--Pagination end-->
     </el-card>
 </template>
 
