@@ -73,6 +73,11 @@ const addCourse = ()=> {
 const closeAddCourseForm = ()=> {
     addCourseDialogFormVisible.value = false
 }
+// Submit form callback function
+const success = ()=> {
+    loadData(state);
+    closeAddCourseForm()
+}
 </script>
 
 <template>
@@ -169,7 +174,7 @@ const closeAddCourseForm = ()=> {
             </div>
         </template>
         <!--Add course components start-->
-        <AddCourse @closeAddCourseForm="closeAddCourseForm"/>
+        <AddCourse @closeAddCourseForm="closeAddCourseForm" @success="success"/>
         <!--Add course components end-->
     </el-dialog>
     <!--Add course pop-up box end-->
