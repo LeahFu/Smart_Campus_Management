@@ -36,4 +36,16 @@ public class CourseServiceImpl implements ICourseService {
         Page<Course> page = courseRepository.findAll((root, query, criteriaBuilder) -> QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page);
     }
+
+    /**
+     * Add course information
+     * @param course
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addCourse(Course course) {
+        Course dbCourse = courseRepository.save(course);
+        return dbCourse.getId()!=null;
+    }
 }

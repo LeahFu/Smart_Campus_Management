@@ -2,6 +2,7 @@ package ca.access.student.service;
 
 import ca.access.student.service.dto.CourseQueryCriteria;
 import org.springframework.data.domain.Pageable;
+import ca.access.student.domain.Course;
 
 /**
  * @author: Lei Fu
@@ -16,4 +17,11 @@ public interface ICourseService {
      * @return
      */
     Object getList(CourseQueryCriteria queryCriteria, Pageable pageable);
+
+    /**
+     * Add course information
+     * @param course
+     * @return
+     */
+    boolean addCourse(Course course);
 }
