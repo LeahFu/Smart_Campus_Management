@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
+import {ElMessage} from 'element-plus'
 import addCourse from "./AddCourse.vue";
+
 
 // Button status
 const subLoading = ref(false)
@@ -10,6 +12,17 @@ const formCourse = reactive({
     coursename: '',
     remarks: ''
 })
+// Add course information
+const addCourse = async () => {
+        subLoading.value = true
+            const { data } =  await addCourseApi(formCourse)
+            if(data.status===200){
+                ElMessage.success(data.message)
+            }else {
+                ElMessage.error(data.message)
+            }
+        subLoading.value = false
+}
 </script>
 
 <template>

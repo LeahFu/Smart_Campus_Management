@@ -65,6 +65,10 @@ const Nindex = (index:number) => {
 }
 // Add course pop-up box status
 const addCourseDialogFormVisible = ref(false)
+// Add course
+const addCourse = ()=> {
+    addCourseDialogFormVisible.value = true
+}
 </script>
 
 <template>
@@ -190,5 +194,11 @@ const addCourseDialogFormVisible = ref(false)
 .el-pagination {
     margin-top: 20px;
     justify-content: center;
+}
+/*Customize the header style of the course pop-up box*/
+.my-header {
+    display: flex;
+    justify-content: flex-start;
+    color: #178557;
 }
 </style>
