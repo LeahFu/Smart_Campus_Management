@@ -1,6 +1,15 @@
 <script setup lang="ts">
-
+import {ref, reactive} from 'vue'
 import addCourse from "./AddCourse.vue";
+
+// Button status
+const subLoading = ref(false)
+// Form data object
+const formCourse = reactive({
+    courseno: '',
+    coursename: '',
+    remarks: ''
+})
 </script>
 
 <template>
@@ -37,5 +46,8 @@ import addCourse from "./AddCourse.vue";
 </template>
 
 <style scoped>
-
+.dialong__button--wrap {
+    text-align: center;
+    margin-top: 20px;
+}
 </style>
