@@ -2,6 +2,7 @@
 import { ref,reactive,toRefs,onMounted} from 'vue'
 import {getCourseListApi} from "../../api/course/course.ts";
 import { formatTime } from "../../utils/date"
+import {ElMessage} from 'element-plus'
 const state = reactive({
     // Search keywords
     searchValue: "",
@@ -20,7 +21,8 @@ const loadData = async (state: any)=> {
     state.tableData=[]
     const params = {
         'pageIndex':state.pageIndex,
-        'pageSize': state.pageSize
+        'pageSize': state.pageSize,
+        'searchValue': state.searchValue
     }
     const { data } = await getCourseListApi(params)
     state.tableData = data.content
@@ -37,6 +39,16 @@ const refresh = () => {
     state.searchValue = ""
     // Update data
     loadData(state);
+}
+// Search
+const search = () => {
+    if (state.searchValue !== null) {
+        loadData(state)
+        ElMessage({
+            type: 'success',
+            message: `Keywords: “${state.searchValue}”. The search content is as follows: `,
+        })
+    }
 }
 </script>
 
