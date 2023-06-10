@@ -23,6 +23,11 @@ const addCourse = async () => {
             }
         subLoading.value = false
 }
+const emit = defineEmits(['closeAddCourseForm'])
+// Cancel form
+const close = ()=> {
+    emit('closeAddCourseForm')
+}
 </script>
 
 <template>

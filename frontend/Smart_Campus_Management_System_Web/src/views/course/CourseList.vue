@@ -69,6 +69,10 @@ const addCourseDialogFormVisible = ref(false)
 const addCourse = ()=> {
     addCourseDialogFormVisible.value = true
 }
+// Close the Add Course popup
+const closeAddCourseForm = ()=> {
+    addCourseDialogFormVisible.value = false
+}
 </script>
 
 <template>
@@ -165,7 +169,7 @@ const addCourse = ()=> {
             </div>
         </template>
         <!--Add course components start-->
-        <AddCourse />
+        <AddCourse @closeAddCourseForm="closeAddCourseForm"/>
         <!--Add course components end-->
     </el-dialog>
     <!--Add course pop-up box end-->
