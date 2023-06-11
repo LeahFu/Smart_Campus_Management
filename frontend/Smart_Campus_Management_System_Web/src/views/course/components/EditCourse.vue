@@ -1,5 +1,21 @@
 <script setup lang="ts">
-
+import { ref, reactive } from 'vue'
+// Button status
+const subLoading = ref(false)
+// Form data object
+const formCourse = reactive({
+    id: 0,
+    courseno: '',
+    coursename: '',
+    remarks: ''
+})
+// Get the courseInfo object passed from the parent component
+const props = defineProps(['courseInfo'])
+const courseInfo = ref(props.courseInfo)
+// Fill the form with data
+for (const key in formCourse) {
+    formCourse[key] = courseInfo.value[key]
+}
 </script>
 
 <template>

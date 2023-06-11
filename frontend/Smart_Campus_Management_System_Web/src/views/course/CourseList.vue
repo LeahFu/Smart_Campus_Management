@@ -4,6 +4,7 @@ import {getCourseListApi} from "../../api/course/course.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddCourse from "./components/AddCourse.vue";
+import EditCourse from "./components/EditCourse.vue";
 const state = reactive({
     // Search keywords
     searchValue: "",
@@ -78,6 +79,7 @@ const success = ()=> {
     loadData(state);
     closeAddCourseForm()
 }
+
 </script>
 
 <template>
@@ -178,6 +180,20 @@ const success = ()=> {
         <!--Add course components end-->
     </el-dialog>
     <!--Add course pop-up box end-->
+
+    <!--Edit course pop-up box start-->
+    <el-dialog  align-center v-model="editCourseDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{editTitle}}</h1>
+            </div>
+        </template>
+        <!--Edit course component start-->
+        <EditCourse :courseInfo="courseInfo" />
+        <!--Edit course component end-->
+    </el-dialog>
+    <!--Edit course pop-up box end-->
 </template>
 
 <style scoped>
