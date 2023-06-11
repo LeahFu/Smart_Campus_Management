@@ -2,6 +2,7 @@
 import { ref, reactive } from 'vue'
 import {editCourseApi} from "../../../api/course/course.ts";
 import {ElMessage} from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 // Button status
 const subLoading = ref(false)
 // Form data object
@@ -19,26 +20,41 @@ for (const key in formCourse) {
     formCourse[key] = courseInfo.value[key]
 }
 // Edit course information
-const editCourse = async () => {
+const editCourse = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
         subLoading.value = true
-            const { data } =  await editCourseApi(formCourse)
-            if(data.status===200){
+        if (valid) {
+            const {data} = await editCourseApi(formCourse)
+            if (data.status === 200) {
                 ElMessage.success(data.message)
                 emit('success')
-            }else {
+            } else {
                 ElMessage.error(data.message)
             }
+        } else {
+            ElMessage.error('Submission failed, you still have unfilled items!')
+            console.log('error submit!', fields)
+        }
         subLoading.value = false
+    })
 }
 const emit = defineEmits(['closeEditCourseForm','success'])
 // Cancel form
 const close = ()=> {
     emit('closeEditCourseForm')
 }
+// Define the form instance object
+const ruleFormRef = ref<FormInstance>()
+// Define Form Constraint Rule Objects
+const rules = reactive<FormRules>({
+    courseno: [{ required: true, message: 'Course number cannot be empty', trigger: 'blur' }],
+    coursename: [{ required: true, message: 'Course name cannot be empty', trigger: 'blur' }]
+})
 </script>
 
 <template>
-    <el-form :model="formCourse"  label-width="80px">
+    <el-form ref="ruleFormRef" :rules="rules" :model="formCourse"  label-width="80px">
         <el-row>
             <el-col :span="12">
                 <el-form-item label="Course number" prop="courseno">
