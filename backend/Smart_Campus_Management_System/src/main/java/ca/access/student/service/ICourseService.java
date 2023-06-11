@@ -30,4 +30,10 @@ public interface ICourseService {
      * @return
      */
     Course getById(Long id);
+
+    /**
+     * Update course information
+     * @param course
+     */
+    void editCourse(Course course);
 }

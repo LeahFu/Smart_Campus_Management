@@ -6,6 +6,8 @@ import ca.access.student.service.ICourseService;
 import ca.access.student.service.dto.CourseQueryCriteria;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,16 @@ public class CourseServiceImpl implements ICourseService {
     @Override
     public Course getById(Long id) {
         return courseRepository.findById(id).orElseGet(Course::new);
+    }
+    /**
+     * Update course information
+     * @param course
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editCourse(Course course) {
+        Course dbCourse = courseRepository.getReferenceById(course.getId());
+        BeanUtil.copyProperties(course,dbCourse, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        courseRepository.save(dbCourse);
     }
 }

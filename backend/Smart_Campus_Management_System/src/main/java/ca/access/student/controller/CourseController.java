@@ -64,4 +64,14 @@ public class CourseController {
         Course dbCourse = courseService.getById(id);
         return BaseResult.success(dbCourse);
     }
+    /**
+     * Update course information
+     * @param course
+     * @return
+     */
+    @PutMapping
+    public BaseResult editCourse(@RequestBody Course course){
+        courseService.editCourse(course);
+        return BaseResult.success("Update completed");
+    }
 }
