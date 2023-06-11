@@ -77,7 +77,8 @@ const closeAddCourseForm = ()=> {
 // Submit form callback function
 const success = ()=> {
     loadData(state);
-    closeAddCourseForm()
+    closeAddCourseForm();
+    closeEditCourseForm();
 }
 // Edit course popup status
 const editCourseDialogFormVisible = ref(false)
@@ -87,6 +88,10 @@ const editCourse = async (id:number)=> {
     const { data } = await getCourseApi(id)
     courseInfo.value = data.result
     editCourseDialogFormVisible.value = true
+}
+// Close the Edit Course pop-up box
+const closeEditCourseForm = ()=> {
+    editCourseDialogFormVisible.value = false
 }
 </script>
 
@@ -198,7 +203,7 @@ const editCourse = async (id:number)=> {
             </div>
         </template>
         <!--Edit course component start-->
-        <EditCourse :courseInfo="courseInfo" />
+        <EditCourse :courseInfo="courseInfo" @closeEditCourseForm="closeEditCourseForm" @success="success"/>
         <!--Edit course component end-->
     </el-dialog>
     <!--Edit course pop-up box end-->

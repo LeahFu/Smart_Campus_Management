@@ -24,10 +24,16 @@ const editCourse = async () => {
             const { data } =  await editCourseApi(formCourse)
             if(data.status===200){
                 ElMessage.success(data.message)
+                emit('success')
             }else {
                 ElMessage.error(data.message)
             }
         subLoading.value = false
+}
+const emit = defineEmits(['closeEditCourseForm','success'])
+// Cancel form
+const close = ()=> {
+    emit('closeEditCourseForm')
 }
 </script>
 
