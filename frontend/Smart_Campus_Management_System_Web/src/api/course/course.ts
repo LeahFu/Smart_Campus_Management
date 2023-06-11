@@ -23,3 +23,11 @@ export function getCourseApi(id:number) {
         method: 'get'
     })
 }
+// Update course information
+export function editCourseApi(data:object) {
+    return request({
+        url: 'course',
+        method: 'put',
+        data
+    })
+}

@@ -79,7 +79,15 @@ const success = ()=> {
     loadData(state);
     closeAddCourseForm()
 }
-
+// Edit course popup status
+const editCourseDialogFormVisible = ref(false)
+// Edit course information
+const courseInfo = ref()
+const editCourse = async (id:number)=> {
+    const { data } = await getCourseApi(id)
+    courseInfo.value = data.result
+    editCourseDialogFormVisible.value = true
+}
 </script>
 
 <template>

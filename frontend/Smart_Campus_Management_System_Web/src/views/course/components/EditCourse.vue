@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import {editCourseApi} from "../../../api/course/course.ts";
+import {ElMessage} from 'element-plus'
 // Button status
 const subLoading = ref(false)
 // Form data object
@@ -15,6 +17,17 @@ const courseInfo = ref(props.courseInfo)
 // Fill the form with data
 for (const key in formCourse) {
     formCourse[key] = courseInfo.value[key]
+}
+// Edit course information
+const editCourse = async () => {
+        subLoading.value = true
+            const { data } =  await editCourseApi(formCourse)
+            if(data.status===200){
+                ElMessage.success(data.message)
+            }else {
+                ElMessage.error(data.message)
+            }
+        subLoading.value = false
 }
 </script>
 
