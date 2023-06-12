@@ -67,6 +67,12 @@ const routes = [{
                 name:'course',
                 meta:{ title: 'Course management'},
                 component: ()=> import('../views/course/CourseList.vue')
+            },
+            {
+                path:'teacher',
+                name:'teacher',
+                meta:{ title: 'teacher management'},
+                component: ()=> import('../views/teacher/TeacherList.vue')
             }
         ]
     }
