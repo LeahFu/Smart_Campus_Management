@@ -70,4 +70,13 @@ public class CourseServiceImpl implements ICourseService {
         BeanUtil.copyProperties(course,dbCourse, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         courseRepository.save(dbCourse);
     }
+    /**
+     * Delete course information based on ID
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) {
+        courseRepository.deleteById(id);
+    }
 }

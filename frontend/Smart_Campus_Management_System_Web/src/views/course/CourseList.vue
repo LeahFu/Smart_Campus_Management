@@ -98,6 +98,7 @@ const delCourse = async (id:number)=> {
     const { data } = await deleteCourseApi(id)
     if(data.status===200){
         ElMessage.success('Successfully deleted')
+        await loadData(state);
     }else {
         ElMessage.error('Failed to delete')
     }

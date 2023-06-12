@@ -36,4 +36,10 @@ public interface ICourseService {
      * @param course
      */
     void editCourse(Course course);
+    /**
+     * Delete course information based on ID
+     * @param id
+     * @return
+     */
+    void deleteById(Long id);
 }

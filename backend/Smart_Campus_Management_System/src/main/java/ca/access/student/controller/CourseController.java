@@ -74,4 +74,17 @@ public class CourseController {
         courseService.editCourse(course);
         return BaseResult.success("Update completed");
     }
+    /**
+     * Delete course information based on ID
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public BaseResult deleteCourse(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to delete information");
+        }
+        courseService.deleteById(id);
+        return BaseResult.success("Successfully deleted");
+    }
 }
