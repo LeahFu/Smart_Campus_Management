@@ -31,3 +31,10 @@ export function editCourseApi(data:object) {
         data
     })
 }
+// Delete course information based on ID
+export function deleteCourseApi(id:number) {
+    return request({
+        url: `course/${id}`,
+        method: 'delete'
+    })
+}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref,reactive,toRefs,onMounted} from 'vue'
-import {getCourseListApi} from "../../api/course/course.ts";
+import {deleteCourseApi, getCourseListApi} from "../../api/course/course.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddCourse from "./components/AddCourse.vue";
@@ -92,6 +92,15 @@ const editCourse = async (id:number)=> {
 // Close the Edit Course pop-up box
 const closeEditCourseForm = ()=> {
     editCourseDialogFormVisible.value = false
+}
+// Delete course information
+const delCourse = async (id:number)=> {
+    const { data } = await deleteCourseApi(id)
+    if(data.status===200){
+        ElMessage.success('Successfully deleted')
+    }else {
+        ElMessage.error('Failed to delete')
+    }
 }
 </script>
 
