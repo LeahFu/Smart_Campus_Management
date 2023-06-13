@@ -3,6 +3,7 @@ import { ref,reactive,toRefs,onMounted } from 'vue'
 import {getTeacherListApi} from "../../api/teacher/teacher.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
+import AddTeacher from "./components/AddTeacher.vue";
 
 const state = reactive({
     // Search keywords
@@ -173,6 +174,21 @@ const Nindex = (index) => {
                        :page-sizes="[10, 20, 30, 40]"/>
         <!--Pagination end-->
     </el-card>
+
+    <!--Add teacher pop-up box start-->
+    <el-dialog  align-center v-model="addTeacherDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{addTitle}}</h1>
+            </div>
+
+        </template>
+        <!--Add teacher component start-->
+        <AddTeacher />
+        <!--Add teacher component end-->
+    </el-dialog>
+    <!--Add teacher pop-up box end-->
 </template>
 
 <style scoped>
