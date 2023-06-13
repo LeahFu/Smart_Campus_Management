@@ -1,7 +1,13 @@
 package ca.access.student.service.impl;
 
+import ca.access.student.domain.Teacher;
 import ca.access.student.repository.TeacherRepository;
 import ca.access.student.service.ITeacherService;
+import ca.access.student.service.dto.TeacherQueryCriteria;
+import ca.access.utils.PageUtil;
+import ca.access.utils.QueryHelp;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,4 +25,15 @@ public class TeacherServiceImpl implements ITeacherService {
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * Get teacher list data
+     * @param queryCriteria
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Object getList(TeacherQueryCriteria queryCriteria, Pageable pageable) {
+        Page<Teacher> page = teacherRepository.findAll((root, query, criteriaBuilder) -> QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page);
+    }
 }
