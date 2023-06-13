@@ -64,6 +64,13 @@ const Nindex = (index) => {
     const pagesize = state.pageSize // Number of data items per page
     return index + 1 + (page - 1) * pagesize
 }
+// Add teacher pop-up box status
+const addTeacherDialogFormVisible = ref(false)
+const addTitle = ref('Add teacher')
+//Add teacher
+const addTeacher = ()=> {
+    addTeacherDialogFormVisible.value = true
+}
 </script>
 
 <template>
@@ -213,5 +220,11 @@ const Nindex = (index) => {
 }
 :deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
     background-color: #178557;
+}
+/*Custom header style - add teacher pop-up box*/
+.my-header {
+    display: flex;
+    justify-content: flex-start;
+    color: #178557;
 }
 </style>
