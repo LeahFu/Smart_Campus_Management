@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref,reactive,toRefs,onMounted } from 'vue'
 import {getTeacherListApi} from "../../api/teacher/teacher.ts";
+import { formatTime } from "../../utils/date"
+import {ElMessage} from 'element-plus'
 
 const state = reactive({
     // Search keywords
@@ -21,6 +23,7 @@ const loadData = async (state: any)=> {
     const params = {
         'pageIndex':state.pageIndex,
         'pageSize': state.pageSize,
+        'searchValue': state.searchValue
     }
     const { data } = await getTeacherListApi(params)
     state.tableData = data.content
@@ -31,6 +34,23 @@ const loadData = async (state: any)=> {
 onMounted(() => {
     loadData(state);
 })
+// Refresh button
+const refresh = () => {
+    // Search keywords
+    state.searchValue = ""
+    // Load data
+    loadData(state);
+}
+// Search
+const search = () => {
+    if (state.searchValue !== null) {
+        ElMessage({
+            type: 'success',
+            message: `Keywords : “${state.searchValue}”. The search content is as follows : `,
+        })
+        loadData(state)
+    }
+}
 </script>
 
 <template>
@@ -113,7 +133,7 @@ onMounted(() => {
 
                 <el-table-column label="Created time">
                     <template #default="scope">
-                            <span>{{scope.row.createTime}}</span>
+                            <span>{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
                     </template>
                 </el-table-column>
 
