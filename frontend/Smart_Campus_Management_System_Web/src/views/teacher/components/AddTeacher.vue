@@ -2,6 +2,7 @@
 import {ref, reactive} from 'vue'
 import {ElMessage} from 'element-plus'
 import {addTeacherApi, getAllCourseListApi} from "../../../api/teacher/teacher.ts";
+import type { FormInstance, FormRules } from 'element-plus'
 // Button status
 const subLoading = ref(false)
 // Form data object
@@ -17,16 +18,24 @@ const formTeacher = reactive({
     remarks: ''
 })
 // Add teacher information
-const addTeacher = async () => {
+const addTeacher = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
         subLoading.value = true
-            const { data } =  await addTeacherApi(formTeacher)
-            if(data.status===200){
+        if (valid) {
+            const {data} = await addTeacherApi(formTeacher)
+            if (data.status === 200) {
                 ElMessage.success(data.message)
                 emit('success')
-            }else {
+            } else {
                 ElMessage.error(data.message)
             }
+        } else {
+            ElMessage.error('Submission failed, you still have unfilled items!')
+            console.log('error submit!', fields)
+        }
         subLoading.value = false
+    })
 }
 // Define course drop-down box selection items
 const courseOptions = ref<object[]>([])
@@ -44,10 +53,21 @@ const emit = defineEmits(['closeAddTeacherForm','success'])
 const close = ()=> {
     emit('closeAddTeacherForm')
 }
+// Form instance object
+const ruleFormRef = ref<FormInstance>()
+// Define form constraint rule object
+const rules = reactive<FormRules>({
+    name: [{ required: true, message: 'Teacher name cannot be empty', trigger: 'blur' }],
+    gender: [{ required: true, message: 'Gender cannot be empty', trigger: 'blur' }],
+    phone: [{ required: true, message: 'Phone number cannot be empty', trigger: 'blur' }],
+    email: [{ required: true, message: 'Email cannot be empty', trigger: 'blur' }],
+    course: [{ required: true, message: 'Course cannot be empty', trigger: 'blur' }],
+    teachno: [{ required: true, message: 'Teacher number cannot be empty', trigger: 'blur' }],
+})
 </script>
 
 <template>
-    <el-form  :model="formTeacher"  label-width="80px">
+    <el-form ref="ruleFormRef" :rules="rules" :model="formTeacher"  label-width="80px">
         <el-row>
             <el-col :span="12">
                 <el-form-item prop="gradeClass" label="Course">
