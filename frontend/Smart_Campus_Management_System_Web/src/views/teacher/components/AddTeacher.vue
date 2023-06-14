@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
-
+import {ElMessage} from 'element-plus'
+import {addTeacherApi, getAllCourseListApi} from "../../../api/teacher/teacher.ts";
 // Button status
 const subLoading = ref(false)
 // Form data object
@@ -15,6 +16,27 @@ const formTeacher = reactive({
     email: '',
     remarks: ''
 })
+// Add teacher information
+const addTeacher = async () => {
+        subLoading.value = true
+            const { data } =  await addTeacherApi(formTeacher)
+            if(data.status===200){
+                ElMessage.success(data.message)
+            }else {
+                ElMessage.error(data.message)
+            }
+        subLoading.value = false
+}
+// Define course drop-down box selection items
+const courseOptions = ref<object[]>([])
+// Get a list of all courses
+const getAllCourseList() = async ()=>{
+        const { data } = await getAllCourseListApi()
+        if (data.status === 200) {
+            courseOptions.value = data.result
+        }
+}
+getAllCourseList()
 </script>
 
 <template>
