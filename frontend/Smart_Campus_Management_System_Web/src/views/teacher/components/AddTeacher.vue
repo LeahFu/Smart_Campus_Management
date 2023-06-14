@@ -22,6 +22,7 @@ const addTeacher = async () => {
             const { data } =  await addTeacherApi(formTeacher)
             if(data.status===200){
                 ElMessage.success(data.message)
+                emit('success')
             }else {
                 ElMessage.error(data.message)
             }
@@ -38,7 +39,7 @@ const getAllCourseList() = async ()=>{
 }
 getAllCourseList()
 // Define event
-const emit = defineEmits(['closeAddTeacherForm'])
+const emit = defineEmits(['closeAddTeacherForm','success'])
 // Cancel form
 const close = ()=> {
     emit('closeAddTeacherForm')

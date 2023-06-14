@@ -75,6 +75,11 @@ const addTeacher = ()=> {
 const closeAddTeacherForm = ()=> {
     addTeacherDialogFormVisible.value = false
 }
+// Submit form callback function
+const success = ()=> {
+    loadData(state);
+    closeAddTeacherForm();
+}
 </script>
 
 <template>
@@ -196,7 +201,7 @@ const closeAddTeacherForm = ()=> {
 
         </template>
         <!--Add teacher component start-->
-        <AddTeacher @closeAddTeacherForm="closeAddTeacherForm"/>
+        <AddTeacher @closeAddTeacherForm="closeAddTeacherForm" @success="success"/>
         <!--Add teacher component end-->
     </el-dialog>
     <!--Add teacher pop-up box end-->
