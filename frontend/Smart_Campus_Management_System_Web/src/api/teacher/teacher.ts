@@ -23,3 +23,10 @@ export function getAllCourseListApi() {
         method: 'get'
     })
 }
+// Get teacher details based on ID
+export function getTeacherApi(id:number) {
+    return request({
+        url: `teacher/${id}`,
+        method: 'get'
+    })
+}
