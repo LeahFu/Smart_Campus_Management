@@ -71,6 +71,10 @@ const addTitle = ref('Add teacher')
 const addTeacher = ()=> {
     addTeacherDialogFormVisible.value = true
 }
+// Close (add teacher) pop-up box
+const closeAddTeacherForm = ()=> {
+    addTeacherDialogFormVisible.value = false
+}
 </script>
 
 <template>
@@ -192,7 +196,7 @@ const addTeacher = ()=> {
 
         </template>
         <!--Add teacher component start-->
-        <AddTeacher />
+        <AddTeacher @closeAddTeacherForm="closeAddTeacherForm"/>
         <!--Add teacher component end-->
     </el-dialog>
     <!--Add teacher pop-up box end-->

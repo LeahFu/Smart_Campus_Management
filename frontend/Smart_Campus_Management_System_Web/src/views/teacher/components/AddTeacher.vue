@@ -37,6 +37,12 @@ const getAllCourseList() = async ()=>{
         }
 }
 getAllCourseList()
+// Define event
+const emit = defineEmits(['closeAddTeacherForm'])
+// Cancel form
+const close = ()=> {
+    emit('closeAddTeacherForm')
+}
 </script>
 
 <template>
