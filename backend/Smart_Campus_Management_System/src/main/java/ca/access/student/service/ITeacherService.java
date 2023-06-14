@@ -24,4 +24,11 @@ public interface ITeacherService {
      * @return
      */
     boolean addTeacher(Teacher teacher);
+
+    /**
+     * Get teacher details based on ID
+     * @param id
+     * @return
+     */
+    Teacher getById(Long id);
 }
