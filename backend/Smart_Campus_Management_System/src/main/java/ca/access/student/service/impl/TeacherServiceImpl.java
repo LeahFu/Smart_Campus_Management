@@ -36,4 +36,15 @@ public class TeacherServiceImpl implements ITeacherService {
         Page<Teacher> page = teacherRepository.findAll((root, query, criteriaBuilder) -> QueryHelp.getPredicate(root,queryCriteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page);
     }
+    /**
+     * Add teacher information
+     * @param teacher
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addTeacher(Teacher teacher) {
+        Teacher dbTeacher = teacherRepository.save(teacher);
+        return dbTeacher.getId()!=null;
+    }
 }

@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: Lei Fu
  * @date: 2023/06/09
@@ -78,5 +80,14 @@ public class CourseServiceImpl implements ICourseService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    /**
+     * Get all courses
+     * @return
+     */
+    @Override
+    public List<Course> queryAll() {
+        return courseRepository.findAll();
     }
 }

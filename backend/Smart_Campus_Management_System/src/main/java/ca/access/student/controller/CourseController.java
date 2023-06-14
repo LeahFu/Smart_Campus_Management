@@ -6,12 +6,16 @@ import ca.access.student.domain.Course;
 import ca.access.student.service.ICourseService;
 import ca.access.student.service.dto.CourseQueryCriteria;
 import ca.access.utils.PageVo;
+import ca.access.utils.ResultVo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: Lei Fu
@@ -86,5 +90,21 @@ public class CourseController {
         }
         courseService.deleteById(id);
         return BaseResult.success("Successfully deleted");
+    }
+    /**
+     * Get all course information
+     * @param
+     * @return
+     */
+    @GetMapping("/all")
+    public BaseResult getAll(){
+        List<Course> list =  courseService.queryAll();
+        List<ResultVo> resultVoList = list.stream().map(temp -> {
+            ResultVo obj = new ResultVo();
+            obj.setName(temp.getCoursename());
+            obj.setId(temp.getId());
+            return obj;
+        }).collect(Collectors.toList());
+        return BaseResult.success(resultVoList);
     }
 }

@@ -1,5 +1,6 @@
 package ca.access.student.service;
 
+import ca.access.student.domain.Teacher;
 import ca.access.student.service.dto.TeacherQueryCriteria;
 import org.springframework.data.domain.Pageable;
 
@@ -16,4 +17,11 @@ public interface ITeacherService {
      * @return
      */
     Object getList(TeacherQueryCriteria queryCriteria, Pageable pageable);
+
+    /**
+     * Add teacher information
+     * @param teacher
+     * @return
+     */
+    boolean addTeacher(Teacher teacher);
 }

@@ -4,6 +4,8 @@ import ca.access.student.service.dto.CourseQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import ca.access.student.domain.Course;
 
+import java.util.List;
+
 /**
  * @author: Lei Fu
  * @date: 2023/06/09
@@ -42,4 +44,10 @@ public interface ICourseService {
      * @return
      */
     void deleteById(Long id);
+
+    /**
+     * Get all courses
+     * @return
+     */
+    List<Course> queryAll();
 }
