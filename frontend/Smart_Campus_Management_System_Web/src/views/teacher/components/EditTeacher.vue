@@ -1,5 +1,27 @@
 <script setup lang="ts">
-
+import { ref, reactive } from 'vue'
+// Button status
+const subLoading = ref(false)
+// Form data object
+const formTeacher = reactive({
+    id: 0,
+    name: '',
+    teachno: '',
+    gender: '',
+    phone: '',
+    course: {
+        id: ''
+    },
+    email: '',
+    remarks: ''
+})
+// Get the (teacherInfo) object passed by the parent component
+const props = defineProps(['teacherInfo'])
+const teacherInfo = ref(props.teacherInfo)
+// Fill the form with data
+for (const key in formTeacher) {
+    formTeacher[key] = teacherInfo.value[key]
+}
 </script>
 
 <template>
@@ -57,5 +79,8 @@
 </template>
 
 <style scoped>
-
+.dialong__button--wrap {
+    text-align: center;
+    margin-top: 20px;
+}
 </style>
