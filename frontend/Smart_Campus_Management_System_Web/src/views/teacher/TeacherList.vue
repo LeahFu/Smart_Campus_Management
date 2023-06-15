@@ -4,6 +4,7 @@ import {getTeacherListApi} from "../../api/teacher/teacher.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddTeacher from "./components/AddTeacher.vue";
+import EditTeacher from "./components/EditTeacher.vue";
 
 const state = reactive({
     // Search keywords
@@ -74,6 +75,16 @@ const addTeacher = ()=> {
 // Close (add teacher) pop-up box
 const closeAddTeacherForm = ()=> {
     addTeacherDialogFormVisible.value = false
+}
+// Edit teacher pop-up box status
+const editTeacherDialogFormVisible = ref(false)
+const editTitle = ref('Edit teacher')
+// Edit teacher information
+const teacherInfo = ref()
+const editTeacher = async (id:number)=> {
+    const { data } = await getTeacherApi(id)
+    teacherInfo.value = data.result
+    editTeacherDialogFormVisible.value = true
 }
 // Submit form callback function
 const success = ()=> {
@@ -205,6 +216,20 @@ const success = ()=> {
         <!--Add teacher component end-->
     </el-dialog>
     <!--Add teacher pop-up box end-->
+
+    <!--Edit teacher pop-up box start-->
+    <el-dialog  align-center v-model="editTeacherDialogFormVisible"  width="42%" destroy-on-close>
+        <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+                <el-icon size="26px"><EditPen /></el-icon>
+                <h1 id="titleId">{{editTitle}}</h1>
+            </div>
+        </template>
+        <!--Edit teacher component start-->
+        <EditTeacher :teacherInfo="teacherInfo" />
+        <!--Edit teacher component end-->
+    </el-dialog>
+    <!--Edit teacher pop-up box end-->
 </template>
 
 <style scoped>
