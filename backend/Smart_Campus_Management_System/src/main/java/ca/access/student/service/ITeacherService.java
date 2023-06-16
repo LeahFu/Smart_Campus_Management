@@ -31,4 +31,10 @@ public interface ITeacherService {
      * @return
      */
     Teacher getById(Long id);
+
+    /**
+     * Update teacher information
+     * @param teacher
+     */
+    void editTeacher(Teacher teacher);
 }

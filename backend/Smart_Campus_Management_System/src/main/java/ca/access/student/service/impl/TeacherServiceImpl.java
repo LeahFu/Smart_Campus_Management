@@ -6,6 +6,8 @@ import ca.access.student.service.ITeacherService;
 import ca.access.student.service.dto.TeacherQueryCriteria;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -55,5 +57,17 @@ public class TeacherServiceImpl implements ITeacherService {
     @Override
     public Teacher getById(Long id) {
         return teacherRepository.findById(id).orElseGet(Teacher::new);
+    }
+
+    /**
+     * Update teacher information
+     * @param teacher
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editTeacher(Teacher teacher) {
+        Teacher dbTeacher = teacherRepository.getReferenceById(teacher.getId());
+        BeanUtil.copyProperties(teacher,dbTeacher, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        teacherRepository.save(dbTeacher);
     }
 }

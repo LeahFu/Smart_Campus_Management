@@ -64,4 +64,14 @@ public class TeacherController {
         Teacher dbTeacher = teacherService.getById(id);
         return BaseResult.success(dbTeacher);
     }
+    /**
+     * Update teacher information
+     * @param teacher
+     * @return
+     */
+    @PutMapping
+    public BaseResult editTeacher(@RequestBody Teacher teacher){
+        teacherService.editTeacher(teacher);
+        return BaseResult.success("Update completed");
+    }
 }
