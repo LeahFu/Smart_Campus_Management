@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import {ElMessage} from 'element-plus'
+import {editTeacherApi, getAllCourseListApi} from "../../../api/teacher/teacher.ts";
 // Button status
 const subLoading = ref(false)
 // Form data object
@@ -22,6 +24,26 @@ const teacherInfo = ref(props.teacherInfo)
 for (const key in formTeacher) {
     formTeacher[key] = teacherInfo.value[key]
 }
+// Edit teacher information
+const editTeacher = async () => {
+        subLoading.value = true
+            const { data } =  await editTeacherApi(formTeacher)
+            if(data.status===200){
+                ElMessage.success(data.message)
+                emit('success')
+            }else {
+                ElMessage.error(data.message)
+            }
+        subLoading.value = false
+}
+// Define Course Dropdown Selections
+const courseOptions = ref<object[]>([])
+// Get a list of all courses
+async function getAllCourseList() {
+        const { data } = await getAllCourseListApi()
+        courseOptions.value = data.result
+}
+getAllCourseList()
 </script>
 
 <template>

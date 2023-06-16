@@ -30,3 +30,11 @@ export function getTeacherApi(id:number) {
         method: 'get'
     })
 }
+// Update teacher information
+export function editTeacherApi(data:object) {
+    return request({
+        url: 'teacher',
+        method: 'put',
+        data
+    })
+}
