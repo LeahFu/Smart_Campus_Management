@@ -86,6 +86,10 @@ const editTeacher = async (id:number)=> {
     teacherInfo.value = data.result
     editTeacherDialogFormVisible.value = true
 }
+// Close edit teacher pop-up box
+const closeEditTeacherForm = ()=> {
+    editTeacherDialogFormVisible.value = false
+}
 // Submit form callback function
 const success = ()=> {
     loadData(state);
@@ -226,7 +230,7 @@ const success = ()=> {
             </div>
         </template>
         <!--Edit teacher component start-->
-        <EditTeacher :teacherInfo="teacherInfo" />
+        <EditTeacher :teacherInfo="teacherInfo" @closeEditTeacherForm="closeEditTeacherForm"/>
         <!--Edit teacher component end-->
     </el-dialog>
     <!--Edit teacher pop-up box end-->

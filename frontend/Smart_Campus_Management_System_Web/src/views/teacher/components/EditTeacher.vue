@@ -44,6 +44,12 @@ async function getAllCourseList() {
         courseOptions.value = data.result
 }
 getAllCourseList()
+// Define event
+const emit = defineEmits(['closeEditTeacherForm'])
+// Cancel form
+const close = ()=> {
+    emit('closeEditTeacherForm')
+}
 </script>
 
 <template>
