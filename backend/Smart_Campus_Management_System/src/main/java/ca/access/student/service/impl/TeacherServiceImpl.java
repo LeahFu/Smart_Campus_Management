@@ -70,4 +70,13 @@ public class TeacherServiceImpl implements ITeacherService {
         BeanUtil.copyProperties(teacher,dbTeacher, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         teacherRepository.save(dbTeacher);
     }
+    /**
+     * Delete teacher information based on ID
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) {
+        teacherRepository.deleteById(id);
+    }
 }

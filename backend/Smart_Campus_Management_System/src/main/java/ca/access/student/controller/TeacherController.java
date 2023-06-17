@@ -74,4 +74,17 @@ public class TeacherController {
         teacherService.editTeacher(teacher);
         return BaseResult.success("Update completed");
     }
+    /**
+     * Delete teacher information based on ID
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public BaseResult delete(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to delete information");
+        }
+        teacherService.deleteById(id);
+        return BaseResult.success("Successfully deleted");
+    }
 }

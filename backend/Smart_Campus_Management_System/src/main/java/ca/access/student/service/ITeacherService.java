@@ -37,4 +37,10 @@ public interface ITeacherService {
      * @param teacher
      */
     void editTeacher(Teacher teacher);
+
+    /**
+     * Delete teacher information based on ID
+     * @param id
+     */
+    void deleteById(Long id);
 }
