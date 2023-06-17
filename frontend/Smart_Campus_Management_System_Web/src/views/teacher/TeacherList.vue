@@ -94,6 +94,7 @@ const closeEditTeacherForm = ()=> {
 const success = ()=> {
     loadData(state);
     closeAddTeacherForm();
+    closeEditTeacherForm();
 }
 </script>
 
@@ -230,7 +231,7 @@ const success = ()=> {
             </div>
         </template>
         <!--Edit teacher component start-->
-        <EditTeacher :teacherInfo="teacherInfo" @closeEditTeacherForm="closeEditTeacherForm"/>
+        <EditTeacher :teacherInfo="teacherInfo" @closeEditTeacherForm="closeEditTeacherForm" @success="success"/>
         <!--Edit teacher component end-->
     </el-dialog>
     <!--Edit teacher pop-up box end-->

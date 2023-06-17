@@ -45,7 +45,7 @@ async function getAllCourseList() {
 }
 getAllCourseList()
 // Define event
-const emit = defineEmits(['closeEditTeacherForm'])
+const emit = defineEmits(['closeEditTeacherForm','success'])
 // Cancel form
 const close = ()=> {
     emit('closeEditTeacherForm')
