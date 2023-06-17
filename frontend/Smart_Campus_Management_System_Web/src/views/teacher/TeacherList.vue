@@ -5,6 +5,7 @@ import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddTeacher from "./components/AddTeacher.vue";
 import EditTeacher from "./components/EditTeacher.vue";
+import {exportExcel} from "../../utils/exportExcel.ts";
 
 const state = reactive({
     // Search keywords
@@ -106,6 +107,25 @@ const delTeacher = async (id:number)=> {
         ElMessage.error('Failed to delete')
     }
 }
+// Export list
+const column = [
+    {name: 'id',label: 'Teacher id'},
+    {name: 'name',label: 'Teacher name'},
+    {name: 'teachno',label: 'Teacher number'},
+    {name: 'gender',label: 'Gender'},
+    {name: 'phone',label: 'Phone number'},
+    {name: 'email',label: 'Email'}
+]
+// Export teacher information
+const exportExcelAction = () => {
+    exportExcel({
+        column,
+        data:state.tableData,
+        filename: 'Teacher information data',
+        format: 'xlsx',
+        autoWidth: true,
+    })
+}
 </script>
 
 <template>
@@ -127,6 +147,9 @@ const delTeacher = async (id:number)=> {
                         <el-col :span="11">
                             <div class="my-button">
                                 <el-button plain style="width: 100%;" color="#2fa7b9" @click="addTeacher">Add teacher</el-button>
+                                <el-button @click="exportExcelAction" type="primary">
+                                    <el-icon style="margin-right: 1px"><Download /></el-icon>Export Excel
+                                </el-button>
                             </div>
                         </el-col>
 
@@ -275,5 +298,10 @@ const delTeacher = async (id:number)=> {
     display: flex;
     justify-content: flex-start;
     color: #178557;
+}
+/*Custom button style*/
+.my-button {
+    display: flex;
+    justify-content:space-between;
 }
 </style>
