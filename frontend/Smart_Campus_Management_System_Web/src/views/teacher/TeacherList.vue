@@ -96,6 +96,16 @@ const success = ()=> {
     closeAddTeacherForm();
     closeEditTeacherForm();
 }
+// Delete teacher information
+const delTeacher = async (id:number)=> {
+    const { data } = await deleteTeacherApi(id)
+    if(data.status===200){
+        ElMessage.success('Successfully deleted')
+        await loadData(state);
+    }else {
+        ElMessage.error('Failed to delete')
+    }
+}
 </script>
 
 <template>
