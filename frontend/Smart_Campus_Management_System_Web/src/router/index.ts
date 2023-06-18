@@ -75,6 +75,21 @@ const routes = [{
                 component: ()=> import('../views/teacher/TeacherList.vue')
             }
         ]
+    },
+    {
+        path:'/scores',
+        name:'scores',
+        meta:{title: 'Grade management'},
+        redirect: '/scores/index',
+        component:()=>import('../views/layout/Index.vue'),
+        children: [
+            {
+                path:'index',
+                name: 'scoreIndex',
+                meta:{title: 'Grade'},
+                component:()=>import('../views/scores/ScoresList.vue')
+            }
+        ]
     }
 ]
 //3. Create routing instance and pass routes configuration
