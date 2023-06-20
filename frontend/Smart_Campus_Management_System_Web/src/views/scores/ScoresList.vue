@@ -23,6 +23,7 @@ const getAllCourseList() = async ()=>{
 }
 //Load data after mount
 onMounted(() => {
+    loadData(state)
     getAllCourseList()
     gradeClassList()
 })
@@ -41,6 +42,20 @@ const state = reactive({
     loading: false,
 })
 const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
+// Get grade list data
+const loadData = async (state: any)=> {
+    state.loading = true
+    // Clear the data first
+    state.tableData=[]
+    const params = {
+        'pageIndex':state.pageIndex,
+        'pageSize': state.pageSize,
+    }
+    const { data } = await getScoresListApi(params)
+    state.tableData = data.content
+    state.total = data.totalElements
+    state.loading = false
+}
 </script>
 
 <template>
