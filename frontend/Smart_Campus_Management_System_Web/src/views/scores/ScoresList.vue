@@ -73,6 +73,60 @@ onMounted(() => {
         </template>
         <!--Header end-->
 
+        <!--Table-box area start-->
+        <div class="table-box">
+            <el-table row-key="id"  element-loading-text="Loading..." v-loading="loading" :data="tableData"
+                      style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
+                      :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}"
+                      @cell-dblclick="celldblclick">
+
+                <el-table-column label="Serial number" width="100" type="index" :index="Nindex"/>
+                <el-table-column label="Student number" >
+                    <template #default="scope">
+                        <span>{{scope.row.student.stuno}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="Student name" >
+                    <template #default="scope">
+                        <span>{{scope.row.student.name}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="Course">
+                    <template #default="scope">
+                        <span>{{scope.row.course.coursename}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="Grades">
+                    <template #default="scope">
+                        <span>{{scope.row.score}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="Created time">
+                    <template #default="scope">
+                            <span>{{scope.row.createTime}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="Operate">
+                    <template #default="scope">
+                        <el-popconfirm confirm-button-text="Submit" cancel-button-text="Cancel" :icon="Delete"
+                                       icon-color="#626AEF" :title="'Are you sure you want to delete “'+scope.row.student.name+'”\'s grades?'"
+                                       @confirm="delScores(scope.row.id)">
+                            <template #reference>
+                                <el-button size="small" type="danger" style="margin-bottom: 10px;">Delete</el-button>
+                            </template>
+                        </el-popconfirm>
+                    </template>
+                </el-table-column>
+
+            </el-table>
+        </div>
+        <!--Table-box area end-->
+
 </template>
 
 <style scoped>
@@ -89,5 +143,12 @@ onMounted(() => {
 :deep(.el-card__header) {
     border-bottom: 1px solid rgb(238 238 238);
     color: #178557;
+}
+/*修改v-loading样式*/
+:deep(.el-loading-spinner .el-loading-text){
+    color: #178557;
+}
+:deep(.el-loading-spinner .path){
+    stroke: #178557;
 }
 </style>
