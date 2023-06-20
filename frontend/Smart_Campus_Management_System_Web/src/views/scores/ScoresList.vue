@@ -2,6 +2,7 @@
 import { ref, reactive, onMounted, toRefs } from 'vue'
 import {gradeClassListApi} from "../../api/student/student.ts";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
+import {getScoresListApi} from "../../api/scores/scores.ts";
 
 // Define class dropdown selections
 const gradeClassOptions = ref<object[]>([])
