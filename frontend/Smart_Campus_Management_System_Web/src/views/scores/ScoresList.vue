@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted  } from 'vue'
+import { ref, reactive, onMounted, toRefs } from 'vue'
 import {gradeClassListApi} from "../../api/student/student.ts";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 
@@ -26,6 +26,21 @@ onMounted(() => {
     getAllCourseList()
     gradeClassList()
 })
+const state = reactive({
+    // Search keywords
+    searchValue:'',
+    // Table data
+    tableData: [],
+    // Total items
+    total: 0,
+    // Number of items displayed per page
+    pageSize: 10,
+    // Current page number
+    pageIndex: 1,
+    // Data loading
+    loading: false,
+})
+const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 </script>
 
 <template>
@@ -127,6 +142,13 @@ onMounted(() => {
         </div>
         <!--Table-box area end-->
 
+        <!--Pagination start-->
+        <el-pagination background layout="total, sizes, prev, pager, next, jumper" :total="total"
+                       v-model:page-size="pageSize"
+                       @current-change="changePage"
+                       :page-sizes="[10, 20, 30, 40]"/>
+        <!--Pagination end-->
+    </el-card>
 </template>
 
 <style scoped>
@@ -150,5 +172,13 @@ onMounted(() => {
 }
 :deep(.el-loading-spinner .path){
     stroke: #178557;
+}
+/*Pagination style*/
+:deep(.el-pagination.is-background .el-pager li:not(.is-disabled).is-active) {
+    background-color: #178557;
+}
+.el-pagination {
+    margin-top: 20px;
+    justify-content: center;
 }
 </style>
