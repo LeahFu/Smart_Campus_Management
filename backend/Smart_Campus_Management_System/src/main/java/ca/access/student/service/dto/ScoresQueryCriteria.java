@@ -7,7 +7,7 @@ import ca.access.annotation.EnableAccessQuery;
  * @date: 2023/06/20
  * @description: Grades query condition parameters
  */
-public class ScoresQueryCriterias {
+public class ScoresQueryCriteria {
     /**
      * Query by class ID
      */
