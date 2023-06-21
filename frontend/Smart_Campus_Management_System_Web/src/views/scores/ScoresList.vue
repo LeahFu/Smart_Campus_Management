@@ -4,6 +4,7 @@ import {gradeClassListApi} from "../../api/student/student.ts";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 import {getScoresListApi} from "../../api/scores/scores.ts";
 import { formatTime } from "../../utils/date"
+import {ElMessage} from 'element-plus'
 
 // Define class dropdown selections
 const gradeClassOptions = ref<object[]>([])
@@ -30,9 +31,8 @@ onMounted(() => {
     gradeClassList()
 })
 const state = reactive({
-    // Search keywords
-    searchValue:'',
-    // Table data
+    stuno:'',
+    name:'',
     tableData: [],
     // Total items
     total: 0,
@@ -43,7 +43,7 @@ const state = reactive({
     // Data loading
     loading: false,
 })
-const {tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
+const {tableData,pageIndex,pageSize,loading,total,stuno,name} = toRefs(state)
 // Get grade list data
 const loadData = async (state: any)=> {
     state.loading = true
@@ -52,6 +52,10 @@ const loadData = async (state: any)=> {
     const params = {
         'pageIndex':state.pageIndex,
         'pageSize': state.pageSize,
+        'name': state.name,
+        'stuno': state.stuno,
+        'courseId': courseId.value,
+        'gradeClassId': gradeClassId.value
     }
     const { data } = await getScoresListApi(params)
     state.tableData = data.content
@@ -68,6 +72,23 @@ const refresh = () => {
     state.searchValue = ''
     // Refresh data
     loadData(state);
+}
+const search = () => {
+    if (state.name !== null&&state.name !== "") {
+        ElMessage({
+            type: 'success',
+            message: `Student name: “${state.name}”. The search content is as follows:`,
+        })
+        loadData(state)
+    }
+
+    if (state.stuno !== null&&state.stuno !== "") {
+        ElMessage({
+            type: 'success',
+            message: `Student number: “${state.stuno}”. The search content is as follows:`,
+        })
+        loadData(state)
+    }
 }
 </script>
 
