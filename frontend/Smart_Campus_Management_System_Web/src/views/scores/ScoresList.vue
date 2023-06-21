@@ -58,6 +58,17 @@ const loadData = async (state: any)=> {
     state.total = data.totalElements
     state.loading = false
 }
+// Refresh list data
+const refresh = () => {
+    // Course ID
+    courseId.value = ''
+    // Class ID
+    gradeClassId.value = ''
+    // Search keywords
+    state.searchValue = ''
+    // Refresh data
+    loadData(state);
+}
 </script>
 
 <template>
