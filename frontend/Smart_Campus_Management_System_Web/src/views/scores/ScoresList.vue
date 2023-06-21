@@ -3,6 +3,7 @@ import { ref, reactive, onMounted, toRefs } from 'vue'
 import {gradeClassListApi} from "../../api/student/student.ts";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 import {getScoresListApi} from "../../api/scores/scores.ts";
+import { formatTime } from "../../utils/date"
 
 // Define class dropdown selections
 const gradeClassOptions = ref<object[]>([])
@@ -138,7 +139,7 @@ const loadData = async (state: any)=> {
 
                 <el-table-column label="Created time">
                     <template #default="scope">
-                            <span>{{scope.row.createTime}}</span>
+                            <span>{{formatTime(scope.row.createTime, 'yyyy-MM-dd')}}</span>
                     </template>
                 </el-table-column>
 
