@@ -90,6 +90,18 @@ const search = () => {
         loadData(state)
     }
 }
+// Change page event
+const changePage = (val) => {
+    state.pageIndex = val
+    loadData(state)
+}
+// Process serial number
+const Nindex = (index) => {
+    // Current page number - 1 * number of data items per page + 1
+    const page = state.pageIndex // Current page number
+    const pagesize = state.pageSize // Number of data items per page
+    return index + 1 + (page - 1) * pagesize
+}
 </script>
 
 <template>
