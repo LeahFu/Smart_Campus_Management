@@ -8,6 +8,7 @@ import ca.access.student.repository.ScoresRepository;
 import ca.access.student.repository.StudentRepository;
 import ca.access.student.service.IScoresService;
 import ca.access.student.service.dto.ScoresQueryCriteria;
+import ca.access.student.vo.RegisterScoresModel;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
 import org.springframework.data.domain.Page;

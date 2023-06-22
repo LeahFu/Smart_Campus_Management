@@ -12,5 +12,11 @@ import java.util.List;
  * @description: Grade Management Persistence Layer
  */
 public interface ScoresRepository extends JpaRepository<Scores, Long>, JpaSpecificationExecutor<Scores> {
-
+    /**
+     * Query score information based on course ID and student ID
+     * @param courseId
+     * @param id
+     * @return
+     */
+    Scores getCourseByCourseIdAndStudentId(Long courseId, Long id);
 }

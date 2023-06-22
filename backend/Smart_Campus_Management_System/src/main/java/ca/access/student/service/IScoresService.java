@@ -1,6 +1,7 @@
 package ca.access.student.service;
 
 import ca.access.student.service.dto.ScoresQueryCriteria;
+import ca.access.student.vo.RegisterScoresModel;
 import org.springframework.data.domain.Pageable;
 
 /**

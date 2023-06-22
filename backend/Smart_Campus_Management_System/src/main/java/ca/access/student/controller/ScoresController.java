@@ -3,6 +3,7 @@ package ca.access.student.controller;
 import ca.access.base.BaseResult;
 import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.service.IScoresService;
+import ca.access.student.vo.RegisterScoresModel;
 import ca.access.utils.PageVo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

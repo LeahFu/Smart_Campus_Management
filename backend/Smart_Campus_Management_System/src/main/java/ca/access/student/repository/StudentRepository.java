@@ -12,5 +12,10 @@ import java.util.List;
  * @description: Student management persistence layer
  */
 public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpecificationExecutor<Student> {
-
+    /**
+     * Get all students under the class according to the class ID
+     * @param gradeClassId
+     * @return
+     */
+    List<Student> findAllByGradeClassId(Long gradeClassId);
 }
