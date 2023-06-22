@@ -16,4 +16,10 @@ public interface IScoresService {
      * @return
      */
     Object getList(ScoresQueryCriteria queryCriteria, Pageable pageable);
+    /**
+     * Register class course grades
+     * @param scoresModel
+     * @return
+     */
+    void registerScores(RegisterScoresModel scoresModel);
 }

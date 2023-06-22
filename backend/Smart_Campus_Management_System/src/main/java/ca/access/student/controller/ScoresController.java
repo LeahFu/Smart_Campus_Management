@@ -1,5 +1,6 @@
 package ca.access.student.controller;
 
+import ca.access.base.BaseResult;
 import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.service.IScoresService;
 import ca.access.utils.PageVo;
@@ -8,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: Lei Fu
@@ -35,5 +34,15 @@ public class ScoresController {
     public ResponseEntity<Object> getList(ScoresQueryCriteria queryCriteria, PageVo pageVo){
         Pageable pageable = PageRequest.of(pageVo.getPageIndex()-1,pageVo.getPageSize(), Sort.Direction.DESC, "id");
         return new ResponseEntity<>(scoresService.getList(queryCriteria,pageable), HttpStatus.OK);
+    }
+    /**
+     * Register class course grades
+     * @param scoresModel
+     * @return
+     */
+    @PostMapping
+    public BaseResult registerScores(@RequestBody RegisterScoresModel scoresModel){
+        scoresService.registerScores(scoresModel);
+        return BaseResult.success("Registration successful");
     }
 }
