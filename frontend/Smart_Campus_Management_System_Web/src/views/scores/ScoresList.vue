@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted, toRefs } from 'vue'
 import {gradeClassListApi} from "../../api/student/student.ts";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
-import {getScoresListApi} from "../../api/scores/scores.ts";
+import {getScoresListApi, registerScoresApi} from "../../api/scores/scores.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 
@@ -101,6 +101,24 @@ const Nindex = (index) => {
     const page = state.pageIndex // Current page number
     const pagesize = state.pageSize // Number of data items per page
     return index + 1 + (page - 1) * pagesize
+}
+// Register class course grades
+const registerScores = async () => {
+    if(gradeClassId.value < 1){
+        ElMessage.error('Please select a class')
+        return false
+    }
+    if(courseId.value < 1){
+        ElMessage.error('Please select a course')
+        return false
+    }
+    const { data } =  await registerScoresApi(gradeClassId.value,courseId.value)
+    if(data.status===200){
+        await loadData(state)
+        ElMessage.success(data.message)
+    }else {
+        ElMessage.error(data.message)
+    }
 }
 </script>
 

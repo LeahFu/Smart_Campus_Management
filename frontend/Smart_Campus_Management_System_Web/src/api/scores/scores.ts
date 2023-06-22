@@ -6,3 +6,14 @@ export function getScoresListApi(data:object) {
         params: data
     })
 }
+// Register course grades
+export function registerScoresApi(gradeClassId:number,courseId:number) {
+    return request({
+        url: 'scores',
+        method: 'post',
+        data: {
+            gradeClassId: gradeClassId,
+            courseId: courseId
+        }
+    })
+}
