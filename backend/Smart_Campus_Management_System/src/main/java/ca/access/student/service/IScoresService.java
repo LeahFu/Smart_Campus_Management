@@ -1,5 +1,6 @@
 package ca.access.student.service;
 
+import ca.access.student.domain.Scores;
 import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.vo.RegisterScoresModel;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +24,10 @@ public interface IScoresService {
      * @return
      */
     void registerScores(RegisterScoresModel scoresModel);
+
+    /**
+     * Update grades
+     * @param scores
+     */
+    void editScores(Scores scores);
 }

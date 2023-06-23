@@ -11,6 +11,8 @@ import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.vo.RegisterScoresModel;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -77,5 +79,18 @@ public class ScoresServiceImpl implements IScoresService {
                 scoresRepository.save(dbScores);
             }
         }
+    }
+
+    /**
+     * Update grades
+     * @param scores
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void editScores(Scores scores) {
+        Scores dbScores = scoresRepository.getReferenceById(scores.getId());
+        dbScores.setType("Corrected");
+        BeanUtil.copyProperties(scores,dbScores, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+        scoresRepository.save(dbScores);
     }
 }

@@ -1,5 +1,6 @@
 package ca.access.student.controller;
 
+import ca.access.student.domain.Scores;
 import ca.access.base.BaseResult;
 import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.service.IScoresService;
@@ -45,5 +46,15 @@ public class ScoresController {
     public BaseResult registerScores(@RequestBody RegisterScoresModel scoresModel){
         scoresService.registerScores(scoresModel);
         return BaseResult.success("Registration successful");
+    }
+    /**
+     * Update grades
+     * @param scores
+     * @return
+     */
+    @PutMapping
+    public BaseResult editScores(@RequestBody Scores scores){
+        scoresService.editScores(scores);
+        return BaseResult.success("Update completed");
     }
 }
