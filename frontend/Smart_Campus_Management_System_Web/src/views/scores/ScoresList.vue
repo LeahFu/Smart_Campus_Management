@@ -210,9 +210,31 @@ const cancel = (key: any) => {
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Grades">
+                <el-table-column>
+                    <!-- Custom header -->
+                    <template #header>
+                        <span>Grades</span>
+                        <el-icon><Edit /></el-icon>
+                    </template>
+                    <!-- Customize cell content-->
                     <template #default="scope">
-                        <span>{{scope.row.score}}</span>
+                        <div class="edit-score" v-if="scope.row.edit">
+                            <el-input
+                                clearable
+                                placeholder="Please enter"
+                                v-model="scope.row.score"
+                            ></el-input>
+                            <el-button type="success" size="small" @click="editScores(scope.row)"
+                                       style="margin: 0 0 10px 10px;">Save</el-button>
+                            <el-button type="warning" size="small" @click="cancel(scope.row)"
+                                       style="margin: 0 0 10px 10px;">Cancel</el-button>
+                        </div>
+                        <span  v-else>
+                            {{scope.row.score}}
+                            <el-tooltip content="Double click to edit" placement="top" effect="light">
+                                <el-icon style="cursor:pointer;"><Edit /></el-icon>
+                            </el-tooltip>
+                        </span>
                     </template>
                 </el-table-column>
 
