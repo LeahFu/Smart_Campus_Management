@@ -93,4 +93,13 @@ public class ScoresServiceImpl implements IScoresService {
         BeanUtil.copyProperties(scores,dbScores, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
         scoresRepository.save(dbScores);
     }
+    /**
+     * Delete grades information based on ID
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) {
+        scoresRepository.deleteById(id);
+    }
 }

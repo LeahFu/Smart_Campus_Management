@@ -1,5 +1,6 @@
 package ca.access.student.controller;
 
+import ca.access.exception.BadRequestException;
 import ca.access.student.domain.Scores;
 import ca.access.base.BaseResult;
 import ca.access.student.service.dto.ScoresQueryCriteria;
@@ -56,5 +57,18 @@ public class ScoresController {
     public BaseResult editScores(@RequestBody Scores scores){
         scoresService.editScores(scores);
         return BaseResult.success("Update completed");
+    }
+    /**
+     * Delete grades information based on ID
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public BaseResult delete(@PathVariable Long id){
+        if(null==id){
+            throw new BadRequestException("Failed to delete information");
+        }
+        scoresService.deleteById(id);
+        return BaseResult.success("Successfully deleted");
     }
 }

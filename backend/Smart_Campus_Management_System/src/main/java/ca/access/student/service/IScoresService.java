@@ -30,4 +30,10 @@ public interface IScoresService {
      * @param scores
      */
     void editScores(Scores scores);
+
+    /**
+     * Delete grades information based on ID
+     * @param id
+     */
+    void deleteById(Long id);
 }
