@@ -28,3 +28,10 @@ export function editScoresApi(id:number,score: number) {
         }
     })
 }
+// Delete grade information based on ID
+export function deleteScoresApi(id:number) {
+    return request({
+        url: `scores/${id}`,
+        method: 'delete'
+    })
+}

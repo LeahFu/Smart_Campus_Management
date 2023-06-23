@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted, toRefs } from 'vue'
 import {gradeClassListApi} from "../../api/student/student.ts";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
-import {getScoresListApi, registerScoresApi} from "../../api/scores/scores.ts";
+import {editScoresApi, getScoresListApi, registerScoresApi} from "../../api/scores/scores.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 
@@ -154,6 +154,15 @@ const editScores = async (record: { id: any; score: any; })=> {
         ElMessage.error(data.message)
     }
     loading.value = false
+}
+// 删除成绩信息
+const delScores = async (id:number)=> {
+    const { data } = await deleteScoresApi(id)
+    if(data.status===200){
+        ElMessage.success('Successfully deleted')
+    }else {
+        ElMessage.error('Failed to delete')
+    }
 }
 </script>
 
