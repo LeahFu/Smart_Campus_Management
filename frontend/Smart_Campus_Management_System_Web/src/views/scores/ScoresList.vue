@@ -137,6 +137,24 @@ const cancel = (key: any) => {
     key._originalData = { ...key }
     key.edit = !key.edit
 }
+// Save edit scores
+const editScores = async (record: { id: any; score: any; })=> {
+    loading.value = true
+    const { id,score } = record
+    if(!score){
+        loading.value = false
+        ElMessage.error('Submission failed, please change grades!')
+        return
+    }
+    const { data } = await editScoresApi(id,score)
+    if(data.status===200){
+        ElMessage.success(data.message)
+        await loadData(state)
+    }else {
+        ElMessage.error(data.message)
+    }
+    loading.value = false
+}
 </script>
 
 <template>
@@ -304,5 +322,11 @@ const cancel = (key: any) => {
 .el-pagination {
     margin-top: 20px;
     justify-content: center;
+}
+/*Custom edit cell style*/
+.edit-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
 </style>

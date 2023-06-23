@@ -17,3 +17,14 @@ export function registerScoresApi(gradeClassId:number,courseId:number) {
         }
     })
 }
+// Refresh grades
+export function editScoresApi(id:number,score: number) {
+    return request({
+        url: 'scores',
+        method: 'put',
+        data: {
+            id:id,
+            score:score
+        }
+    })
+}
