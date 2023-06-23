@@ -120,6 +120,23 @@ const registerScores = async () => {
         ElMessage.error(data.message)
     }
 }
+// Defines whether the cell is editable
+const edit = ref(false)
+// Double click cell function
+const celldblclick = (row, column, cell, event)=> {
+    const scoreTarget: any = state.tableData.find(item => {
+        return item.id === row.id
+    })
+    if (scoreTarget !== undefined) {
+        scoreTarget._originalData = { ...scoreTarget }
+        scoreTarget.edit = !scoreTarget.edit
+    }
+}
+// Cancel edit
+const cancel = (key: any) => {
+    key._originalData = { ...key }
+    key.edit = !key.edit
+}
 </script>
 
 <template>
@@ -196,6 +213,12 @@ const registerScores = async () => {
                 <el-table-column label="Grades">
                     <template #default="scope">
                         <span>{{scope.row.score}}</span>
+                    </template>
+                </el-table-column>
+
+                <el-table-column label="Type" prop="type">
+                    <template #default="scope">
+                        <span>{{scope.row.type}}</span>
                     </template>
                 </el-table-column>
 
