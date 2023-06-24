@@ -5,6 +5,7 @@ import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 import {editScoresApi, getScoresListApi, registerScoresApi} from "../../api/scores/scores.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
+import {exportExcel} from "../../utils/exportExcel.ts";
 
 // Define class dropdown selections
 const gradeClassOptions = ref<object[]>([])
@@ -164,6 +165,27 @@ const delScores = async (id:number)=> {
         ElMessage.error('Failed to delete')
     }
 }
+// Export list
+const column = [
+    {name: 'id',label: 'Grades id'},
+    {name: 'stuno',label: 'Student number'},
+    {name: 'name',label: 'Student name'},
+    {name: 'coursename',label: 'Course name'},
+    {name: 'score',label: 'Score'},
+    {name: 'type',label: 'Type'}
+]
+const exportExcelAction = () => {
+    const newTableData = state.tableData.flatMap((item: any)=> {
+        return {...item,...item.course,...item.student}
+    })
+    exportExcel({
+        column,
+        data:newTableData,
+        filename: 'Class Subject Grade Data',
+        format: 'xlsx',
+        autoWidth: true,
+    })
+}
 </script>
 
 <template>
@@ -190,6 +212,9 @@ const delScores = async (id:number)=> {
                         </el-col>
                         <el-col :span="6">
                             <el-button plain  color="#2fa7b9" @click="registerScores">Registration score</el-button>
+                            <el-button plain @click="exportExcelAction" type="primary">
+                                <el-icon style="margin-right: 1px"><Download /></el-icon>Export Excel
+                            </el-button>
                         </el-col>
                         <el-col :span="3">
                             <el-input :prefix-icon="Search" v-model="stuno" @keyup.enter.native="search"
