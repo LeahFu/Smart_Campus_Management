@@ -1,5 +1,30 @@
 <script setup lang="ts">
+import {onMounted, ref} from 'vue'
+import {gradeClassListApi} from "../../api/student/student";
+import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 
+// Define the class ID
+const gradeClassId = ref()
+// Class dropdown selection
+const gradeClassOptions = ref<object[]>([])
+// Get a list of all classes
+const gradeClassList = async()=>{
+        const { data } = await gradeClassListApi()
+            gradeClassOptions.value = data.result
+}
+// Define the course ID
+const courseId = ref()
+// Course dropdown selection
+const courseOptions = ref<object[]>([])
+// Get a list of all courses
+const getAllCourseList = async ()=>{
+    const {data} = await getAllCourseListApi()
+    courseOptions.value = data.result
+}
+onMounted(()=>{
+    gradeClassList()
+    getAllCourseList()
+})
 </script>
 
 <template>
