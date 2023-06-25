@@ -3,6 +3,7 @@ import {onMounted, ref} from 'vue'
 import {gradeClassListApi} from "../../api/student/student";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 import ScoreCensusPie from "./components/ScoreCensusPie.vue";
+import {getScoreCensusApi} from "../../api/census/census.ts";
 
 // Define the class ID
 const gradeClassId = ref()
@@ -22,9 +23,19 @@ const getAllCourseList = async ()=>{
     const {data} = await getAllCourseListApi()
     courseOptions.value = data.result
 }
+// Statistical class subject grades
+const legendData = ref(["A","B","C","D","F"])
+const seriesData = ref([])
+const getScoreCensus = async ()=> {
+    const { data } = await getScoreCensusApi(courseId.value,gradeClassId.value)
+        seriesData.value = data.result
+        console.log(`data.result is: ${data.result}`)
+}
+
 onMounted(()=>{
     gradeClassList()
     getAllCourseList()
+    getScoreCensus()
 })
 </script>
 
