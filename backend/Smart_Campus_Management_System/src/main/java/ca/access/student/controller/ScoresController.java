@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author: Lei Fu
  * @date: 2023/06/17
@@ -70,5 +72,17 @@ public class ScoresController {
         }
         scoresService.deleteById(id);
         return BaseResult.success("Successfully deleted");
+    }
+    /**
+     * Statistical class course grades
+     * @param courseId
+     * @param gradeClassId
+     * @return
+     */
+    @GetMapping("getScoreCensus")
+    public BaseResult getScoreCensus(@RequestParam("courseId")Long courseId,
+                                     @RequestParam("gradeClassId")Long gradeClassId){
+        List<EchartsSeriesModel> list=  scoresService.getScoreCensus(courseId,gradeClassId);
+        return BaseResult.success(list);
     }
 }

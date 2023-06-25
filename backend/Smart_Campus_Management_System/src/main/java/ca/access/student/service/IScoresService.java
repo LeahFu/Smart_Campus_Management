@@ -5,6 +5,8 @@ import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.vo.RegisterScoresModel;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author: Lei Fu
  * @date: 2023/06/17
@@ -36,4 +38,12 @@ public interface IScoresService {
      * @param id
      */
     void deleteById(Long id);
+
+    /**
+     * Statistical class course grades
+     * @param courseId
+     * @param gradeClassId
+     * @return
+     */
+    List<EchartsSeriesModel> getScoreCensus(Long courseId, Long gradeClassId);
 }

@@ -102,4 +102,9 @@ public class ScoresServiceImpl implements IScoresService {
     public void deleteById(Long id) {
         scoresRepository.deleteById(id);
     }
+
+    @Override
+    public List<EchartsSeriesModel> getScoreCensus(Long courseId, Long gradeClassId) {
+        return null;
+    }
 }
