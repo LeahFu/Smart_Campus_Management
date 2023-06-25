@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as echarts from 'echarts'
 import { EChartsType } from 'echarts/core'
-import {onMounted} from 'vue'
+import {onMounted,watch} from 'vue'
 
 let props = defineProps({
     legendData: {
@@ -107,6 +107,13 @@ const initChart = () => {
     chart.setOption(options,true)
     return chart
 }
+watch(
+    () => props.seriesData,
+    (seriesData) => {
+        options.series[0].data = seriesData
+        initChart()
+    }
+)
 onMounted(() => {
     chart = initChart()
     window.addEventListener('resize', function () {

@@ -31,7 +31,12 @@ const getScoreCensus = async ()=> {
         seriesData.value = data.result
         console.log(`data.result is: ${data.result}`)
 }
-
+// Monitor class changes
+const changeCourse = async ()=> {
+    if(gradeClassId.value!==null&&gradeClassId.value!==""&&courseId.value!==null&&courseId.value!==""){
+        await getScoreCensus()
+    }
+}
 onMounted(()=>{
     gradeClassList()
     getAllCourseList()
@@ -56,7 +61,7 @@ onMounted(()=>{
                             </el-select>
                         </el-col>
                         <el-col :span="12">
-                            <el-select v-model="courseId" placeholder="Please select a subject" style="width: 100%;" >
+                            <el-select v-model="courseId" placeholder="Please select a course" style="width: 100%;" @change="changeCourse">
                                 <el-option v-for="item in courseOptions" :key="item.id" :label="item.name" :value="item.id" />
                             </el-select>
                         </el-col>
