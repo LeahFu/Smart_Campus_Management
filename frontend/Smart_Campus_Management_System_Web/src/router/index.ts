@@ -90,6 +90,20 @@ const routes = [{
                 component:()=>import('../views/scores/ScoresList.vue')
             }
         ]
+    },
+    {
+        path:'/census',
+        name:'census',
+        meta:{title:'Statistics'},
+        redirect: '/census/index',
+        component:()=>import('../views/layout/Index.vue'),
+        children: [
+            {
+                path:'index',
+                name:'scoresCensusIndex',
+                component:()=>import('../views/census/ScoresCensus.vue')
+            }
+        ]
     }
 ]
 //3. Create routing instance and pass routes configuration
