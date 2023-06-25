@@ -2,6 +2,7 @@
 import {onMounted, ref} from 'vue'
 import {gradeClassListApi} from "../../api/student/student";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
+import ScoreCensusPie from "./components/ScoreCensusPie.vue";
 
 // Define the class ID
 const gradeClassId = ref()
@@ -54,6 +55,10 @@ onMounted(()=>{
             </div>
         </template>
         <!--Header end-->
+
+        <!--echarts start-->
+        <ScoreCensusPie :seriesData="seriesData" :legendData="legendData" height="400px" width="100%" id="pie"/>
+        <!--echarts end-->
     </el-card>
 </template>
 

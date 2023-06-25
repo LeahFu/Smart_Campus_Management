@@ -101,6 +101,18 @@ const options = {
     },
 }
 let chart: EChartsType
+
+const initChart = () => {
+    let chart = echarts.init(document.getElementById(props.id))
+    chart.setOption(options,true)
+    return chart
+}
+onMounted(() => {
+    chart = initChart()
+    window.addEventListener('resize', function () {
+        chart && chart.resize()
+    })
+})
 </script>
 
 <template>
