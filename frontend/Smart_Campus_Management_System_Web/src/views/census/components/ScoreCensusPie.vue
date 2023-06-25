@@ -33,6 +33,74 @@ let props = defineProps({
         default: '200px',
     },
 })
+const options = {
+    title: {
+        text: 'Class course grades analysis pie chart',
+        subtext: '0~59:F；60~69:D；70~79:C；80~89:B；90~100：A',
+        x: 'center'
+    },
+    grid: {
+        top: 10,
+        left: '2%',
+        right: '2%',
+        bottom: '2%',
+        containLabel: true,
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        data: props.legendData
+    },
+    series: [
+        {
+            name: 'quantity',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                show: false,
+                position: 'center',
+            },
+            emphasis: {
+                label: {
+                    show: true,
+                    fontSize: '40',
+                    fontWeight: 'bold',
+                },
+            },
+            labelLine: {
+                show: false,
+            },
+            data: props.seriesData,
+        },
+    ],
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {
+                show: true,
+                type: ['pie', 'funnel'],
+                option: {
+                    funnel: {
+                        x: '25%',
+                        width: '50%',
+                        funnelAlign: 'left',
+                        max: 1548
+                    }
+                }
+            },
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+}
+let chart: EChartsType
 </script>
 
 <template>
