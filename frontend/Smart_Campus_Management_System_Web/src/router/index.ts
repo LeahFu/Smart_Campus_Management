@@ -102,6 +102,12 @@ const routes = [{
                 path:'index',
                 name:'scoresCensusIndex',
                 component:()=>import('../views/census/ScoresCensus.vue')
+            },
+            {
+                path:'contrast',
+                name:'scoresContrastCensusIndex',
+                meta:{title:'Class course grades comparison statistics'},
+                component:()=> import('../views/census/ScoresContrastCensus.vue')
             }
         ]
     }
