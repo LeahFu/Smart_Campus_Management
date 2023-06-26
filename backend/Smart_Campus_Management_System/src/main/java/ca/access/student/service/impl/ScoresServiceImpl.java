@@ -8,6 +8,7 @@ import ca.access.student.repository.ScoresRepository;
 import ca.access.student.repository.StudentRepository;
 import ca.access.student.service.IScoresService;
 import ca.access.student.service.dto.ScoresQueryCriteria;
+import ca.access.student.vo.EchartsSeriesModel;
 import ca.access.student.vo.RegisterScoresModel;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
@@ -18,7 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author: Lei Fu
@@ -102,9 +105,78 @@ public class ScoresServiceImpl implements IScoresService {
     public void deleteById(Long id) {
         scoresRepository.deleteById(id);
     }
-
+    /**
+     * Statistical class course grades
+     * @param courseId
+     * @param gradeClassId
+     * @return
+     */
     @Override
     public List<EchartsSeriesModel> getScoreCensus(Long courseId, Long gradeClassId) {
-        return null;
+        List<EchartsSeriesModel> data = new ArrayList<>();
+        // Get all grade information based on class ID and course ID
+        List<Scores> scoresList = scoresRepository.findAllByCourseIdAndGradeClassId(courseId,gradeClassId);
+
+        // The number of people whose grades are "A"
+        AtomicInteger excellentNums= new AtomicInteger();
+        EchartsSeriesModel excellentEchartsSeriesModel= new EchartsSeriesModel();
+        // The number of people whose grades are "B"
+        AtomicInteger goodNums = new AtomicInteger();
+        EchartsSeriesModel goodEchartsSeriesModel= new EchartsSeriesModel();
+        // The number of people whose grades are "C"
+        AtomicInteger commonNums = new AtomicInteger();
+        EchartsSeriesModel commonEchartsSeriesModel= new EchartsSeriesModel();
+        // The number of people whose grades are "D"
+        AtomicInteger badNums = new AtomicInteger();
+        EchartsSeriesModel badEchartsSeriesModel= new EchartsSeriesModel();
+        // The number of people whose grades are "F"
+        AtomicInteger failNums = new AtomicInteger();
+        EchartsSeriesModel failEchartsSeriesModel= new EchartsSeriesModel();
+
+        scoresList.stream().forEach(item-> {
+            if(item.getScore()>=90){
+                excellentNums.getAndIncrement();
+                excellentEchartsSeriesModel.setName("A");
+                excellentEchartsSeriesModel.setValue(excellentNums.intValue());
+            }else if(item.getScore()>=80&&item.getScore()<90) {
+                goodNums.getAndIncrement();
+                goodEchartsSeriesModel.setName("B");
+                goodEchartsSeriesModel.setValue(goodNums.intValue());
+            }else if(item.getScore()>=70&&item.getScore()<80) {
+                commonNums.getAndIncrement();
+                commonEchartsSeriesModel.setName("C");
+                commonEchartsSeriesModel.setValue(commonNums.intValue());
+            }else if(item.getScore()>=60&&item.getScore()<70) {
+                badNums.getAndIncrement();
+                badEchartsSeriesModel.setName("D");
+                badEchartsSeriesModel.setValue(badNums.intValue());
+            }else {
+                failNums.getAndIncrement();
+                failEchartsSeriesModel.setName("F");
+                failEchartsSeriesModel.setValue(failNums.intValue());
+            }
+        });
+        // The number of people whose grades are "A"
+        if(excellentNums.intValue()!=0){
+            data.add(excellentEchartsSeriesModel);
+        }
+        // The number of people whose grades are "B"
+        if(goodNums.intValue()!=0){
+            data.add(goodEchartsSeriesModel);
+        }
+        // The number of people whose grades are "C"
+        if(commonNums.intValue()!=0){
+            data.add(commonEchartsSeriesModel);
+        }
+        // The number of people whose grades are "D"
+        if(badNums.intValue()!=0){
+            data.add(badEchartsSeriesModel);
+        }
+        // The number of people whose grades are "F"
+        if(failNums.intValue()!=0){
+            data.add(failEchartsSeriesModel);
+        }
+
+        return data;
     }
 }
