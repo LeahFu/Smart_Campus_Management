@@ -4,6 +4,7 @@ import ca.access.student.domain.Scores;
 import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.vo.RegisterScoresModel;
 import org.springframework.data.domain.Pageable;
+import  ca.access.student.vo.EchartsSeriesModel;
 
 import java.util.List;
 

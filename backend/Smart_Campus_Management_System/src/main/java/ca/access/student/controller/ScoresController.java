@@ -7,6 +7,7 @@ import ca.access.student.service.dto.ScoresQueryCriteria;
 import ca.access.student.service.IScoresService;
 import ca.access.student.vo.RegisterScoresModel;
 import ca.access.utils.PageVo;
+import ca.access.student.vo.EchartsSeriesModel;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -82,7 +83,7 @@ public class ScoresController {
     @GetMapping("getScoreCensus")
     public BaseResult getScoreCensus(@RequestParam("courseId")Long courseId,
                                      @RequestParam("gradeClassId")Long gradeClassId){
-        List<EchartsSeriesModel> list=  scoresService.getScoreCensus(courseId,gradeClassId);
+        List<EchartsSeriesModel> list = scoresService.getScoreCensus(courseId,gradeClassId);
         return BaseResult.success(list);
     }
 }
