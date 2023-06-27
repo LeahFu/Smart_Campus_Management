@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref,onMounted } from 'vue'
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
+import ScoreContrastCensusBar from "./components/ScoreContrastCensusBar.vue";
+
 // Define course ID
 const courseId = ref()
 // Define Course Dropdown Selections
@@ -40,6 +42,11 @@ onMounted(() => {
             </div>
         </template>
         <!--Header end-->
+
+        <!--echarts start-->
+        <ScoreContrastCensusBar :seriesData="seriesData" :legendData="legendData" height="400px" width="100%" id="pie"/>
+        <!--echarts end-->
+    </el-card>
 </template>
 
 <style scoped>

@@ -4,6 +4,18 @@ import { EChartsType } from 'echarts/core'
 import { onMounted } from 'vue'
 
 let props = defineProps({
+    legendData: {
+        type:Array,
+        default: []
+    },
+    categoryData: {
+        type:Array,
+        default: []
+    },
+    seriesData: {
+        type:Array,
+        default: []
+    },
     className: {
         type:String,
         default: 'chart'
@@ -22,6 +34,9 @@ let props = defineProps({
     }
 })
 const options = {
+    legend: {
+        data: props.legendData
+    },
     grid: {
         top:10,
         left: '2%',
@@ -31,12 +46,12 @@ const options = {
     },
     xAxis: {
         type: 'category',
-        data: []
+        data: props.categoryData
     },
     yAxis: {
         type: 'value'
     },
-    series: []
+    series: props.categoryData
 }
 let chart: EChartsType
 const initChart = () => {
