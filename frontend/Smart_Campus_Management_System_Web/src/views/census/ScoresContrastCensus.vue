@@ -2,6 +2,7 @@
 import { ref,onMounted } from 'vue'
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 import ScoreContrastCensusBar from "./components/ScoreContrastCensusBar.vue";
+import {getScoresContrastCensusApi} from "../../api/census/census.ts";
 
 // Define course ID
 const courseId = ref()
@@ -11,6 +12,23 @@ const courseOptions = ref<object[]>([])
 const getAllCourseList() = async()=>{
         const { data } = await getAllCourseListApi()
             courseOptions.value = data.result
+}
+const legendData = ref(['total people','overall score','average score', 'highest score', 'minimum score'])
+const seriesData = ref([])
+const categoryData = ref([])
+// Class course grades comparison
+const getScoresContrastCensus = async ()=> {
+    const { data } = await getScoresContrastCensusApi(courseId.value)
+    if(data.status===200){
+        seriesData.value = data.result.barEchartsSeriesList
+        categoryData.value = data.result.categoryList
+    }
+}
+// Monitor course drop-down selection box
+const changeCourse = async ()=> {
+    if(courseId.value!==null&&courseId.value!==""){
+        await getScoresContrastCensus()
+    }
 }
 //Load data after mount
 onMounted(() => {

@@ -9,3 +9,13 @@ export function getScoreCensusApi(courseId:number,gradeClassId:number) {
         }
     })
 }
+// Comparison of class course scores
+export function getScoresContrastCensusApi(courseId:number) {
+    return request({
+        url: 'scores/getScoresContrastCensus',
+        method: 'get',
+        params: {
+            courseId
+        }
+    })
+}
