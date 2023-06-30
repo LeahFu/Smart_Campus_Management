@@ -179,4 +179,9 @@ public class ScoresServiceImpl implements IScoresService {
 
         return data;
     }
+
+    @Override
+    public HashMap<String, Object> getScoresContrastCensus(Long courseId) {
+        return null;
+    }
 }

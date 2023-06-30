@@ -86,4 +86,13 @@ public class ScoresController {
         List<EchartsSeriesModel> list = scoresService.getScoreCensus(courseId,gradeClassId);
         return BaseResult.success(list);
     }
+    /**
+     * Comparison of class course scores
+     * @param courseId
+     * @return
+     */
+    @GetMapping("getScoresContrastCensus")
+    public BaseResult getScoresContrastCensus(@RequestParam("courseId")Long courseId){
+        return BaseResult.success(scoresService.getScoresContrastCensus(courseId));
+    }
 }

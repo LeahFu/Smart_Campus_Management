@@ -47,4 +47,11 @@ public interface IScoresService {
      * @return
      */
     List<EchartsSeriesModel> getScoreCensus(Long courseId, Long gradeClassId);
+
+    /**
+     * Comparison of class course scores
+     * @param courseId
+     * @return
+     */
+    HashMap<String,Object> getScoresContrastCensus(Long courseId);
 }
