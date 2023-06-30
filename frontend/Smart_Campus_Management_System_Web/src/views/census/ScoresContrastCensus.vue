@@ -49,7 +49,7 @@ onMounted(() => {
                 <div class="card-search">
                     <el-row :gutter="8">
                         <el-col :span="24">
-                            <el-select v-model="courseId" placeholder="Please select a course" style="width: 100%;" >
+                            <el-select v-model="courseId" placeholder="Please select a course" style="width: 100%;" @change="changeCourse">
                                 <el-option v-for="item in courseOptions" :key="item.id" :label="item.name" :value="item.id" />
                             </el-select>
                         </el-col>
