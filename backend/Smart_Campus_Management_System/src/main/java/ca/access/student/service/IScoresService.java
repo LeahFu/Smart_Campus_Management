@@ -6,6 +6,7 @@ import ca.access.student.vo.RegisterScoresModel;
 import org.springframework.data.domain.Pageable;
 import  ca.access.student.vo.EchartsSeriesModel;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**

@@ -8,6 +8,7 @@ import ca.access.student.repository.ScoresRepository;
 import ca.access.student.repository.StudentRepository;
 import ca.access.student.service.IScoresService;
 import ca.access.student.service.dto.ScoresQueryCriteria;
+import ca.access.student.vo.BarEchartsSeriesModel;
 import ca.access.student.vo.EchartsSeriesModel;
 import ca.access.student.vo.RegisterScoresModel;
 import ca.access.utils.PageUtil;
@@ -19,9 +20,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @author: Lei Fu
@@ -180,8 +186,50 @@ public class ScoresServiceImpl implements IScoresService {
         return data;
     }
 
+    /**
+     * Comparison of class course scores
+     * @param courseId
+     * @return
+     */
     @Override
     public HashMap<String, Object> getScoresContrastCensus(Long courseId) {
+        List<BarEchartsSeriesModel> barEchartsSeriesList = new ArrayList<>();
+        // Get all grade records under this course
+        List<Scores> scoresList = scoresRepository.findAllByCourseId(courseId);
+
+        // Statistics of the maximum value, minimum value, count, sum and average information of the same group
+        HashMap<GradeClass, DoubleSummaryStatistics> resultGradeClass = scoresList.stream()
+                .collect(Collectors.groupingBy(Scores::getGradeClass, HashMap::new, Collectors.summarizingDouble(Scores::getScore)));
+        // Average score
+        List<Double> averageList = new ArrayList<>();
+        // Highest score
+        List<Double> maxList = new ArrayList<>();
+        // Minimum score
+        List<Double> minList = new ArrayList<>();
+        // Total class size
+        List<Double> countList = new ArrayList<>();
+        // Class course total score
+        List<Double> sumList = new ArrayList<>();
+
+        // Abscissa
+        List<String> categoryList = new ArrayList<>();
+        resultGradeClass.forEach((k, v) -> {
+            // Class name
+            categoryList.add(k.getName());
+            // Average score, keep two decimal places
+            BigDecimal bigDecimal = new BigDecimal(v.getAverage());
+            double average = bigDecimal.setScale(2, RoundingMode.HALF_UP).doubleValue();
+            averageList.add(average);
+            // Highest score
+            maxList.add(v.getMax());
+            // Minimum score
+            minList.add(v.getMin());
+            // Total class size
+            countList.add((double)v.getCount());
+            // Class course total score
+            sumList.add(v.getSum());
+        });
+
         return null;
     }
 }
