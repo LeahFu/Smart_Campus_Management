@@ -229,7 +229,42 @@ public class ScoresServiceImpl implements IScoresService {
             // Class course total score
             sumList.add(v.getSum());
         });
+        // Average score
+        BarEchartsSeriesModel averageBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        averageBarEchartsSeriesModel.setData(averageList);
+        averageBarEchartsSeriesModel.setType("bar");
+        averageBarEchartsSeriesModel.setName("average score");
+        barEchartsSeriesList.add(averageBarEchartsSeriesModel);
+        // Highest score
+        BarEchartsSeriesModel maxBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        maxBarEchartsSeriesModel.setData(maxList);
+        maxBarEchartsSeriesModel.setType("bar");
+        maxBarEchartsSeriesModel.setName("highest score");
+        barEchartsSeriesList.add(maxBarEchartsSeriesModel);
+        // Minimum score
+        BarEchartsSeriesModel minBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        minBarEchartsSeriesModel.setData(minList);
+        minBarEchartsSeriesModel.setType("bar");
+        minBarEchartsSeriesModel.setName("minimum score");
+        barEchartsSeriesList.add(minBarEchartsSeriesModel);
+        // Total class size
+        BarEchartsSeriesModel countBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        countBarEchartsSeriesModel.setData(countList);
+        countBarEchartsSeriesModel.setType("bar");
+        countBarEchartsSeriesModel.setName("total class size");
+        barEchartsSeriesList.add(countBarEchartsSeriesModel);
+        // Total score
+        BarEchartsSeriesModel sumBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        sumBarEchartsSeriesModel.setData(sumList);
+        sumBarEchartsSeriesModel.setType("bar");
+        sumBarEchartsSeriesModel.setName("total score");
+        barEchartsSeriesList.add(sumBarEchartsSeriesModel);
 
-        return null;
+        // Define return object
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("categoryList",categoryList);
+        resultMap.put("barEchartsSeriesList",barEchartsSeriesList);
+
+        return resultMap;
     }
 }
