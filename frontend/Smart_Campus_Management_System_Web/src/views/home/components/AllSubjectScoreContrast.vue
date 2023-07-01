@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as echarts from 'echarts'
 import { EChartsType } from 'echarts/core'
-import { ref, onMounted} from 'vue'
+import {ref, onMounted, watch} from 'vue'
 
 let props = defineProps({
     legendData: {
@@ -32,6 +32,58 @@ let props = defineProps({
         type: String,
         default: '200px',
     },
+})
+const options = {
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            saveAsImage: {
+                show: true
+            }
+        }
+    },
+    legend: {
+        data: props.legendData
+    },
+    grid: {
+        top: 30,
+        left: '2%',
+        right: '2%',
+        bottom: '4%',
+        containLabel: true,
+    },
+    xAxis: {
+        type: 'category',
+        data: props.categoryData,
+    },
+    yAxis: {
+        type: 'value',
+    },
+    series: props.seriesData,
+}
+let chart: EChartsType
+const initChart = () => {
+    let chart = echarts.init(document.getElementById(props.id))
+    chart.setOption(options)
+    return chart
+}
+watch([()=>props.categoryData, () => props.seriesData], ([newCategoryData, newSeriesData]) => {
+    console.log(`x is ${newCategoryData} and y is `,newSeriesData)
+    options.series = newSeriesData
+    options.xAxis.data = newCategoryData
+    initChart()
+})
+onMounted(() => {
+    chart = initChart()
+    window.addEventListener('resize', function () {
+        chart && chart.resize()
+    })
 })
 </script>
 
