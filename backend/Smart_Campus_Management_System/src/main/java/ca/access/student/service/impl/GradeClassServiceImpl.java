@@ -94,4 +94,12 @@ public class GradeClassServiceImpl implements IGradeClassService {
     public List<GradeClass> queryAll(GradeClassQueryCriteria gradeClassQueryCriteria) {
         return gradeClassRepository.findAll();
     }
+    /**
+     * Statistics class number
+     * @return
+     */
+    @Override
+    public long getCount() {
+        return gradeClassRepository.count();
+    }
 }

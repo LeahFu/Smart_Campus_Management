@@ -18,9 +18,13 @@ import java.util.Map;
 @RequestMapping("home")
 public class HomeController {
     private final IStudentService studentService;
-    public HomeController(IStudentService studentService) {
+    private final IGradeClassService gradeClassService;
+
+    public HomeController(IStudentService studentService, IGradeClassService gradeClassService) {
         this.studentService = studentService;
+        this.gradeClassService = gradeClassService;
     }
+
     /**
      * Background home page statistics
      * @return
@@ -32,6 +36,9 @@ public class HomeController {
         long studentNums = studentService.getCount();
         resultMap.put("studentNums",studentNums);
 
+        // Statistics class number
+        long classNums = gradeClassService.getCount();
+        resultMap.put("classNums",classNums);
         return BaseResult.success(resultMap);
     }
 }
