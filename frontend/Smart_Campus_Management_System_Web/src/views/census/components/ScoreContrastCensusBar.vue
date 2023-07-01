@@ -34,6 +34,20 @@ let props = defineProps({
     }
 })
 const options = {
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            saveAsImage: {
+                show: true
+            }
+        }
+    },
     legend: {
         data: props.legendData
     },
@@ -62,6 +76,7 @@ const initChart = () => {
 watch([()=>props.categoryData, () => props.seriesData], ([newCategoryData, newSeriesData]) => {
     options.series = newSeriesData
     options.xAxis.data = newCategoryData
+    initChart()
 })
 onMounted(() => {
     chart = initChart()

@@ -62,7 +62,7 @@ onMounted(() => {
         <!--Header end-->
 
         <!--echarts start-->
-        <ScoreContrastCensusBar :seriesData="seriesData" :legendData="legendData" height="400px" width="100%" id="pie"/>
+        <ScoreContrastCensusBar :seriesData="seriesData" :legendData="legendData" :categoryData="categoryData" height="400px" width="100%" id="pie"/>
         <!--echarts end-->
     </el-card>
 </template>

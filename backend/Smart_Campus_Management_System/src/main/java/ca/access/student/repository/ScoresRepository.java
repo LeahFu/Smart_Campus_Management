@@ -27,4 +27,11 @@ public interface ScoresRepository extends JpaRepository<Scores, Long>, JpaSpecif
      * @return
      */
     List<Scores> findAllByCourseIdAndGradeClassId(Long courseId, Long gradeClassId);
+
+    /**
+     * Get all grade records based on course ID
+     * @param courseId
+     * @return
+     */
+    List<Scores> findAllByCourseId(Long courseId);
 }
