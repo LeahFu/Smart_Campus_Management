@@ -90,4 +90,12 @@ public class CourseServiceImpl implements ICourseService {
     public List<Course> queryAll() {
         return courseRepository.findAll();
     }
+    /**
+     * Statistics the number of teachers
+     * @return
+     */
+    @Override
+    public long getCount() {
+        return courseRepository.count();
+    }
 }

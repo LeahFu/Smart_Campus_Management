@@ -50,4 +50,10 @@ public interface ICourseService {
      * @return
      */
     List<Course> queryAll();
+
+    /**
+     * Statistics the number of teachers
+     * @return
+     */
+    long getCount();
 }

@@ -20,11 +20,13 @@ public class HomeController {
     private final IStudentService studentService;
     private final IGradeClassService gradeClassService;
     private final ITeacherService teacherService;
+    private final ICourseService courseService;
 
-    public HomeController(IStudentService studentService, IGradeClassService gradeClassService, ITeacherService teacherService) {
+    public HomeController(IStudentService studentService, IGradeClassService gradeClassService, ITeacherService teacherService, ICourseService courseService) {
         this.studentService = studentService;
         this.gradeClassService = gradeClassService;
         this.teacherService = teacherService;
+        this.courseService = courseService;
     }
 
     /**
@@ -45,6 +47,10 @@ public class HomeController {
         // Statistics the number of teachers
         long teacherNums = teacherService.getCount();
         resultMap.put("teacherNums",teacherNums);
+
+        // Statistics the number of courses
+        long courseNums = courseService.getCount();
+        resultMap.put("courseNums",courseNums);
 
         return BaseResult.success(resultMap);
     }
