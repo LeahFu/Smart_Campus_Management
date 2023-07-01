@@ -43,4 +43,10 @@ public interface ITeacherService {
      * @param id
      */
     void deleteById(Long id);
+
+    /**
+     * Statistics the number of teachers
+     * @return
+     */
+    long getCount();
 }

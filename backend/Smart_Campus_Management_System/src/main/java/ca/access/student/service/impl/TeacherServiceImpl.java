@@ -79,4 +79,12 @@ public class TeacherServiceImpl implements ITeacherService {
     public void deleteById(Long id) {
         teacherRepository.deleteById(id);
     }
+    /**
+     * Statistics the number of teachers
+     * @return
+     */
+    @Override
+    public long getCount() {
+        return teacherRepository.count();
+    }
 }

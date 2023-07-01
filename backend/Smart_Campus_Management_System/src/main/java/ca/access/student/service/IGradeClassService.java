@@ -54,7 +54,7 @@ public interface IGradeClassService {
     List<GradeClass> queryAll(GradeClassQueryCriteria gradeClassQueryCriteria);
 
     /**
-     * Statistics class number
+     * Statistics the number of classes
      * @return
      */
     long getCount();

@@ -51,7 +51,7 @@ onMounted(() => {
                     </div>
                     <div class="data_right">
                         <h1>{{studentNums}}<span></span></h1>
-                        <p>Student number</p>
+                        <p>Number of students</p>
                     </div>
                 </div>
             </el-col>
@@ -64,7 +64,7 @@ onMounted(() => {
                     </div>
                     <div class="data_right">
                         <h1>{{classNums}}<span></span></h1>
-                        <p>Class number</p>
+                        <p>Number of classes</p>
                     </div>
                 </div>
             </el-col>
@@ -77,7 +77,7 @@ onMounted(() => {
                     </div>
                     <div class="data_right">
                         <h1>{{ teacherNums }}<span></span></h1>
-                        <p>Teacher number</p>
+                        <p>Number of teachers</p>
                     </div>
                 </div>
             </el-col>
@@ -90,7 +90,7 @@ onMounted(() => {
                     </div>
                     <div class="data_right">
                         <h1>{{courseNums}}<span></span></h1>
-                        <p>Course number</p>
+                        <p>Number of courses</p>
                     </div>
                 </div>
             </el-col>

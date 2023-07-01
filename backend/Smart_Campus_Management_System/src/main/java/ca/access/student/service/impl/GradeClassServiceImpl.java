@@ -95,7 +95,7 @@ public class GradeClassServiceImpl implements IGradeClassService {
         return gradeClassRepository.findAll();
     }
     /**
-     * Statistics class number
+     * Statistics the number of classes
      * @return
      */
     @Override

@@ -19,10 +19,12 @@ import java.util.Map;
 public class HomeController {
     private final IStudentService studentService;
     private final IGradeClassService gradeClassService;
+    private final ITeacherService teacherService;
 
-    public HomeController(IStudentService studentService, IGradeClassService gradeClassService) {
+    public HomeController(IStudentService studentService, IGradeClassService gradeClassService, ITeacherService teacherService) {
         this.studentService = studentService;
         this.gradeClassService = gradeClassService;
+        this.teacherService = teacherService;
     }
 
     /**
@@ -36,9 +38,14 @@ public class HomeController {
         long studentNums = studentService.getCount();
         resultMap.put("studentNums",studentNums);
 
-        // Statistics class number
+        // Statistics the number of classes
         long classNums = gradeClassService.getCount();
         resultMap.put("classNums",classNums);
+
+        // Statistics the number of teachers
+        long teacherNums = teacherService.getCount();
+        resultMap.put("teacherNums",teacherNums);
+
         return BaseResult.success(resultMap);
     }
 }
