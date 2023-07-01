@@ -40,4 +40,10 @@ public interface IStudentService {
      * @param id
      */
     void deleteById(Long id);
+
+    /**
+     * Statistical student population
+     * @return
+     */
+    long getCount();
 }

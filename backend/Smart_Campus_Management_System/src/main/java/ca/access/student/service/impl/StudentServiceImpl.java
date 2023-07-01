@@ -80,4 +80,13 @@ public class StudentServiceImpl implements IStudentService {
     public void deleteById(Long id) {
         studentRepository.deleteById(id);
     }
+
+    /**
+     * Statistical student population
+     * @return
+     */
+    @Override
+    public long getCount() {
+        return studentRepository.count();
+    }
 }
