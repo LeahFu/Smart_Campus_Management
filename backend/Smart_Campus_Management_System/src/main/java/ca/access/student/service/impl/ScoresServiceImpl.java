@@ -267,4 +267,13 @@ public class ScoresServiceImpl implements IScoresService {
 
         return resultMap;
     }
+
+    /**
+     * Comparison scores of all courses
+     * @return
+     */
+    @Override
+    public HashMap<String, Object> getAllSubjectScoreContrast() {
+        return null;
+    }
 }

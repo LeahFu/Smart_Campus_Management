@@ -55,4 +55,10 @@ public interface IScoresService {
      * @return
      */
     HashMap<String,Object> getScoresContrastCensus(Long courseId);
+
+    /**
+     * Comparison scores of all courses
+     * @return
+     */
+    HashMap<String, Object> getAllSubjectScoreContrast();
 }
