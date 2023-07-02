@@ -274,6 +274,68 @@ public class ScoresServiceImpl implements IScoresService {
      */
     @Override
     public HashMap<String, Object> getAllSubjectScoreContrast() {
-        return null;
+        List<BarEchartsSeriesModel> barEchartsSeriesList = new ArrayList<>();
+        // Get all grade records under this course
+        List<Scores> scoresList = scoresRepository.findAll();
+
+        // Statistics of the maximum value, minimum value, count, sum and average information of the same group
+        HashMap<Course, DoubleSummaryStatistics> resultGradeClass = scoresList.stream()
+                .collect(Collectors.groupingBy(Scores::getCourse, HashMap::new, Collectors.summarizingDouble(Scores::getScore)));
+        // Average score
+        List<Double> averageList = new ArrayList<>();
+        // Highest score
+        List<Double> maxList = new ArrayList<>();
+        // Minimum score
+        List<Double> minList = new ArrayList<>();
+        // Total class size
+        List<Double> countList = new ArrayList<>();
+
+        // Abscissa
+        List<String> categoryList = new ArrayList<>();
+        resultGradeClass.forEach((k, v) -> {
+            // Class name
+            categoryList.add(k.getCoursename());
+            // Average score, keep two decimal places
+            BigDecimal bigDecimal = new BigDecimal(v.getAverage());
+            double average = bigDecimal.setScale(2, RoundingMode.HALF_UP).doubleValue();
+            averageList.add(average);
+            // Highest score
+            maxList.add(v.getMax());
+            // Minimum score
+            minList.add(v.getMin());
+            // Total class size
+            countList.add((double)v.getCount());
+        });
+        // Average score
+        BarEchartsSeriesModel averageBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        averageBarEchartsSeriesModel.setData(averageList);
+        averageBarEchartsSeriesModel.setType("bar");
+        averageBarEchartsSeriesModel.setName("average score");
+        barEchartsSeriesList.add(averageBarEchartsSeriesModel);
+        // Highest score
+        BarEchartsSeriesModel maxBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        maxBarEchartsSeriesModel.setData(maxList);
+        maxBarEchartsSeriesModel.setType("bar");
+        maxBarEchartsSeriesModel.setName("highest score");
+        barEchartsSeriesList.add(maxBarEchartsSeriesModel);
+        // Minimum score
+        BarEchartsSeriesModel minBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        minBarEchartsSeriesModel.setData(minList);
+        minBarEchartsSeriesModel.setType("bar");
+        minBarEchartsSeriesModel.setName("minimum score");
+        barEchartsSeriesList.add(minBarEchartsSeriesModel);
+        // Total class size
+        BarEchartsSeriesModel countBarEchartsSeriesModel = new BarEchartsSeriesModel();
+        countBarEchartsSeriesModel.setData(countList);
+        countBarEchartsSeriesModel.setType("bar");
+        countBarEchartsSeriesModel.setName("total class size");
+        barEchartsSeriesList.add(countBarEchartsSeriesModel);
+
+        // Define return object
+        HashMap<String, Object> resultMap = new HashMap<>();
+        resultMap.put("categoryList",categoryList);
+        resultMap.put("barEchartsSeriesList",barEchartsSeriesList);
+
+        return resultMap;
     }
 }
