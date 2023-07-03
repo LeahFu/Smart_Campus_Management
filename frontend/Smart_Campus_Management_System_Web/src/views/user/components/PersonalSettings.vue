@@ -1,5 +1,14 @@
 <script setup lang="ts">
-
+import {reactive,toRefs} from 'vue'
+const state = reactive({
+    // Basic information
+    basic: {
+        realname: '',
+        gender: '',
+        userIcon: ''
+    }
+})
+const {basic} = toRefs(state)
 </script>
 
 <template>
@@ -68,5 +77,30 @@
     </el-row>
 </template>
 <style scoped>
-
+.left_box {
+    width: 100%;
+    height: auto;
+    background: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.left_box .title {
+    color: #178557;
+    margin-bottom: 10px;
+    padding: 20px 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.left_box .set {
+    text-align: left;
+    padding: 0px 20px;
+    margin-bottom: 10px;
+    color: #8f8f8f;
+    line-height: 35px;
+}
+.left_box .set h4 {
+    line-height: 45px;
+    color: #8f8f8f;
+}
 </style>
