@@ -8,6 +8,11 @@ const state = reactive({
         userIcon: ''
     }
 })
+// Server path
+const url = import.meta.env.VITE_APP_BASE_API
+// The path to upload the image to the server
+const uploadURL = url + "user/userIcon"
+
 const {basic} = toRefs(state)
 </script>
 
