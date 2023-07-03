@@ -12,7 +12,12 @@ const state = reactive({
 const url = import.meta.env.VITE_APP_BASE_API
 // The path to upload the image to the server
 const uploadURL = url + "user/userIcon"
-
+// The function to be executed after the image is uploaded successfully
+const handleAvatarSuccess = (res: { status: number; result: { userIcon: string } }) => {
+    if(res.status === 200){
+        state.basic.userIcon = res.result.userIcon;
+    }
+}
 const {basic} = toRefs(state)
 </script>
 
@@ -47,8 +52,10 @@ const {basic} = toRefs(state)
                             <!--Avatar-->
                             <el-col :span="5">
                                 <el-form-item  label="Avatar：" style="margin: auto;">
-                                    <el-upload class="avatar-uploader" >
-                                        <img src="../../../assets/default_avatar.png"
+                                    <el-upload class="avatar-uploader" :action="uploadURL" name="fileResource" :show-file-list="false" :on-success="handleAvatarSuccess">
+                                        <img v-if="basic.userIcon" :src="url+'uploadFile/'+basic.userIcon"
+                                             style="width: 50px;border-radius: 50px;" />
+                                        <img v-else src="../../../assets/default_avatar.png"
                                              style="width: 50px;border-radius: 50px;" />
                                         <span style="margin-left: 10px;
                                         font-size: 10px;
