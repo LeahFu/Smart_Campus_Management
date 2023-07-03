@@ -110,6 +110,20 @@ const routes = [{
                 component:()=> import('../views/census/ScoresContrastCensus.vue')
             }
         ]
+    },
+    {
+        path:'/user',
+        name:'userSetting',
+        redirect: '/user/setting',
+        component:()=> import('../views/layout/Index.vue'),
+        children: [
+            {
+                path:'setting',
+                name:'PersonalSettings',
+                meta:{title: 'Personal Settings'},
+                component:()=> import('../views/user/components/PersonalSettings.vue')
+            }
+        ]
     }
 ]
 //3. Create routing instance and pass routes configuration
