@@ -1,6 +1,8 @@
 package ca.access.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -9,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @description: Configurer
  */
 public class ConfigurerAdapter implements WebMvcConfigurer {
+    @Value("${user.icon}")
+    private String userIcon;
     /**
      * Configure cross-domain
      * @param registry
@@ -27,5 +31,14 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
                 .allowCredentials(true)
            // Supported domains
                 .allowedOriginPatterns("*");
+    }
+    /**
+     * Static resource file path mapping
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String pathUtl = "file:" + userIcon.replace("\\","/");
+        registry.addResourceHandler("/uploadFile/**").addResourceLocations(pathUtl).setCachePeriod(0);
     }
 }
