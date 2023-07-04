@@ -5,8 +5,10 @@ import ca.access.exception.BadRequestException;
 import ca.access.student.domain.SysUser;
 import ca.access.student.service.ISysUserService;
 import ca.access.student.service.dto.UserQueryCriteria;
+import ca.access.utils.NativeFileUtil;
 import ca.access.utils.PageVo;
 import ca.access.exception.BadRequestException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -24,6 +30,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("user")
 public class UserController {
+    /**
+     * Avatar storage path
+     */
+    @Value("${user.icon}")
+    private String userIcon;
     private final ISysUserService sysUserService;
     public UserController(ISysUserService sysUserService){
         this.sysUserService = sysUserService;
@@ -94,5 +105,25 @@ public class UserController {
         }
         sysUserService.deleteById(id);
         return BaseResult.success("Successfully deleted");
+    }
+    /**
+     * Upload avatar
+     * @param file
+     * @return
+     */
+    @PostMapping("userIcon")
+    public BaseResult uploadFile(@RequestParam("fileResource") MultipartFile file){
+        if(file==null){
+            return BaseResult.fail("Failed to upload avatar, the file cannot be empty");
+        }
+        try {
+            String tempFileResource = NativeFileUtil.uploadUserIcon(file,userIcon);
+            Map<String,Object> result = new HashMap<>();
+            result.put("userIcon",tempFileResource);
+            return BaseResult.success(result);
+        }catch (Exception e){
+            e.printStackTrace();
+            return BaseResult.fail(e.getMessage());
+        }
     }
 }
