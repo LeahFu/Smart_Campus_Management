@@ -39,3 +39,11 @@ export function deleteUserApi(id:number) {
         method: 'delete'
     })
 }
+// Update personal information
+export function updateInfoApi(data:object) {
+    return request({
+        url: 'user/updateInfo',
+        method: 'put',
+        data
+    })
+}
