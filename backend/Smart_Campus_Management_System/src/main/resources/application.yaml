@@ -14,3 +14,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+# User avatar storage path
+user:
+  icon: C:\\Documents\\Smart_Campus_Management\\
