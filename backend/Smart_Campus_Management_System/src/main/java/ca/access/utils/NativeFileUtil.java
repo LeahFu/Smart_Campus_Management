@@ -25,7 +25,7 @@ public class NativeFileUtil {
         long pictureSize = uploadFile.getSize();
         // File extension
         String fileExtension = oldName.substring(oldName.lastIndexOf("."), oldName.length());
-        if(fileExtension.equals(".png")||fileExtension.equals(".jpg")||fileExtension.equals(".gif")){
+        if(fileExtension.equals(".png")||fileExtension.equals(".jpg")||fileExtension.equals(".gif")||fileExtension.equals(".jpeg")){
             File folder = new File(filePath);
             if(!folder.isDirectory()) {
                 folder.mkdirs();

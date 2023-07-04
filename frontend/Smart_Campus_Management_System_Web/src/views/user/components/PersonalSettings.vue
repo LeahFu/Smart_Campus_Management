@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {reactive,toRefs} from 'vue'
+import {reactive,toRefs,onMounted} from 'vue'
+import { useUserStore } from '../../../store/modules/user'
 const state = reactive({
     // Basic information
     basic: {
@@ -18,6 +19,13 @@ const handleAvatarSuccess = (res: { status: number; result: { userIcon: string }
         state.basic.userIcon = res.result.userIcon;
     }
 }
+const { userInfo } = userStore
+// Load data after mount
+onMounted(() => {
+    state.basic.realname = userInfo.realname
+    state.basic.gender = userInfo.gender
+    state.basic.userIcon = userInfo.userIcon
+})
 const {basic} = toRefs(state)
 </script>
 
