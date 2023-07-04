@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {reactive,toRefs,onMounted} from 'vue'
+import {reactive,toRefs,onMounted,ref} from 'vue'
 import { useUserStore } from '../../../store/modules/user'
+import { FormInstance,FormRules } from 'element-plus'
 const state = reactive({
     // Basic information
     basic: {
@@ -9,6 +10,14 @@ const state = reactive({
         userIcon: ''
     }
 })
+// Verify basic information
+const basicRules = reactive<FormRules>({
+    realname: [{ required: true, message: "Please enter your real name", trigger: "blur" }],
+    gender: [{ required: true, message: "Please enter your gender", trigger: "blur" }],
+    userIcon: [{ required: true, message: "Please upload your icon", trigger: "blur" }],
+})
+const basicFormRef = ref<FormInstance>()
+const loading = ref(false)
 // Server path
 const url = import.meta.env.VITE_APP_BASE_API
 // The path to upload the image to the server

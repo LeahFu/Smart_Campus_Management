@@ -36,7 +36,7 @@ const url = import.meta.env.VITE_APP_BASE_API
                 >
                     <!--User avatar start-->
                     <template #reference>
-                        <el-link :underline="false">
+                        <el-link :underline="false" @click="toPersonalSetup">
                             <!-- If the user does not set an avatar, the system default avatar will be used -->
                             <img v-if="userInfo.userIcon" :src="url+'uploadFile/'+userInfo.userIcon"
                                  style="width: 50px;border-radius: 50px;" />
