@@ -2,6 +2,7 @@
 import {reactive,toRefs,onMounted,ref} from 'vue'
 import { useUserStore } from '../../../store/modules/user'
 import {ElMessage, FormInstance, FormRules} from 'element-plus'
+import {updateInfoApi} from "../../../api/user/user.ts";
 const state = reactive({
     // Basic information
     basic: {
@@ -38,8 +39,8 @@ const onBasicSubmit = (formEl: FormInstance | undefined) => {
             // Loading
             const { data } = await updateInfoApi({ ...state.basic });
             if(data.status===200){
-                // Token settings
-                userStore.setUserInfo({
+                // Set login user information
+                userStore.setUserPartInfo({
                     realname: state.basic.realname,
                     gender: state.basic.gender,
                     userIcon: state.basic.userIcon

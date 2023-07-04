@@ -68,7 +68,7 @@ const url = import.meta.env.VITE_APP_BASE_API
                                         style="float:left;width: 75px;padding:10px;border-right: 1px solid rgb(205, 205, 205);text-align: center;">
                                     <p>Gender</p>
                                     <p style="font-size: 25px;font-weight:600;">
-                                        {{ userInfo.sex }}
+                                        {{ userInfo.gender }}
                                         <span style="font-size: 10px;font-weight:100;margin-left:5px;"></span>
                                     </p>
                                 </div>
@@ -77,7 +77,7 @@ const url = import.meta.env.VITE_APP_BASE_API
                                     <p>Register</p>
                                     <p style="font-size: 25px;font-weight:600;">
                                         {{calculateDays(userInfo.createTime)}}
-                                        <span style="font-size: 10px;font-weight:100;margin-left:5px;">Day</span>
+                                        <span style="font-size: 10px;font-weight:100;margin-left:5px;">days</span>
                                     </p>
                                 </div>
                                 <div style="float:left;width: 75px;padding:10px;text-align: center;">
@@ -139,8 +139,8 @@ const url = import.meta.env.VITE_APP_BASE_API
 }
 
 /* The style of the mouse over the avatar */
-.demo-rich-conent-custom img {
-    width: 55px;
+.info-card img {
+    width: 80px;
     margin: 0px 15px 0px 0px;
     border-radius: 50px;
     float: left;
