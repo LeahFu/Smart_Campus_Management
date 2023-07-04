@@ -6,7 +6,11 @@ export const useUserStore = defineStore({
             // login token
             token: '',
             // user information
-            userInfo:{},
+            userInfo:{
+                userIcon:'',
+                realname:'',
+                gender:''
+            },
             // user roles
             roles:[]
         }
@@ -21,6 +25,12 @@ export const useUserStore = defineStore({
         // set user information
         setUserInfo(userInfo:any){
             this.userInfo = userInfo
+        },
+        // Update part of information
+        setUserPartInfo(userInfo:any){
+            this.userInfo.userIcon = userInfo.userIcon
+            this.userInfo.gender = userInfo.gender
+            this.userInfo.realname = userInfo.realname
         }
     },
     persist: true

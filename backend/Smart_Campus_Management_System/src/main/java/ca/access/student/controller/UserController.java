@@ -5,9 +5,11 @@ import ca.access.exception.BadRequestException;
 import ca.access.student.domain.SysUser;
 import ca.access.student.service.ISysUserService;
 import ca.access.student.service.dto.UserQueryCriteria;
+import ca.access.utils.HutoolJWTUtil;
 import ca.access.utils.NativeFileUtil;
 import ca.access.utils.PageVo;
 import ca.access.exception.BadRequestException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
@@ -125,5 +129,20 @@ public class UserController {
             e.printStackTrace();
             return BaseResult.fail(e.getMessage());
         }
+    }
+    /**
+     * Update personal information
+     * @param sysUser
+     * @return
+     */
+    @PutMapping("updateInfo")
+    public BaseResult updateInfo(@RequestBody SysUser sysUser){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        // Get the login user Id
+        String token = (String)request.getServletContext().getAttribute("token");
+        Long userId = HutoolJWTUtil.parseToken(token);
+        sysUser.setId(userId);
+        sysUserService.editUser(sysUser);
+        return BaseResult.success("Update completed");
     }
 }
