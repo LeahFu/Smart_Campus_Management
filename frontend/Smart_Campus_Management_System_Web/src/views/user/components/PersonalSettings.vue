@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {reactive,toRefs,onMounted,ref} from 'vue'
 import { useUserStore } from '../../../store/modules/user'
-import { FormInstance,FormRules } from 'element-plus'
+import {ElMessage, FormInstance, FormRules} from 'element-plus'
 const state = reactive({
     // Basic information
     basic: {
@@ -27,6 +27,40 @@ const handleAvatarSuccess = (res: { status: number; result: { userIcon: string }
     if(res.status === 200){
         state.basic.userIcon = res.result.userIcon;
     }
+}
+// Submit basic information
+const userStore = useUserStore()
+const onBasicSubmit = (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    formEl.validate(async(valid) => {
+        if (valid) {
+            loading.value = true
+            // Loading
+            const { data } = await updateInfoApi({ ...state.basic });
+            if(data.status===200){
+                // Token settings
+                userStore.setUserInfo({
+                    realname: state.basic.realname,
+                    gender: state.basic.gender,
+                    userIcon: state.basic.userIcon
+                })
+                ElMessage({
+                    message: 'Basic information modified successfully',
+                    type: 'success',
+                })
+                loading.value = false
+            }else {
+                ElMessage({
+                    message: 'Failed to modify basic information',
+                    type: 'error',
+                })
+                loading.value = false
+            }
+        } else {
+            console.log('error submit!')
+            return false
+        }
+    })
 }
 const { userInfo } = userStore
 // Load data after mount
@@ -82,7 +116,7 @@ const {basic} = toRefs(state)
                             </el-col>
                             <el-col :span="3">
                                 <el-form-item>
-                                    <el-button  plain color="#2fa7b9"  style="margin-left: 50px;" >Submit</el-button>
+                                    <el-button :loading="loading"  plain color="#2fa7b9"  style="margin-left: 50px;" @click="onBasicSubmit(basicFormRef)">Submit</el-button>
                                 </el-form-item>
                             </el-col>
                         </el-row>
