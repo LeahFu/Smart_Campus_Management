@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import {ref,reactive,toRefs,onMounted,computed } from 'vue'
 import {useUserStore} from "../../../store/modules/user.ts";
+import {sendEmailApi} from "../../../api/user/user.ts";
+import {ElMessage} from "element-plus";
 const state = reactive({
     toBind: {
+        // Randomly generate verification codes
+        verificationCode: '',
         // The verification code entered by the old email address
         code: '',
         email: '',
@@ -10,7 +14,6 @@ const state = reactive({
         code2: ''
     },
 })
-const { toBind } = toRefs(state)
 
 // Get login user information
 const { userInfo } = useUserStore()
@@ -19,15 +22,49 @@ const userEmail = computed(() => {
     const { email } = userInfo
     return email.substr(0,3)+'****'+email.substr(7)
 })
-
 // Time timer
 const timer = ref(null)
 // Get the verification code 60 seconds countdown
 const TIME_COUNT = 60
 // Current seconds
 const count = ref(0)
+// Get the verification code, Click to disable
+const show = ref(true)
+// Get verification code text
+const codeText = ref('Get verification code')
+// Click to change the binding email
+// Show get verification code box
+const showGetCode = ref(false)
 
-
+// Get email verification code
+const getCode = async (type: number) => {
+    // 60 seconds countdown after click
+    if(!timer.value){
+        count.value = TIME_COUNT
+        show.value = false
+        timer.value  = setInterval(() => {
+            if (count.value > 0 && count.value <= TIME_COUNT) {
+                count.value--;
+                codeText.value = count.value + 's';
+            } else {
+                show.value = true;
+                window.clearInterval(timer.value);
+                timer.value = null;
+                codeText.value = "Reacquire";
+            }
+        }, 1000)
+    }
+    const { data } = await sendEmailApi(state.toBind.email)
+    if(data.status===200){
+        ElMessage({
+            message: 'The verification code has been sent to your mailbox. ' +
+                'This verification code is used to replace the email binding.' +
+                ' Please do not tell others the verification code. It is valid for 3 minutes, please keep it safe.',
+            type: 'success',
+        })
+    }
+}
+const { toBind } = toRefs(state)
 </script>
 
 <template>

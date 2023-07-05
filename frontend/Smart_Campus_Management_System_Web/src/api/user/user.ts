@@ -47,3 +47,13 @@ export function updateInfoApi(data:object) {
         data
     })
 }
+// Send the verification code
+export function sendEmailApi(email:string) {
+    return request({
+        url: 'user/sendEmail',
+        method: 'get',
+        params: {
+            email
+        }
+    })
+}
