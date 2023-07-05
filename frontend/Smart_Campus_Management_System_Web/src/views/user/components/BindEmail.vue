@@ -65,6 +65,32 @@ const getCode = async (type: number) => {
     }
 }
 const { toBind } = toRefs(state)
+
+const showNewEmail = ref(false)
+const confirmCode = async () => {
+
+    if(state.toBind.code!=''){
+        // Verify that the verification code entered by the user is correct
+        const { data } = await verifyCodeApi(state.toBind.code)
+        if(data.status===200){
+            // Show input box for new email address
+            showNewEmail.value = true
+            // Close the old email verification code input box
+            showGetCode.value = false
+            // Clear timer
+            show.value = true
+            window.clearInterval(timer.value)
+            timer.value = null
+            codeText.value = "Get verification code"
+        }else {
+            ElMessage.error(data.message)
+        }
+    }else {
+        ElMessage.error('Perform the replacement mailbox binding operation as required.')
+        return false;
+    }
+}
+
 </script>
 
 <template>

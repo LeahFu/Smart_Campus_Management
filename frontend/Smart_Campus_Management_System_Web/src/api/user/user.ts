@@ -57,3 +57,14 @@ export function sendEmailApi(email:string) {
         }
     })
 }
+// Verify that the verification code entered by the user is correct
+export function verifyCodeApi(code:string) {
+    return request({
+        url: 'user/verifyCode',
+        method: 'get',
+        params: {
+            code
+        }
+
+    })
+}
