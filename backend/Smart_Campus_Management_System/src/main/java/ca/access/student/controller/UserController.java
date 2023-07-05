@@ -1,6 +1,7 @@
 package ca.access.student.controller;
 
 import ca.access.base.BaseResult;
+import ca.access.email.MailService;
 import ca.access.exception.BadRequestException;
 import ca.access.student.domain.SysUser;
 import ca.access.student.service.ISysUserService;
@@ -8,14 +9,12 @@ import ca.access.student.service.dto.UserQueryCriteria;
 import ca.access.utils.HutoolJWTUtil;
 import ca.access.utils.NativeFileUtil;
 import ca.access.utils.PageVo;
-import ca.access.exception.BadRequestException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -39,9 +38,16 @@ public class UserController {
      */
     @Value("${user.icon}")
     private String userIcon;
+    /**
+     * Email sender
+     */
+    @Value("${spring.mail.username}")
+    private String from;
     private final ISysUserService sysUserService;
-    public UserController(ISysUserService sysUserService){
+    private final MailService mailService;
+    public UserController(ISysUserService sysUserService, MailService mailService){
         this.sysUserService = sysUserService;
+        this.mailService = mailService;
     }
 
     /**
@@ -144,5 +150,27 @@ public class UserController {
         sysUser.setId(userId);
         sysUserService.editUser(sysUser);
         return BaseResult.success("Update completed");
+    }
+    /**
+     * Send the verification code
+     * @param email
+     * @return
+     */
+    @GetMapping("sendEmail")
+    public BaseResult sendEmail(@RequestParam("email")String email, HttpServletRequest request){
+        // Send to old mailbox
+        if(email==null||email==""){
+            // Get the login user ID
+            String token = (String)request.getServletContext().getAttribute("token");
+            Long userId = HutoolJWTUtil.parseToken(token);
+            SysUser dbSysUser = sysUserService.getById(userId);
+            email = dbSysUser.getEmail();
+        }
+        int code = AccessUtil.randomSixNums();
+        String content = "verification code: "+code+"This verification code is used to replace the email binding, " +
+                "please do not tell others the verification code, it is valid for 3 minutes, please keep it safe.";
+        mailService.sendSimpleMail(from,email,email,"Modify email verification code",content);
+        request.getServletContext().setAttribute("code",code);
+        return BaseResult.success("Sent successfully");
     }
 }
