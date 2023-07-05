@@ -3,6 +3,7 @@ import {reactive,toRefs,onMounted,ref} from 'vue'
 import { useUserStore } from '../../../store/modules/user'
 import {ElMessage, FormInstance, FormRules} from 'element-plus'
 import {updateInfoApi} from "../../../api/user/user.ts";
+import BindEmail from "./BindEmail.vue";
 const state = reactive({
     // Basic information
     basic: {
@@ -126,7 +127,7 @@ const {basic} = toRefs(state)
                 <!--Basic settings end-->
                 <el-divider border-style="dashed" />
                 <!--Bind email start-->
-
+                <BindEmail/>
                 <!--Bind email end-->
                 <el-divider border-style="dashed" />
                 <!--Change Password start-->

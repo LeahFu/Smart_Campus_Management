@@ -1,4 +1,32 @@
 <script setup lang="ts">
+import {ref,reactive,toRefs,onMounted,computed } from 'vue'
+import {useUserStore} from "../../../store/modules/user.ts";
+const state = reactive({
+    toBind: {
+        // The verification code entered by the old email address
+        code: '',
+        email: '',
+        // The verification code entered by the new email address
+        code2: ''
+    },
+})
+const { toBind } = toRefs(state)
+
+// Get login user information
+const { userInfo } = useUserStore()
+// Convert the middle of the mailbox to an asterisk
+const userEmail = computed(() => {
+    const { email } = userInfo
+    return email.substr(0,3)+'****'+email.substr(7)
+})
+
+// Time timer
+const timer = ref(null)
+// Get the verification code 60 seconds countdown
+const TIME_COUNT = 60
+// Current seconds
+const count = ref(0)
+
 
 </script>
 
