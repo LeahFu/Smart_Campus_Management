@@ -68,3 +68,16 @@ export function verifyCodeApi(code:string) {
 
     })
 }
+
+// Change bound email
+export function updateEmailApi(email:string,code:number) {
+    return request({
+        url: 'user/updateEmail',
+        method: 'put',
+        params: {
+            email,
+            code
+        }
+
+    })
+}

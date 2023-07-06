@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref,reactive,toRefs,onMounted,computed } from 'vue'
 import {useUserStore} from "../../../store/modules/user.ts";
-import {sendEmailApi} from "../../../api/user/user.ts";
+import {sendEmailApi, updateEmailApi} from "../../../api/user/user.ts";
 import {ElMessage} from "element-plus";
 const state = reactive({
     toBind: {
@@ -90,7 +90,30 @@ const confirmCode = async () => {
         return false;
     }
 }
-
+// Submit email to change binding
+const toBindSubmit = async () => {
+    if(state.toBind.code2!=''){
+        showNewEmail.value = false
+        // Clear timer
+        show.value = true
+        window.clearInterval(timer.value);
+        timer.value = null;
+        codeText.value = "Get verification code";
+        const { data } = await updateEmailApi(state.toBind.email,state.toBind.code2)
+        if(data.status===200){
+            ElMessage({
+                message: 'Successfully changed the bound email address.',
+                type: 'success',
+            })
+        }else {
+            ElMessage.error('Perform the replacement email binding operation as required.')
+            return false;
+        }
+    }else {
+        ElMessage.error('Perform the replacement email binding operation as required.')
+        return false;
+    }
+}
 </script>
 
 <template>
