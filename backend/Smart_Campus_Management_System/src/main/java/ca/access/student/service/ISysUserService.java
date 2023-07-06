@@ -2,6 +2,7 @@ package ca.access.student.service;
 
 import ca.access.student.domain.SysUser;
 import ca.access.student.service.dto.UserQueryCriteria;
+import ca.access.student.vo.ModifyPwdModel;
 import org.springframework.data.domain.Pageable;
 
 /**
@@ -44,4 +45,11 @@ public interface ISysUserService {
      * @param id
      */
     void deleteById(Long id);
+
+    /**
+     * Update personal password
+     * @param modifyPwdModel
+     * @return
+     */
+    boolean updatePwd(ModifyPwdModel modifyPwdModel);
 }

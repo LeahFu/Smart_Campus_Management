@@ -12,9 +12,15 @@ const gradeClassOptions = ref<object[]>([])
 // Define class id
 const gradeClassId = ref(null)
 // Get a list of all classes
-const gradeClassList() = async ()=>{
-    const {data} = await gradeClassListApi()
-    gradeClassOptions.value = data.result;
+async function gradeClassList() {
+    try {
+        const { data } = await gradeClassListApi()
+        if (data.status === 200) {
+            gradeClassOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
 }
 // Define course dropdown selections
 const courseOptions = ref<object[]>([])

@@ -9,9 +9,15 @@ const courseId = ref()
 // Define Course Dropdown Selections
 const courseOptions = ref<object[]>([])
 // Get a list of all courses
-const getAllCourseList() = async()=>{
+async function getAllCourseList() {
+    try {
         const { data } = await getAllCourseListApi()
+        if (data.status === 200) {
             courseOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
 }
 const legendData = ref(['total people','overall score','average score', 'highest score', 'minimum score'])
 const seriesData = ref([])

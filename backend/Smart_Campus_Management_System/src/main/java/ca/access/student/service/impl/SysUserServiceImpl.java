@@ -5,6 +5,7 @@ import ca.access.student.domain.SysUser;
 import ca.access.student.repository.SysUserRepository;
 import ca.access.student.service.ISysUserService;
 import ca.access.student.service.dto.UserQueryCriteria;
+import ca.access.student.vo.ModifyPwdModel;
 import ca.access.utils.Md5Util;
 import ca.access.utils.PageUtil;
 import ca.access.utils.QueryHelp;
@@ -94,5 +95,27 @@ public class SysUserServiceImpl implements ISysUserService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         sysUserRepository.deleteById(id);
+    }
+
+    /**
+     * Update personal password
+     * @param modifyPwdModel
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updatePwd(ModifyPwdModel modifyPwdModel) {
+        // Get the login user Id based on the ID
+        SysUser dbUser = sysUserRepository.getReferenceById(modifyPwdModel.getUserId());
+        // Determine whether the old password entered is correct
+        String dbPwd = dbUser.getPassword();
+        String usePwd = Md5Util.MD5(modifyPwdModel.getUsedPass());
+        if(!usePwd.equals(dbPwd)){
+            return false;
+        }else {
+            String newPwd = Md5Util.MD5(modifyPwdModel.getNewPass());
+            dbUser.setPassword(newPwd);
+            sysUserRepository.save(dbUser);
+            return true;
+        }
     }
 }

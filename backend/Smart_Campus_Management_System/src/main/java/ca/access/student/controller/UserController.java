@@ -6,6 +6,7 @@ import ca.access.exception.BadRequestException;
 import ca.access.student.domain.SysUser;
 import ca.access.student.service.ISysUserService;
 import ca.access.student.service.dto.UserQueryCriteria;
+import ca.access.student.vo.ModifyPwdModel;
 import ca.access.utils.AccessUtil;
 import ca.access.utils.HutoolJWTUtil;
 import ca.access.utils.NativeFileUtil;
@@ -221,5 +222,26 @@ public class UserController {
         tempSysUser.setId(userId);
         sysUserService.editUser(tempSysUser);
         return BaseResult.success();
+    }
+    /**
+     * Update personal password
+     * @param modifyPwdModel
+     * @return
+     */
+    @PutMapping("updatePwd")
+    public BaseResult updatePwd(@RequestBody ModifyPwdModel modifyPwdModel, HttpServletRequest request){
+        if(modifyPwdModel==null){
+            return BaseResult.fail("Update failed!");
+        }
+        // Get the login user ID
+        String token = (String)request.getServletContext().getAttribute("token");
+        Long userId = HutoolJWTUtil.parseToken(token);
+        modifyPwdModel.setUserId(userId);
+        boolean result=sysUserService.updatePwd(modifyPwdModel);
+        if(result){
+            return BaseResult.success("Update completed!");
+        }else {
+            return BaseResult.fail("Update failed!");
+        }
     }
 }
