@@ -174,4 +174,25 @@ public class UserController {
         request.getServletContext().setAttribute("code",code);
         return BaseResult.success("Sent successfully");
     }
+    /**
+     * Verify verification code
+     * @param code
+     * @return
+     */
+    @GetMapping("verifyCode")
+    public BaseResult verifyCode(@RequestParam("code")Integer code, HttpServletRequest request){
+
+        if(code==null){
+            return BaseResult.fail("Verification code does not exist!");
+        }
+        System.out.println("request.getServletContext().getAttribute(\"code\"):::"+request.getServletContext().getAttribute("code"));
+        Integer sessionCode = (Integer) request.getServletContext().getAttribute("code");
+        if(sessionCode==null){
+            return BaseResult.fail("Verification code has expired");
+        }
+        if(!sessionCode.equals(code)){
+            return BaseResult.fail("The verification code input is incorrect, please re-enter");
+        }
+        return BaseResult.success();
+    }
 }
