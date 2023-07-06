@@ -89,6 +89,13 @@ const close = ()=> {
                     </el-radio-group>
                 </el-form-item>
             </el-col>
+            <el-col :span="24">
+                <el-form-item prop="role" label="role">
+                    <el-select v-model="formUser.sysRole.id" placeholder="Please select a role" style="width: 100%;">
+                        <el-option v-for="item in roleOptions" :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                </el-form-item>
+            </el-col>
             <el-col :span="12">
                 <el-form-item label="status" prop="status">
                     <el-radio-group v-model="formUser.status" fill="#178557">

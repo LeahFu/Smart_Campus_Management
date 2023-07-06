@@ -213,11 +213,22 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
         </el-table-column>
         <el-table-column label="gender">
            <template #default="scope">
-              <el-tooltip :content="scope.row.sex" palacement="top" effect="light">
-                 <span class="highlight">{{scope.row.sex}}</span>
+              <el-tooltip :content="scope.row.gender" palacement="top" effect="light">
+                 <span class="highlight">{{scope.row.gender}}</span>
               </el-tooltip>
            </template>
         </el-table-column>
+          <el-table-column label="role name">
+              <template #default="scope">
+                  <span class="highlight">{{scope.row.sysRole.name}}</span>
+              </template>
+          </el-table-column>
+
+          <el-table-column label="role code">
+              <template #default="scope">
+                  <span class="highlight">{{scope.row.sysRole.code}}</span>
+              </template>
+          </el-table-column>
         <el-table-column label="status">
            <template #default="scope">
               <div v-if="scope.row.status == 1" style="color: #67C23A;">normal</div>

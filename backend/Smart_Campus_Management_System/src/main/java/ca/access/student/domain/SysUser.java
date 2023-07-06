@@ -33,5 +33,7 @@ public class SysUser extends BaseEntity {
     private String email;
     @Column(name = "user_icon")
     private String userIcon;
-   
+    @OneToOne
+    @JoinColumn(name = "role_id",referencedColumnName="id")
+    private SysRole sysRole;
 }
