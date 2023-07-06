@@ -81,3 +81,11 @@ export function updateEmailApi(email:string,code:number) {
 
     })
 }
+// Change personal password
+export function updatePwdApi(data:object) {
+    return request({
+        url: 'user/updatePwd',
+        method: 'put',
+        data
+    })
+}

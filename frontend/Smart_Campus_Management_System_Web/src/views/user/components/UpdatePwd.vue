@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive} from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules, ElMessage } from 'element-plus'
+import {updatePwdApi} from "../../../api/user/user.ts";
 
 // Define the form instance object
 const modifyFormRef = ref<FormInstance>()
@@ -15,6 +16,24 @@ const modifyRules = reactive<FormRules>({
     usedPass: [{ required: true, message: 'Old password cannot be empty', trigger: 'blur' }],
     newPass: [{ required: true, message: 'New password cannot be empty', trigger: 'blur' }]
 })
+// 提交修改密码
+const modifySubmit = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return
+    await formEl.validate(async (valid, fields) => {
+        subLoading.value = true
+        if (valid) {
+            const { data } =  await updatePwdApi(modifyPwd.value)
+            if(data.status===200){
+                ElMessage.success(data.message)
+            }else {
+                ElMessage.error(data.message)
+            }
+        }else {
+            ElMessage.error('Submission failed, you still have unfilled items!')
+        }
+        subLoading.value = false
+    })
+}
 </script>
 
 <template>
