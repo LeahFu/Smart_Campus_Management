@@ -40,11 +40,15 @@ const addTeacher = async (formEl: FormInstance | undefined) => {
 // Define course drop-down box selection items
 const courseOptions = ref<object[]>([])
 // Get a list of all courses
-const getAllCourseList() = async ()=>{
+async function getAllCourseList() {
+    try {
         const { data } = await getAllCourseListApi()
         if (data.status === 200) {
             courseOptions.value = data.result
         }
+    } catch (e) {
+        console.log(e)
+    }
 }
 getAllCourseList()
 // Define event

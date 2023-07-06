@@ -26,10 +26,16 @@ async function gradeClassList() {
 const courseOptions = ref<object[]>([])
 // Define course id
 const courseId = ref(null)
-// Get a list of all classes
-const getAllCourseList() = async ()=>{
-    const {data} = await getAllCourseListApi()
-    courseOptions.value = data.result;
+// Get a list of all courses
+async function getAllCourseList() {
+    try {
+        const { data } = await getAllCourseListApi()
+        if (data.status === 200) {
+            courseOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
 }
 //Load data after mount
 onMounted(() => {
