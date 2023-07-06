@@ -5,6 +5,7 @@ import {ElMessage, FormInstance, FormRules} from 'element-plus'
 import {updateInfoApi} from "../../../api/user/user.ts";
 import BindEmail from "./BindEmail.vue";
 import UpdatePwd from "./UpdatePwd.vue";
+import UserInfo from "./UserInfo.vue"
 
 const state = reactive({
     // Basic information
@@ -139,7 +140,7 @@ const {basic} = toRefs(state)
         </el-col>
         <!--Information on the left end-->
         <!--Information on the right start-->
-
+        <UserInfo/>
         <!--Information on the right end-->
     </el-row>
 </template>

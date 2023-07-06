@@ -1,8 +1,12 @@
 <script setup lang="ts">
 
 import userInfo from "./UserInfo.vue";
-import * as url from "url";
 import {calculateDays} from "../../../utils/date.ts";
+import {useUserStore} from "../../../store/modules/user.ts";
+// Server path
+const url = import.meta.env.VITE_APP_BASE_API;
+// Login user information
+const {userInfo} = useUserStore()
 </script>
 
 <template>
@@ -54,5 +58,34 @@ import {calculateDays} from "../../../utils/date.ts";
 </template>
 
 <style scoped>
-
+.right_box {
+    width: 100%;
+    height: auto;
+    background: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.right_photo {
+    position: relative;
+    text-align: center;
+    height: 100px;
+    width: 100px;
+    margin-left: -50px;
+    left: 50%;
+}
+.info {
+    text-align: center;
+}
+.right_photo img {
+    width: 100%;
+    border-radius: 50%;
+}
+.right_box h2 {
+    padding-top: 10px;
+    letter-spacing: 0;
+    font-size: 30px;
+}
+.right_box .title {
+    color: #178557;
+}
 </style>
