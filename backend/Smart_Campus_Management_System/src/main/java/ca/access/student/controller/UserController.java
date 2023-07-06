@@ -195,4 +195,31 @@ public class UserController {
         }
         return BaseResult.success();
     }
+    /**
+     * Change bound email
+     * @param code
+     * @return
+     */
+    @PutMapping("updateEmail")
+    public BaseResult updateEmail(@RequestParam("code")Integer code,@RequestParam("email")String email, HttpServletRequest request){
+
+        if(code==null|| email==null){
+            return BaseResult.fail("The verification code or email does not exist!");
+        }
+        Integer sessionCode = (Integer) request.getServletContext().getAttribute("code");
+        if(sessionCode==null){
+            return BaseResult.fail("Verification code has expired!");
+        }
+        if(!sessionCode.equals(code)){
+            return BaseResult.fail("The verification code input is incorrect, please re-enter!");
+        }
+        // Get the login user ID
+        String token = (String)request.getServletContext().getAttribute("token");
+        Long userId = HutoolJWTUtil.parseToken(token);
+        SysUser tempSysUser = new SysUser();
+        tempSysUser.setEmail(email);
+        tempSysUser.setId(userId);
+        sysUserService.editUser(tempSysUser);
+        return BaseResult.success();
+    }
 }
