@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: Lei Fu
  * @date: 2023/05/26
@@ -82,5 +84,14 @@ public class SysRoleServiceImpl implements IRoleService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(Long id) {
         sysRoleRepository.deleteById(id);
+    }
+
+    /**
+     * Get a list of all roles
+     * @return
+     */
+    @Override
+    public List<SysRole> queryAll() {
+        return sysRoleRepository.findAll();
     }
 }
