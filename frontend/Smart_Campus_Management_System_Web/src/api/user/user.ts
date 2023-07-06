@@ -89,3 +89,10 @@ export function updatePwdApi(data:object) {
         data
     })
 }
+// Get a list of all roles
+export function getAllRoleListApi() {
+    return request({
+        url: 'role/all',
+        method: 'get'
+    })
+}
