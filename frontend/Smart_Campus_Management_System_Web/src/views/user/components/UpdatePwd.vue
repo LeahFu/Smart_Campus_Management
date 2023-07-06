@@ -1,5 +1,20 @@
 <script setup lang="ts">
+import { ref, reactive} from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
 
+// Define the form instance object
+const modifyFormRef = ref<FormInstance>()
+const subLoading = ref(false)
+// define form data object
+const modifyPwd = ref({
+    usedPass: "",
+    newPass: ""
+})
+// Define form constraint rule object
+const modifyRules = reactive<FormRules>({
+    usedPass: [{ required: true, message: 'Old password cannot be empty', trigger: 'blur' }],
+    newPass: [{ required: true, message: 'New password cannot be empty', trigger: 'blur' }]
+})
 </script>
 
 <template>
