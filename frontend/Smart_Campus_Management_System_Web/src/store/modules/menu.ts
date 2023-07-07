@@ -25,3 +25,26 @@ export const useMenuStore = defineStore({
         }
     }
 })
+// Filter asyncRoutes by recursion
+export function filterAsyncRoutes ({routes, roles}: { routes: any, roles: any }) {
+    const res = []
+    routes.forEach(route => {
+        const tmp = { ...route }
+        if (hasPermission(roles, tmp)) {
+            if (tmp.children) {
+                tmp.children = filterAsyncRoutes({routes: tmp.children, roles: roles})
+            }
+            res.push(tmp)
+        }
+    })
+    return res
+}
+function hasPermission (roles, route) {
+    if (route.meta && route.meta.role) {
+        // The some() method is used to check whether
+        // the elements in the array meet the specified conditions (provided by the function)
+        return roles.some(role => route.meta.role.indexOf(role) >= 0)
+    } else {
+        return true
+    }
+}

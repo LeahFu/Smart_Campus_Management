@@ -2,6 +2,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Nprogress from "../config/nprogress.ts";
 //2. Define some routes, each route needs to be mapped to a component
+// Define static routes
+
 const routes = [{
     path:'/',
     name:'Login',
