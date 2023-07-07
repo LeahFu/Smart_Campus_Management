@@ -3,7 +3,51 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Nprogress from "../config/nprogress.ts";
 //2. Define some routes, each route needs to be mapped to a component
 // Define static routes
+export const staticRouter = [
+    {
+        path: '/',
+        redirect: "/login",
+        isMenu: false
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        meta: { title: 'Smart Campus Management System - Login'},
+        component: ()=> import('../views/login/Login.vue'),
+        isMenu: false
 
+    },
+    {
+        path: '/index',
+        name: 'index',
+        component: ()=> import('../views/layout/Index.vue'),
+        redirect: "/home",
+        isMenu: true,
+        funcNode:1,
+        children: [{
+            path: '/home',
+            name: 'home',
+            meta: { title: 'Home', icon: 'House',affix: true },
+            component: ()=> import('../views/home/Index.vue')
+        }]
+    },
+    {
+        path: '/user',
+        name: 'UserSetting',
+        redirect: '/user/setting',
+        component: ()=> import('../views/layout/Index.vue'),
+        isMenu: true,
+        funcNode:1,
+        children: [
+            {
+                path: 'setting',
+                name: 'PersonalSettings',
+                meta: { title: 'Personal setting', icon: 'Basketball'},
+                component: ()=> import('../views/user/components/PersonalSettings.vue')
+            }
+        ]
+    }
+]
 const routes = [{
     path:'/',
     name:'Login',
