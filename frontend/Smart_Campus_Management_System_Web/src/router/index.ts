@@ -48,40 +48,36 @@ export const staticRouter = [
         ]
     }
 ]
-const routes = [{
-    path:'/',
-    name:'Login',
-    meta:{title:'smart campus management system login'},
-    component:()=>import('../views/login/Login.vue')
-},
-    {path:'/index',
-     name:'index',
-     component:()=>import('../views/layout/Index.vue'),
-     redirect:'/home',
-     children:[{
-        path:'/home',
-        name:'home',
-        meta:{title:'home page',icon:'House',affix:true},
-        component:()=>import('../views/home/index.vue')
-     }]
-    },
+// Define dynamic route
+export const asyncRoutes = [
     {
-        path:'/system',
-        name:'system',
-        meta:{title:'system management'},
-        redirect:'/system/user',
-        component:()=>import('../views/layout/Index.vue'),
-        children: [{
-            path: 'user',
-            name: 'user',
-            meta: {title:'user management'},
-            component:()=>import('../views/user/UserList.vue')
+        path: '/system',
+        name: 'system',
+        meta: {
+            title: 'System Management',
+            icon: 'GoldMedal',
+            role: ['ROLE_ADMIN']
         },
+        redirect: '/system/user',
+        component: ()=> import('../views/layout/Index.vue'),
+        isMenu: true,
+        funcNode:2,
+        children: [
+            {
+                path: 'user',
+                name: 'User',
+                meta: {
+                    title: 'User Management',
+                    icon: 'UserFilled',
+                    role: ['ROLE_ADMIN']
+                },
+                component: ()=> import('../views/user/UserList.vue')
+            },
             {
                 path: 'role',
                 name: 'Role',
                 meta: {
-                    title: 'role management',
+                    title: 'Role Management',
                     icon: 'Stamp',
                     role: ['ROLE_ADMIN']
                 },
@@ -90,92 +86,126 @@ const routes = [{
         ]
     },
     {
-        path:'/base',
-        name:'base',
-        meta:{ title:'Data management'},
+        path: '/base',
+        name: 'base',
+        meta: {
+            title: 'Data Management',
+            icon: 'DataAnalysis',
+            role: ['ROLE_ADMIN']
+        },
         redirect: '/base/gradeclass',
-        component:()=> import('../views/layout/Index.vue'),
+        component: ()=> import('../views/layout/Index.vue'),
+        isMenu: true,
+        funcNode:2,
         children: [
             {
-                path:'gradeclass',
-                name:'gradeclass',
-                meta:{title: 'Class management'},
-                component:()=>import('../views/gradeclass/GradeClassList.vue')
+                path: 'gradeclass',
+                name: 'gradeclass',
+                meta: {
+                    title: 'Class Management',
+                    icon: 'Box',
+                    role: ['ROLE_ADMIN']
+                },
+                component: ()=> import('../views/gradeclass/GradeClassList.vue')
             },
             {
-                path:'student',
-                name:'student',
-                meta:{title: 'Student management'},
-                component:()=>import('../views/student/StudentList.vue')
+                path: 'student',
+                name: 'student',
+                meta: {
+                    title: 'Student Management',
+                    icon: 'User',
+                    role: ['ROLE_ADMIN']
+                },
+                component: ()=> import('../views/student/StudentList.vue')
             },
             {
-                path:'course',
-                name:'course',
-                meta:{ title: 'Course management'},
+                path: 'course',
+                name: 'course',
+                meta: {
+                    title: 'Course Management',
+                    icon: 'Tickets',
+                    role: ['ROLE_ADMIN']
+                },
                 component: ()=> import('../views/course/CourseList.vue')
             },
             {
-                path:'teacher',
-                name:'teacher',
-                meta:{ title: 'teacher management'},
+                path: 'teacher',
+                name: 'teacher',
+                meta: {
+                    title: 'Teacher Management',
+                    icon: 'Avatar',
+                    role: ['ROLE_ADMIN']
+                },
                 component: ()=> import('../views/teacher/TeacherList.vue')
             }
         ]
     },
     {
-        path:'/scores',
-        name:'scores',
-        meta:{title: 'Grade management'},
+        path: '/scores',
+        name: 'scores',
+        meta: {
+            title: 'Scores Management',
+            icon: 'GoldMedal',
+            role: ['ROLE_USER','ROLE_ADMIN']
+        },
         redirect: '/scores/index',
-        component:()=>import('../views/layout/Index.vue'),
+        component: ()=> import('../views/layout/Index.vue'),
+        isMenu: true,
+        funcNode:2,
         children: [
             {
-                path:'index',
-                name: 'scoreIndex',
-                meta:{title: 'Grade'},
-                component:()=>import('../views/scores/ScoresList.vue')
+                path: 'index',
+                name: 'scoresIndex',
+                meta: {
+                    title: 'Class Courses Grades',
+                    icon: 'Money',
+                    role: ['ROLE_USER','ROLE_ADMIN']
+                },
+                component: ()=> import('../views/scores/ScoresList.vue')
             }
         ]
     },
     {
-        path:'/census',
-        name:'census',
-        meta:{title:'Statistics'},
+        path: '/census',
+        name: 'census',
+        meta: {
+            title: 'Data Statistics',
+            icon: 'Medal',
+            role: ['ROLE_USER','ROLE_ADMIN']
+        },
         redirect: '/census/index',
-        component:()=>import('../views/layout/Index.vue'),
+        component: ()=> import('../views/layout/Index.vue'),
+        isMenu: true,
+        funcNode:2,
         children: [
             {
-                path:'index',
-                name:'scoresCensusIndex',
-                component:()=>import('../views/census/ScoresCensus.vue')
+                path: 'index',
+                name: 'scoresCensusIndex',
+                meta: {
+                    title: 'Class Courses Grades Statistics',
+                    icon: 'Histogram',
+                    role: ['ROLE_USER','ROLE_ADMIN']
+                },
+                component: ()=> import('../views/census/ScoresCensus.vue')
             },
             {
-                path:'contrast',
-                name:'scoresContrastCensusIndex',
-                meta:{title:'Class course grades comparison statistics'},
-                component:()=> import('../views/census/ScoresContrastCensus.vue')
-            }
-        ]
-    },
-    {
-        path:'/user',
-        name:'userSetting',
-        redirect: '/user/setting',
-        component:()=> import('../views/layout/Index.vue'),
-        children: [
-            {
-                path:'setting',
-                name:'PersonalSettings',
-                meta:{title: 'Personal Settings'},
-                component:()=> import('../views/user/components/PersonalSettings.vue')
+                path: 'contrast',
+                name: 'scoresContrastCensusIndex',
+                meta: {
+                    title: 'Comparative Statistics of Class Courses',
+                    icon: 'Notification',
+                    role: ['ROLE_USER','ROLE_ADMIN']
+                },
+                component: ()=> import('../views/census/ScoresContrastCensus.vue')
             }
         ]
     }
 ]
+
 //3. Create routing instance and pass routes configuration
 const router = createRouter({
     history: createWebHashHistory(),
-    routes:routes
+    routes:staticRouter
 })
 //Route interception guard
 router.beforeEach(async(to,from,next)=>{
