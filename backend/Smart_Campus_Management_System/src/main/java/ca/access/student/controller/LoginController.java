@@ -52,6 +52,7 @@ public class LoginController {
             resultMap.put("gender",dbSysUser.getGender());
             resultMap.put("createTime",dbSysUser.getCreateTime());
             resultMap.put("userIcon",dbSysUser.getUserIcon());
+            resultMap.put("role",dbSysUser.getSysRole());
 
             return BaseResult.success("Login successful",resultMap);
         }

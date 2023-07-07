@@ -81,7 +81,7 @@ const url = import.meta.env.VITE_APP_BASE_API
                                     </p>
                                 </div>
                                 <div style="float:left;width: 75px;padding:10px;text-align: center;">
-                                    <p>Stryle</p>
+                                    <p>Style</p>
                                     <p style="font-size: 15px;font-weight:600;line-height: 40px;">
                                         <span >{{userInfo.role.name}}</span>
                                     </p>
