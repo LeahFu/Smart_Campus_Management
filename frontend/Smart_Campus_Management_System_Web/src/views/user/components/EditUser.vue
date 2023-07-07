@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { reactive,ref } from 'vue'
+import { reactive,ref,onMounted } from 'vue'
 import {ElMessage, FormRules} from 'element-plus'
 import {FormInstance} from "element-plus";
-import {editUserApi} from "../../../api/user/user.ts";
+import {editUserApi, getAllRoleListApi} from "../../../api/user/user.ts";
 const emit = defineEmits(['closeEditUserForm','success'])
 const props = defineProps(['userInfo'])
 const userInfo = ref(props.userInfo)
@@ -14,7 +14,7 @@ const formUser = reactive({
     status:1,
     realname: '',
     email: '',
-    sex: 'female',
+    gender: 'female',
     remarks: '',
     sysRole: {
         id: ''
@@ -56,6 +56,23 @@ const editUser = async (formEl: FormInstance | undefined) => {
 const close = ()=> {
     emit('closeEditUserForm')
 }
+// Define role dropdown selections
+const roleOptions = ref<object[]>([])
+// Get a list of all roles
+async function getAllRoleList() {
+    try {
+        const { data } = await getAllRoleListApi()
+        if (data.status === 200) {
+            roleOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+getAllRoleList()
+onMounted(()=>{
+    getAllRoleList()
+})
 </script>
 
 <template>
@@ -83,7 +100,7 @@ const close = ()=> {
             </el-col>
             <el-col :span="12">
                 <el-form-item label="gender" prop="gender">
-                    <el-radio-group v-model="formUser.sex" fill="#178557">
+                    <el-radio-group v-model="formUser.gender" fill="#178557">
                         <el-radio-button label="male" />
                         <el-radio-button label="female" />
                     </el-radio-group>
@@ -96,6 +113,13 @@ const close = ()=> {
                         <el-radio-button :label="0">banned</el-radio-button>
 
                     </el-radio-group>
+                </el-form-item>
+            </el-col>
+            <el-col :span="24">
+                <el-form-item prop="sysRole" label="role">
+                    <el-select v-model="formUser.sysRole.id" placeholder="Please select a role" style="width: 100%;">
+                        <el-option v-for="item in roleOptions" :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
                 </el-form-item>
             </el-col>
             <el-col :span="24">
