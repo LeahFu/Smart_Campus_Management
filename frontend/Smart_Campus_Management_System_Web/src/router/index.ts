@@ -1,6 +1,8 @@
 //1. import Vue Router module
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Nprogress from "../config/nprogress.ts";
+import {useUserStore} from "../store/modules/user.ts";
+import {useMenuStore} from "../store/modules/menu.ts";
 //2. Define some routes, each route needs to be mapped to a component
 // Define static routes
 export const staticRouter = [
@@ -208,11 +210,33 @@ const router = createRouter({
     routes:staticRouter
 })
 //Route interception guard
-router.beforeEach(async(to,from,next)=>{
-    //1. start Nprogress
-    Nprogress.start()
-    next()
-})
+router.beforeEach(async (to, from, next) => {
+// 1.NProgress start
+    Nprogress.start();
+
+    //2.If you are visiting the login page, let it go directly
+    if(to.path==='/login')return next()
+
+    //3.Determine whether there is a Token, not redirected to login
+    const userStore = useUserStore()
+    if(!userStore.token)return next({path:`/login?redirect=${to.path}`,replace:true})
+
+    // Get the role of the logged in user
+    const { userInfo } = userStore
+    const roles = []
+    roles.push(userInfo.role.code)
+
+    // Dynamically generate routing and access mappings based on roles
+    const menuStore = useMenuStore()
+    if (!menuStore.routers.length) {
+        const accessRoutes =  menuStore.generateRoutes({roles: roles})
+        accessRoutes.forEach(item => router.addRoute(item)) // Dynamically add access routing table
+        next({ ...to, replace: true }) // This is equivalent to pushing to a page instead of entering route interception
+    }else {
+        // Normal page
+        next();
+    }
+});
 
 // Routing jump ends
 router.afterEach(()=>{
