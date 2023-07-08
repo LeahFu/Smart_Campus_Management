@@ -1,18 +1,55 @@
-# Vue 3 + TypeScript + Vite
+# Smart_Campus_Management_System
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+The Smart Campus Management System will provide a central platform
+to manage various personnel and administrative activities on campus.
+GitHub address:https://github.com/LeahFu/Smart_Campus_Management.git
 
-## Recommended IDE Setup
+System function structure
+There are two main roles in this system, the administrator role and the common user role,
+among which:
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+The main functions of the administrator role are:
+background home page display,
+personal information display and modification,
+user management,
+role management,
+class management,
+student management,
+course management,
+teacher management,
+class courses grades management,
+class courses grades statistics,
+class courses comparison statistics.
 
-## Type Support For `.vue` Imports in TS
+The main functions of common user roles are:
+backstage home page display,
+personal information display and modification,
+class courses grades management,
+class courses grades statistics,
+class courses comparison statistics.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Technology Stack
+web framework: SpringBoot3.X
+Database framework: Spring Data JPA
+Database: MySql
+Project construction tools: Maven, vite
+Front-end framework: Vue3.X, element plus, pina, axios, Vue Router
+Data chart: ECharts
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+Database Table
+This project consists of seven tables, which are as follows:
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+1. User table (sys_user)
+
+2. Role table (sys_role)
+
+3. Teacher table (s_teacher)
+
+4. Class table (s_grade_class)
+
+5. Student table (s_student)
+
+6. Course table (s_course)
+
+7. Student grades table (s_student_score)
+
