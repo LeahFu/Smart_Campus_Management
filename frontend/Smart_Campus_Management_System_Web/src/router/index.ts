@@ -1,10 +1,11 @@
 //1. import Vue Router module
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Nprogress from "../config/nprogress.ts";
+import NProgress from "../config/nprogress.ts";
 import {useUserStore} from "../store/modules/user.ts";
 import {useMenuStore} from "../store/modules/menu.ts";
 //2. Define some routes, each route needs to be mapped to a component
 // Define static routes
+// @ts-ignore
 export const staticRouter = [
     {
         path: '/',
@@ -212,7 +213,7 @@ const router = createRouter({
 //Route interception guard
 router.beforeEach(async (to, from, next) => {
 // 1.NProgress start
-    Nprogress.start();
+    NProgress.start();
 
     //2.If you are visiting the login page, let it go directly
     if(to.path==='/login')return next()
@@ -240,12 +241,12 @@ router.beforeEach(async (to, from, next) => {
 
 // Routing jump ends
 router.afterEach(()=>{
-    Nprogress.done()
+    NProgress.done()
 })
 
 // Routing jump fail
 router.onError(error=>{
-    Nprogress.done()
+    NProgress.done()
     console.warn("Routing error",error.message)
 })
 export default router
