@@ -52,7 +52,6 @@ const isCollapse = computed(() => !SettingStore.isCollapse)
             </el-menu-item>
         </template>
         <!--traverse menu end-->
-
     </el-menu>
 </template>
 

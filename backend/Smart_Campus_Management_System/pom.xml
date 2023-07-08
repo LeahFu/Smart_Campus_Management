@@ -10,8 +10,10 @@
 	</parent>
 	<groupId>ca.access</groupId>
 	<artifactId>Smart_Campus_Management_System</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Smart_Campus_Management_System</name>
+
+	<packaging>jar</packaging>
 	<description>Smart_Campus_Management_System</description>
 	<properties>
 		<java.version>17</java.version>
