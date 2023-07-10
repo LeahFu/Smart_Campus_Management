@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted, toRefs } from 'vue'
 import {gradeClassListApi} from "../../api/student/student.ts";
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
-import {editScoresApi, getScoresListApi, registerScoresApi} from "../../api/scores/scores.ts";
+import {editScoresApi, getScoresListApi, registerScoresApi, deleteScoresApi} from "../../api/scores/scores.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import {exportExcel} from "../../utils/exportExcel.ts";

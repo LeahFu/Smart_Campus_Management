@@ -17,7 +17,6 @@ import java.util.Map;
  * @description: System background login front controller
  */
 @RestController
-@RequestMapping("login")
 public class LoginController {
     private final ISysUserService sysUserService;
     public LoginController(ISysUserService sysUserService){
@@ -30,7 +29,7 @@ public class LoginController {
      * @param request
      * @return
      */
-    @PostMapping
+    @PostMapping("login")
     public BaseResult login(@RequestBody SysUser sysUser, HttpServletRequest request){
         SysUser dbSysUser = sysUserService.login(sysUser);
         if(dbSysUser==null){

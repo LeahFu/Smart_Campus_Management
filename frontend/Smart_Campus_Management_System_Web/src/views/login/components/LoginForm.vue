@@ -13,8 +13,8 @@ const loading = ref(false)
 
 // form rules
 const rules = reactive({
-    password: [{ required: true, message: "Please enter usernama", trigger: "blur" }],
-    username: [{ required: true, message: "Please enter password", trigger: "blur" }],
+    username: [{ required: true, message: "Please enter usernama", trigger: "blur" }],
+    password: [{ required: true, message: "Please enter password", trigger: "blur" }],
 })
 // form data
 const ruleForm = reactive({

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive,toRefs,onMounted,watch,ref } from 'vue'
+import {Search, Delete} from '@element-plus/icons-vue'
 import {deleteUserApi, getUserApi, getUserListApi} from "../../api/user/user.ts";
 import { formatTime } from "../../utils/date"
 import AddUser from './components/AddUser.vue'
