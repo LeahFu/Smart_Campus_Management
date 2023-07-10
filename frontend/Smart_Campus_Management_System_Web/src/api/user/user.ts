@@ -65,7 +65,6 @@ export function verifyCodeApi(code:string) {
         params: {
             code
         }
-
     })
 }
 

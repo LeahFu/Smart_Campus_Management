@@ -1,6 +1,7 @@
 import axios from "axios"
 const service = axios.create({
-    baseURL: "http://localhost:8080",
-    timeout: 1000
+    baseURL: import.meta.env.VITE_APP_BASE_API,
+    timeout: 3000000,
+    withCredentials: true
 })
 export default service
