@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref,reactive,toRefs,onMounted} from 'vue'
-import {deleteCourseApi, getCourseListApi} from "../../api/course/course.ts";
+import {deleteCourseApi, getCourseApi, getCourseListApi} from "../../api/course/course.ts";
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import AddCourse from "./components/AddCourse.vue";

@@ -61,7 +61,7 @@ const Nindex = (index) => {
 // refresh
 const refresh = () => {
     // search value
-    state.searchValue = ""
+    state.searchValue = null
     // filter drop-down box content
     state.status = null
     // refresh data
@@ -101,6 +101,7 @@ const closeAddUserForm = ()=> {
 const success = ()=> {
     loadData(state);
     userDialogFormVisible.value = false
+    editUserDialogFormVisible.value = false
 }
 // edit user information
 const userInfo = ref()
@@ -131,7 +132,7 @@ const column = [
     {name: 'gender',label: 'gender'},
     {name: 'status',label: 'status'},
     {name: 'email',label: 'email'},
-    {name: 'remark',label: 'remark'}
+    {name: 'remarks',label: 'remarks'}
 ]
 // Export excel function
 const exportExcelAction = () => {
@@ -219,6 +220,13 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
               </el-tooltip>
            </template>
         </el-table-column>
+          <el-table-column label="email">
+              <template #default="scope">
+                  <el-tooltip :content="scope.row.email" palacement="top" effect="light">
+                      <span class="highlight">{{scope.row.email}}</span>
+                  </el-tooltip>
+              </template>
+          </el-table-column>
           <el-table-column label="role name">
               <template #default="scope">
                   <span class="highlight">{{scope.row.sysRole.name}}</span>
@@ -313,6 +321,12 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
   border-bottom: 1px solid rgb(238 238 238);
   color: #178557;
  }
+ .text {
+     font-size: 14px;
+ }
+ .item {
+     margin-bottom: 18px;
+ }
  .el-card {
   border-radius: 0px;
   border: none;
@@ -333,5 +347,11 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
  .my-button {
      display: flex;
      justify-content:space-between;
+ }
+ :deep(.el-loading-spinner .el-loading-text){
+     color: #178557;
+ }
+ :deep(.el-loading-spinner .path){
+     stroke: #178557;
  }
 </style>

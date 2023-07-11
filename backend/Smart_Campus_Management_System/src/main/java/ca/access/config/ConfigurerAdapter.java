@@ -1,6 +1,7 @@
 package ca.access.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date: 2023/05/09
  * @description: Configurer
  */
+@Configuration
 public class ConfigurerAdapter implements WebMvcConfigurer {
     @Value("${user.icon}")
     private String userIcon;
@@ -38,6 +40,7 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        System.out.println("userIcon:"+userIcon);
         String pathUtl = "file:" + userIcon.replace("\\","/");
         registry.addResourceHandler("/uploadFile/**").addResourceLocations(pathUtl).setCachePeriod(0);
     }
