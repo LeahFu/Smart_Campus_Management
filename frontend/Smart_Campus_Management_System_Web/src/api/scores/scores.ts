@@ -1,9 +1,9 @@
 import request from '../request'
-export function getScoresListApi(data:object) {
+export function getScoresListApi(params:object) {
     return request({
         url: 'scores',
         method: 'get',
-        params: data
+        params
     })
 }
 // Register course grades
@@ -12,8 +12,8 @@ export function registerScoresApi(gradeClassId:number,courseId:number) {
         url: 'scores',
         method: 'post',
         data: {
-            gradeClassId: gradeClassId,
-            courseId: courseId
+            gradeClassId,
+            courseId
         }
     })
 }

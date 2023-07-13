@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
 import {ElMessage} from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
-import addCourse from "./AddCourse.vue";
+import { FormInstance, FormRules } from 'element-plus'
+import {addCourseApi} from "../../../api/course/course";
 
 
 // Button status
@@ -28,10 +28,10 @@ const addCourse = async (formEl: FormInstance | undefined) => {
             }
         } else {
             ElMessage.error('Submission failed, you still have unfilled items!')
-            console.log('error submit!', fields)
+           // console.log('error submit!', fields)
         }
-        subLoading.value = false
     })
+    subLoading.value = false
 }
 const emit = defineEmits(['closeAddCourseForm','success'])
 // Cancel form

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import {ElMessage} from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 import {editStudentApi, gradeClassListApi} from "../../../api/student/student.ts";
 // Form instance object
 const ruleFormRef = ref<FormInstance>()
@@ -34,7 +34,11 @@ const props = defineProps(['studentInfo'])
 const studentInfo = ref(props.studentInfo)
 // Fill the form with data
 for (const key in formStudent) {
-    formStudent[key] = studentInfo.value[key]
+    if(key==='gradeClass'){
+        formStudent[key].id = studentInfo.value[key].id
+    }else{
+        formStudent[key] = studentInfo.value[key]
+    }
 }
 // Edit student information
 const editStudent = async (formEl: FormInstance | undefined) => {
@@ -53,12 +57,18 @@ const editStudent = async (formEl: FormInstance | undefined) => {
             ElMessage.error('Submission failed, you still have unfilled items!')
             console.log('error submit!', fields)
         }
-        subLoading.value = false
     })
+    subLoading.value = false
 }
 const gradeClassOptions = ref<object[]>([])
 // Get a list of all classes
-async function gradeClassList() {
+const gradeClassList= async ()=> {
+    const { data } = await gradeClassListApi()
+    if(data.status === 200){
+        gradeClassOptions.value = data.result
+    }
+}
+/*async function gradeClassList() {
     try {
         const { data } = await gradeClassListApi()
         if (data.status === 200) {
@@ -67,7 +77,7 @@ async function gradeClassList() {
     } catch (e) {
         console.log(e)
     }
-}
+}*/
 gradeClassList()
 // Cancel form
 const close = ()=> {
@@ -86,7 +96,7 @@ const close = ()=> {
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="student number" prop="stuno">
+                <el-form-item label="student NO." prop="stuno">
                     <el-input v-model="formStudent.stuno" placeholder="Please enter student number" />
                 </el-form-item>
             </el-col>
@@ -123,14 +133,14 @@ const close = ()=> {
         </el-row>
     </el-form>
 
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">Cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="editStudent(ruleFormRef)">Save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

@@ -2,7 +2,7 @@
 import {ref, reactive} from 'vue'
 import {ElMessage} from 'element-plus'
 import {addTeacherApi, getAllCourseListApi} from "../../../api/teacher/teacher.ts";
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 // Button status
 const subLoading = ref(false)
 // Form data object
@@ -34,13 +34,19 @@ const addTeacher = async (formEl: FormInstance | undefined) => {
             ElMessage.error('Submission failed, you still have unfilled items!')
             console.log('error submit!', fields)
         }
-        subLoading.value = false
     })
+    subLoading.value = false
 }
 // Define course drop-down box selection items
 const courseOptions = ref<object[]>([])
 // Get a list of all courses
-async function getAllCourseList() {
+const getAllCourseList = async ()=> {
+    const { data } = await getAllCourseListApi()
+    if(data.status === 200){
+        courseOptions.value = data.result
+    }
+}
+/*async function getAllCourseList() {
     try {
         const { data } = await getAllCourseListApi()
         if (data.status === 200) {
@@ -49,7 +55,7 @@ async function getAllCourseList() {
     } catch (e) {
         console.log(e)
     }
-}
+}*/
 getAllCourseList()
 // Define event
 const emit = defineEmits(['closeAddTeacherForm','success'])
@@ -81,7 +87,7 @@ const rules = reactive<FormRules>({
                 </el-form-item>
             </el-col>
             <el-col :span="12">
-                <el-form-item label="Teacher number" prop="teachno">
+                <el-form-item label="Teacher NO." prop="teachno">
                     <el-input v-model="formTeacher.teachno" placeholder="Please enter teacher number" />
                 </el-form-item>
             </el-col>
@@ -117,14 +123,14 @@ const rules = reactive<FormRules>({
         </el-row>
     </el-form>
 
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">Cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="addTeacher(ruleFormRef)">Save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

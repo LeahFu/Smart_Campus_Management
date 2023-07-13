@@ -1,11 +1,11 @@
 import request from '../request'
 
 //Get course list data
-export function getCourseListApi(data:object) {
+export function getCourseListApi(params:object) {
     return request({
         url: 'course',
         method: 'get',
-        params: data
+        params
     })
 }
 // Add course information

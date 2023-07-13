@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { reactive,toRefs, ref, onMounted } from 'vue'
-import {Search} from "@element-plus/icons-vue";
+import {Box, Delete, Download, EditPen, Search} from "@element-plus/icons-vue";
 import {formatTime} from "../../utils/date.ts";
 import {ElMessage} from 'element-plus'
-import {getGradeClassApi, getGradeClassListApi} from "../../api/gradeclass/gradeclass.ts";
+import {deleteGradeClassApi, getGradeClassApi, getGradeClassListApi} from "../../api/gradeclass/gradeclass.ts";
 import AddGradeClass from "./components/AddGradeClass.vue";
 import EditGradeClass from "./components/EditGradeClass.vue";
 import {exportExcel} from "../../utils/exportExcel.ts";
@@ -56,7 +56,7 @@ const changePage = (val) => {
     loadData(state);
 }
 // Process the data sequence number of the list
-const Nindex = (index) => {
+const Nindex = (index:number) => {
     // (Current page number - 1) * number of data items per page + 1
     const page = state.pageIndex // current page number
     const pagesize = state.pageSize // number of data items per page
@@ -132,7 +132,7 @@ onMounted(() => {
         <template #header>
             <div class="card-header">
                 <h3>
-                    <el-icon style="margin-right: 10px;"><UserFilled /></el-icon>Class Management
+                    <el-icon style="margin-right: 10px;"><Box/></el-icon>Class Management
                 </h3>
 
                 <!--Search area start-->
@@ -146,13 +146,13 @@ onMounted(() => {
                             <div class="my-button">
                                 <el-button plain style="width: 100%;" color="#2fa7b9" @click="addGradeClass">Add Class</el-button>
                                 <el-button @click="exportExcelAction" type="primary">
-                                    <el-icon style="margin-right: 1px"><Download /></el-icon>Export Excel
+                                    <el-icon style="margin-right: 1px"><Download/></el-icon>Export Excel
                                 </el-button>
                             </div>
                         </el-col>
                         <el-col :span="3" style="display: inline-flex;justify-content: center;align-items: center; cursor: pointer;">
                             <el-icon style="font-size: 20px;color: #b3b6bc;" @click="refresh">
-                                <Refresh />
+                                <Refresh/>
                             </el-icon>
                         </el-col>
                     </el-row>
@@ -165,7 +165,6 @@ onMounted(() => {
         <div class="table-box">
             <el-table element-loading-text="Loading..." v-loading="loading" :data="tableData"
                       style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
-                      :row-class-name="rowClassName"
                       :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
 
                 <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
@@ -213,7 +212,7 @@ onMounted(() => {
                         <el-button size="small" @click="editGradeClass(scope.row.id)"
                                    style="margin: 0 0 10px 10px;">Edit</el-button>
                         <el-popconfirm confirm-button-text="Submit" cancel-button-text="Cancel"
-                                       icon-color="#626AEF" :title="'Are you sure you want to delete class “'+scope.row.name+'” ？'"
+                                       :icon="Delete" icon-color="#626AEF" :title="'Are you sure you want to delete class “'+scope.row.name+'” ？'"
                                        @confirm="delGradeClass(scope.row.id)">
                             <template #reference>
                                 <el-button size="small" type="danger" style="margin-bottom: 10px;">Delete</el-button>
@@ -237,7 +236,7 @@ onMounted(() => {
         <template #header="{ close, titleId, titleClass }">
             <div class="my-header">
                 <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{addTitle}}</h1>
+                <h1 id="titleId">Add Class</h1>
             </div>
 
         </template>
@@ -252,7 +251,7 @@ onMounted(() => {
         <template #header="{ close, titleId, titleClass }">
             <div class="my-header">
                 <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{editTitle}}</h1>
+                <h1 id="titleId">Edit Class</h1>
             </div>
 
         </template>

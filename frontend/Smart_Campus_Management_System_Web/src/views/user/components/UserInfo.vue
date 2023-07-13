@@ -1,6 +1,4 @@
 <script setup lang="ts">
-
-import userInfo from "./UserInfo.vue";
 import {calculateDays} from "../../../utils/date.ts";
 import {useUserStore} from "../../../store/modules/user.ts";
 // Server path
@@ -51,7 +49,7 @@ const {userInfo} = useUserStore()
                 <el-icon style="margin-right: 10px;">
                     <Watch />
                 </el-icon>
-                The number of days this site is running: （{{calculateDays('2022-12-20 00:00:00')}}）
+                The number of days this site is running: （{{calculateDays('2023-05-10 00:00:00')}}）
             </h3>
         </div>
     </el-col>

@@ -6,6 +6,7 @@ import { ElNotification } from "element-plus";
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../../../store/modules/user'
 import {loginApi} from "../../../api/login/login.ts";
+import {GoodsFilled, UserFilled} from "@element-plus/icons-vue";
 const router = useRouter()
 const ruleFormRef = ref<FormInstance>()
 const passwordType = ref('password')
@@ -66,9 +67,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
             }
         } else {
             console.log('error submit!')
-            loading.value = false
             return false
         }
+        loading.value = false
     })
 }
 </script>
@@ -92,8 +93,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
                     placeholder="Please enter password"
                     autoComplete="on"
                     v-model="ruleForm.password"
-                    :type="passwordType"
-            >
+                    :type="passwordType">
                 <template #prefix>
                     <el-icon class="el-input__icon"><GoodsFilled /></el-icon>
                 </template>
@@ -111,8 +111,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
                     class="login-btn"
                     type="success"
                     @click="submitForm(ruleFormRef)"
-            >Login</el-button
-            >
+            >Login</el-button>
         </el-form-item>
 
     </el-form>
@@ -121,7 +120,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
 <style scoped>
 .login-btn{
     margin-top: 20px;
-    width: 100%; height: 47px
+    width: 100%;
+    height: 47px;
 }
 .show-pwd {
     position: absolute;

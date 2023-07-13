@@ -32,11 +32,11 @@ const url = import.meta.env.VITE_APP_BASE_API
             <div class="linkBox">
                 <!--Login user information start-->
                 <el-popover
-                        :width="320"
+                        :width="350"
                 >
                     <!--User avatar start-->
                     <template #reference>
-                        <el-link :underline="false" @click="toPersonalSetup">
+                        <el-link :underline="false" >
                             <!-- If the user does not set an avatar, the system default avatar will be used -->
                             <img v-if="userInfo.userIcon" :src="url+'uploadFile/'+userInfo.userIcon"
                                  style="width: 50px;border-radius: 50px;" />
@@ -48,32 +48,29 @@ const url = import.meta.env.VITE_APP_BASE_API
                     <!--User avatar end-->
                     <!--User information start-->
                     <template #default>
-                        <div class="demo-rich-conent" style="display: flex; gap: 16px; flex-direction: column">
-                            <div class="demo-rich-conent-custom">
+                        <div style="display: flex; gap: 16px; flex-direction: column">
+                            <div class="info-card">
                                 <!-- If the user does not set information, the system default information will be used -->
                                 <img v-if="userInfo.userIcon" :src="url+'uploadFile/'+userInfo.userIcon"/>
                                 <img v-else  src="../../../assets/default_avatar.png">
-                                <p class="demo-rich-content__name">
+                                <p>
                                     User Name：{{userInfo.username}}
                                 </p>
-                                <p class="demo-rich-content__mention">
+                                <p>
                                     Email：{{userInfo.email}}
                                 </p>
-                                <p class="demo-rich-content__mention">
+                                <p>
                                     Register Time：{{formatTime(userInfo.createTime,'yyyy-MM-dd HH:mm:ss')}}
                                 </p>
                             </div>
-                            <p class="demo-rich-content__desc" style="margin: 0">
-                                <div
-                                        style="float:left;width: 75px;padding:10px;border-right: 1px solid rgb(205, 205, 205);text-align: center;">
-                                    <p>Gender</p>
-                                    <p style="font-size: 25px;font-weight:600;">
-                                        {{ userInfo.gender }}
-                                        <span style="font-size: 10px;font-weight:100;margin-left:5px;"></span>
-                                    </p>
+                            <div class="info-card-desc" style="margin: 0">
+                                <div style="float: left;width: 75px;padding: 10px;border-right: 1px solid rgb(205, 205, 205);text-align: center">
+                                   <p>Gender</p>
+                                   <p style="font-size: 25px;font-weight: 600;">{{userInfo.gender}}
+                                    <span style="font-size: 10px;font-weight: 100;margin-left: 5px"></span>
+                                   </p>
                                 </div>
-                                <div
-                                        style="float:left;width: 80px;padding:10px;border-right: 1px solid rgb(205, 205, 205);text-align: center;">
+                                <div style="float:left;width: 80px;padding:10px;border-right: 1px solid rgb(205, 205, 205);text-align: center;">
                                     <p>Register</p>
                                     <p style="font-size: 25px;font-weight:600;">
                                         {{calculateDays(userInfo.createTime)}}
@@ -86,7 +83,7 @@ const url = import.meta.env.VITE_APP_BASE_API
                                         <span >{{userInfo.role.name}}</span>
                                     </p>
                                 </div>
-                            </p>
+                            </div>
                         </div>
                     </template>
                     <!--User information end-->
@@ -146,8 +143,8 @@ const url = import.meta.env.VITE_APP_BASE_API
     float: left;
 }
 
-.demo-rich-conent-custom p {
-    margin: 0;
+.info-card p {
+    margin-right: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -6,6 +6,7 @@ import {ElMessage} from 'element-plus'
 import AddStudent from "./components/AddStudent.vue"
 import EditStudent from "./components/EditStudent.vue"
 import {exportExcel} from "../../utils/exportExcel.ts";
+import {Delete, Download, EditPen, Search, User} from "@element-plus/icons-vue";
 const state = reactive({
     // Search form content
     searchValue: "",
@@ -58,8 +59,8 @@ const changePage = (val:number) => {
 const Nindex = (index) => {
     //  (Current page number - 1) * number of data items per page + 1
     const page = state.pageIndex // Current page number
-    const pagesize = state.pageSize // Number of data items per page
-    return index + 1 + (page - 1) * pagesize
+    const pageSize = state.pageSize // Number of data items per page
+    return index + 1 + (page - 1) * pageSize
 }
 // Add student pop-up box status
 const addStudentDialogFormVisible = ref(false)
@@ -131,7 +132,7 @@ onMounted(() => {
         <template #header>
             <div class="card-header">
                 <h3>
-                    <el-icon style="margin-right: 10px;"><UserFilled /></el-icon>Student Management
+                    <el-icon style="margin-right: 10px;"><User/></el-icon>Student Management
                 </h3>
 
                 <!--Search area start-->
@@ -145,11 +146,13 @@ onMounted(() => {
                             <div class="my-button">
                                 <el-button plain style="width: 100%;" color="#2fa7b9" @click="addStudent">Add student</el-button>
                                 <el-button @click="exportExcelAction" type="primary">
-                                    <el-icon style="margin-right: 1px"><Download /></el-icon>Export Excel
+                                    <el-icon style="margin-right: 1px"><Download/></el-icon>Export Excel
                                 </el-button>
                             </div>
                         </el-col>
-
+                        <el-col :span="3" style="display: inline-flex;justify-content: center;align-items: center;cursor: pointer;">
+                            <el-icon style="font-size: 20px;color: #b3b6bc;" @click="refresh"><Refresh/></el-icon>
+                        </el-col>
                     </el-row>
                 </div>
                 <!--Search area end-->
@@ -163,8 +166,8 @@ onMounted(() => {
                       :row-class-name="rowClassName"
                       :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
 
-                <el-table-column label="Serial number" width="100" type="index" :index="Nindex"/>
-                <el-table-column label="Student number">
+                <el-table-column label="Serial num" width="100" type="index" :index="Nindex"/>
+                <el-table-column label="Student NO.">
                     <template #default="scope">
                         <span>{{scope.row.stuno}}</span>
                     </template>
@@ -176,7 +179,7 @@ onMounted(() => {
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Grade">
+                <el-table-column label="Class">
                     <template #default="scope">
                         <span>{{scope.row.gradeClass.code}}</span>
                     </template>
@@ -238,7 +241,7 @@ onMounted(() => {
         <template #header="{ close, titleId, titleClass }">
             <div class="my-header">
                 <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{addTitle}}</h1>
+                <h1 id="titleId">Add Student</h1>
             </div>
         </template>
         <!--Add student component start-->
@@ -252,7 +255,7 @@ onMounted(() => {
         <template #header="{ close, titleId, titleClass }">
             <div class="my-header">
                 <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{editTitle}}</h1>
+                <h1 id="titleId">Edit Student</h1>
             </div>
 
         </template>

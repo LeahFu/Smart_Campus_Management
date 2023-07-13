@@ -13,6 +13,6 @@ public class TeacherQueryCriteria {
     /**
      * Query by teacher's name, teacher's number, phone number, or email
      */
-    @EnableAccessQuery(blurry = "name,teachno,phone,qq")
+    @EnableAccessQuery(blurry = "name,teachno,phone,email")
     private String searchValue;
 }

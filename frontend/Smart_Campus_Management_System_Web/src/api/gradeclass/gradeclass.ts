@@ -1,10 +1,10 @@
 import request from '../request'
 
-export function getGradeClassListApi(data:object) {
+export function getGradeClassListApi(params:object) {
     return request({
         url: 'gradeclass',
         method: 'get',
-        params: data
+        params
     })
 }
 // Add class information

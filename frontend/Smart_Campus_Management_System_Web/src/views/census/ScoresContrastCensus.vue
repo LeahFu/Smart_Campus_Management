@@ -3,13 +3,18 @@ import { ref,onMounted } from 'vue'
 import {getAllCourseListApi} from "../../api/teacher/teacher.ts";
 import ScoreContrastCensusBar from "./components/ScoreContrastCensusBar.vue";
 import {getScoresContrastCensusApi} from "../../api/census/census.ts";
+import {Notification} from "@element-plus/icons-vue";
 
 // Define course ID
 const courseId = ref()
 // Define Course Dropdown Selections
 const courseOptions = ref<object[]>([])
 // Get a list of all courses
-async function getAllCourseList() {
+const getAllCourseList = async ()=>{
+    const { data } = await getAllCourseListApi()
+    courseOptions.value = data.result
+}
+/*async function getAllCourseList() {
     try {
         const { data } = await getAllCourseListApi()
         if (data.status === 200) {
@@ -18,7 +23,7 @@ async function getAllCourseList() {
     } catch (e) {
         console.log(e)
     }
-}
+}*/
 const legendData = ref(['total people','overall score','average score', 'highest score', 'minimum score'])
 const seriesData = ref([])
 const categoryData = ref([])
@@ -43,12 +48,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <el-card class="box-card">
+    <el-card>
         <!--Header start-->
         <template #header>
             <div class="card-header">
                 <h3>
-                    <el-icon style="margin-right: 10px;"><Histogram /></el-icon>Class course grades comparison statistics
+                    <el-icon style="margin-right: 10px;"><Notification/></el-icon>Class course grades comparison statistics
                 </h3>
 
                 <!--Search area start-->
@@ -86,8 +91,8 @@ onMounted(() => {
     color:#178557;
 }
 
-:deep(.el-card__header) {
+/*:deep(.el-card__header) {
     border-bottom: 1px solid rgb(238 238 238);
     color: #178557;
-}
+}*/
 </style>

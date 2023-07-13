@@ -296,12 +296,15 @@ public class ScoresServiceImpl implements IScoresService {
             // Class name
             categoryList.add(k.getCoursename());
             // Average score, keep two decimal places
+            v.getAverage();
             BigDecimal bigDecimal = new BigDecimal(v.getAverage());
             double average = bigDecimal.setScale(2, RoundingMode.HALF_UP).doubleValue();
             averageList.add(average);
             // Highest score
+            v.getMax();
             maxList.add(v.getMax());
             // Minimum score
+            v.getMin();
             minList.add(v.getMin());
             // Total class size
             countList.add((double)v.getCount());

@@ -2,6 +2,7 @@
 import { ref,onMounted } from 'vue'
 import {getIndexTotalApi} from "../../api/home/home";
 import AllSubjectScoreContrast from './components/AllSubjectScoreContrast.vue'
+import {Avatar, ChatDotSquare, Clock, Reading} from "@element-plus/icons-vue";
 
 const studentNums = ref(0)
 const classNums = ref(0)
@@ -37,16 +38,16 @@ onMounted(() => {
         </div>
         <!--top background picture and content start end-->
         <!--Data Statistics start-->
-        <p style="margin-bottom:15px;color: #144b9f;">
+        <div style="margin-bottom:15px;color: #144b9f;">
             <div style="width: 12px;height:12px;background-color:#f9a332;border-radius: 50%;float: left;margin-top: 5px;
             margin-right: 8px;"></div>Data Statistics
-        </p>
+        </div>
         <el-row :gutter="40" class="data_row">
-            <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-col :span="6">
                 <div style="background: linear-gradient(to right, #6D80FE, #23D2FD);">
                     <div class="data_left">
                         <el-icon>
-                            <Avatar />
+                            <Avatar/>
                         </el-icon>
                     </div>
                     <div class="data_right">
@@ -55,11 +56,11 @@ onMounted(() => {
                     </div>
                 </div>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-col :span="6">
                 <div style="background: linear-gradient(to right, #FF988B, #FF6B88);">
                     <div class="data_left">
                         <el-icon>
-                            <Reading />
+                            <Reading/>
                         </el-icon>
                     </div>
                     <div class="data_right">
@@ -68,7 +69,7 @@ onMounted(() => {
                     </div>
                 </div>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-col :span="6">
                 <div style="background: linear-gradient(to right, #09B0E8, #29F49A);">
                     <div class="data_left">
                         <el-icon>
@@ -81,11 +82,11 @@ onMounted(() => {
                     </div>
                 </div>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+            <el-col :span="6">
                 <div style="background: linear-gradient(to right, #717CFE, #FC83EC);">
                     <div class="data_left">
                         <el-icon>
-                            <Clock />
+                            <Clock/>
                         </el-icon>
                     </div>
                     <div class="data_right">

@@ -10,10 +10,20 @@ const gradeClassId = ref()
 // Class dropdown selection
 const gradeClassOptions = ref<object[]>([])
 // Get a list of all classes
-const gradeClassList = async()=>{
-        const { data } = await gradeClassListApi()
-            gradeClassOptions.value = data.result
+const gradeClassList = async ()=>{
+    const { data } = await gradeClassListApi()
+    gradeClassOptions.value = data.result
 }
+/*async function gradeClassList() {
+    try {
+        const { data } = await gradeClassListApi()
+        if (data.status === 200) {
+            gradeClassOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}*/
 // Define the course ID
 const courseId = ref()
 // Course dropdown selection
@@ -23,13 +33,24 @@ const getAllCourseList = async ()=>{
     const {data} = await getAllCourseListApi()
     courseOptions.value = data.result
 }
+/*async function getAllCourseList() {
+    try {
+        const { data } = await getAllCourseListApi()
+        if (data.status === 200) {
+            courseOptions.value = data.result
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}*/
 // Statistical class subject grades
 const legendData = ref(["A","B","C","D","F"])
 const seriesData = ref([])
 const getScoreCensus = async ()=> {
     const { data } = await getScoreCensusApi(courseId.value,gradeClassId.value)
+   // if(data.status===200) {
         seriesData.value = data.result
-        console.log(`data.result is: ${data.result}`)
+    //    console.log(`data.result is: ${data.result}`)}
 }
 // Monitor class changes
 const changeCourse = async ()=> {
@@ -40,17 +61,17 @@ const changeCourse = async ()=> {
 onMounted(()=>{
     gradeClassList()
     getAllCourseList()
-    getScoreCensus()
+   // getScoreCensus()
 })
 </script>
 
 <template>
-    <el-card class="box-card">
+    <el-card>
         <!--Header start-->
         <template #header>
             <div class="card-header">
                 <h3>
-                    <el-icon style="margin-right: 10px;"><Histogram /></el-icon>Class subject performance statistics
+                    <el-icon style="margin-right: 10px;"><Histogram/></el-icon>Class subject performance statistics
                 </h3>
                 <!--Search area start-->
                 <div class="card-search">

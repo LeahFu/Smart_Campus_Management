@@ -10,6 +10,6 @@ export function loginApi(data:object) {
 // 退出系统
 export function loginOutApi() {
     return request({
-        url: 'loginOut'
+        url: 'logOut'
     })
 }

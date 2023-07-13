@@ -1,5 +1,7 @@
 package ca.access.base;
 
+import ca.access.annotation.EnableAccessCreateBy;
+import ca.access.annotation.EnableAccessUpdateBy;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -40,7 +42,7 @@ public class BaseEntity implements Serializable {
      * create ID
      */
     @Column(name = "create_by",nullable = false)
-    @CreatedBy
+    @EnableAccessCreateBy
     private Long createBy;
 
     /**
@@ -51,7 +53,7 @@ public class BaseEntity implements Serializable {
     private Timestamp updateTime;
 
     @Column(name = "update_by",nullable = false)
-    @LastModifiedBy
+    @EnableAccessUpdateBy
     private Long updateBy;
 
     /**

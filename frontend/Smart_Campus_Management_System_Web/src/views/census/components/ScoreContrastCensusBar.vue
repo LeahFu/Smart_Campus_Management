@@ -74,6 +74,7 @@ const initChart = () => {
     return chart
 }
 watch([()=>props.categoryData, () => props.seriesData], ([newCategoryData, newSeriesData]) => {
+  //  console.log(`x is ${newCategoryData} and y is `,newSeriesData)
     options.series = newSeriesData
     options.xAxis.data = newCategoryData
     initChart()

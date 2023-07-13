@@ -38,9 +38,9 @@ public class LoginController {
             return BaseResult.fail("Login failed, password is incorrect");
         } else if (dbSysUser.getStatus()==0) {
             return BaseResult.fail("Login failed, account is banned");
-        } else {
+        }
             // generate token
-            String token = HutoolJWTUtil.createToken(sysUser);
+            String token = HutoolJWTUtil.createToken(dbSysUser);
             request.getServletContext().setAttribute("token",token);
             // return user information
             Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -49,12 +49,11 @@ public class LoginController {
             resultMap.put("token",token);
             resultMap.put("email",dbSysUser.getEmail());
             resultMap.put("gender",dbSysUser.getGender());
-            resultMap.put("createTime",dbSysUser.getCreateTime());
             resultMap.put("userIcon",dbSysUser.getUserIcon());
+            resultMap.put("createTime",dbSysUser.getCreateTime());
             resultMap.put("role",dbSysUser.getSysRole());
 
             return BaseResult.success("Login successful",resultMap);
-        }
     }
 
     /**
@@ -62,8 +61,8 @@ public class LoginController {
      * @param request
      * @return
      */
-    @GetMapping("logOut")
-    public BaseResult logOut(HttpServletRequest request){
+    @GetMapping("loginOut")
+    public BaseResult loginOut(HttpServletRequest request){
         request.getServletContext().removeAttribute("token");
         return BaseResult.success("Logout success");
     }

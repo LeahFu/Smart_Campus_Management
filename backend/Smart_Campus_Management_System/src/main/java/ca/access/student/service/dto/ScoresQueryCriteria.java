@@ -1,12 +1,14 @@
 package ca.access.student.service.dto;
 
 import ca.access.annotation.EnableAccessQuery;
+import lombok.Data;
 
 /**
  * @author: Lei Fu
  * @date: 2023/06/20
  * @description: Grades query condition parameters
  */
+@Data
 public class ScoresQueryCriteria {
     /**
      * Query by class ID

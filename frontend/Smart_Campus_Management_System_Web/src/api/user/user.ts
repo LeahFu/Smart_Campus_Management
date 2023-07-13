@@ -1,11 +1,11 @@
 import request from '../request'
 
 // Get user list data
-export function getUserListApi(data:object) {
+export function getUserListApi(params:object) {
     return request({
         url: 'user',
         method: 'get',
-        params: data
+        params
 
     })
 }

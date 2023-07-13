@@ -2,7 +2,7 @@
 import { ref, reactive } from 'vue'
 import {editCourseApi} from "../../../api/course/course.ts";
 import {ElMessage} from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 // Button status
 const subLoading = ref(false)
 // Form data object
@@ -34,10 +34,10 @@ const editCourse = async (formEl: FormInstance | undefined) => {
             }
         } else {
             ElMessage.error('Submission failed, you still have unfilled items!')
-            console.log('error submit!', fields)
+           // console.log('error submit!', fields)
         }
-        subLoading.value = false
     })
+    subLoading.value = false
 }
 const emit = defineEmits(['closeEditCourseForm','success'])
 // Cancel form
@@ -80,14 +80,14 @@ const rules = reactive<FormRules>({
         </el-row>
     </el-form>
 
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">Cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="editCourse(ruleFormRef)">Save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

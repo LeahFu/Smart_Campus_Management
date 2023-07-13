@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as echarts from 'echarts'
 import { EChartsType } from 'echarts/core'
-import {ref, onMounted, watch} from 'vue'
+import {onMounted, watch} from 'vue'
 
 let props = defineProps({
     legendData: {
@@ -74,7 +74,7 @@ const initChart = () => {
     return chart
 }
 watch([()=>props.categoryData, () => props.seriesData], ([newCategoryData, newSeriesData]) => {
-    console.log(`x is ${newCategoryData} and y is `,newSeriesData)
+  //  console.log(`x is ${newCategoryData} and y is `,newSeriesData)
     options.series = newSeriesData
     options.xAxis.data = newCategoryData
     initChart()

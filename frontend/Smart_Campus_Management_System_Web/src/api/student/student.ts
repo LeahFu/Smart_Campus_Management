@@ -1,11 +1,11 @@
 import request from '../request'
 
 // Get student list data
-export function getStudentListApi(data:object) {
+export function getStudentListApi(params:object) {
     return request({
         url: 'student',
         method: 'get',
-        params: data
+        params
     })
 }
 // Add student information

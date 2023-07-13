@@ -2,7 +2,7 @@
 import {ref, reactive} from 'vue'
 import {ElMessage} from 'element-plus'
 import {addStudentApi, gradeClassListApi} from "../../../api/student/student.ts";
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 const emit = defineEmits(['closeAddStudentForm','success'])
 const subLoading = ref(false)
 // Form object
@@ -51,7 +51,13 @@ const addStudent = async (formEl: FormInstance | undefined) => {
 
 const gradeClassOptions = ref<object[]>([])
 // Get a list of all classes
-async function gradeClassList() {
+const gradeClassList = async ()=> {
+    const { data } = await gradeClassListApi()
+    if(data.status === 200){
+        gradeClassOptions.value = data.result
+    }
+}
+/*async function gradeClassList() {
     try {
         const { data } = await gradeClassListApi()
         if (data.status === 200) {
@@ -60,7 +66,7 @@ async function gradeClassList() {
     } catch (e) {
         console.log(e)
     }
-}
+}*/
 gradeClassList()
 // Cancel form
 const close = ()=> {
@@ -116,14 +122,14 @@ const close = ()=> {
         </el-row>
     </el-form>
 
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">Cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="addStudent(ruleFormRef)">Save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

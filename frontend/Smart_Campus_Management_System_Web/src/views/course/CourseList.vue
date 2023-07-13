@@ -6,6 +6,7 @@ import {ElMessage} from 'element-plus'
 import AddCourse from "./components/AddCourse.vue";
 import EditCourse from "./components/EditCourse.vue";
 import {exportExcel} from "../../utils/exportExcel.ts";
+import {Delete, Download, EditPen, Search} from "@element-plus/icons-vue";
 const state = reactive({
     // Search keywords
     searchValue: "",
@@ -128,7 +129,7 @@ const exportExcelAction = () => {
         <template #header>
             <div class="card-header">
                 <h3>
-                    <el-icon><Tickets /></el-icon>Course Management
+                    <el-icon><Tickets/></el-icon>Course Management
                 </h3>
 
                 <!--Search area start-->
@@ -142,7 +143,7 @@ const exportExcelAction = () => {
                             <div class="my-button">
                                 <el-button plain style="width: 100%;" color="#2fa7b9" @click="addCourse">Add course</el-button>
                                 <el-button style="width: 100%" @click="exportExcelAction" type="primary">
-                                    <el-icon style="margin-right: 1px"><Download /></el-icon>Export Excel
+                                    <el-icon style="margin-right: 1px"><Download/></el-icon>Export Excel
                                 </el-button>
                             </div>
                         </el-col>
@@ -162,7 +163,6 @@ const exportExcelAction = () => {
         <div class="table-box">
             <el-table element-loading-text="Loading..." v-loading="loading" :data="tableData"
                       style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
-                      :row-class-name="rowClassName"
                       :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
 
                 <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
@@ -215,7 +215,7 @@ const exportExcelAction = () => {
         <template #header="{ close, titleId, titleClass }">
             <div class="my-header">
                 <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{addTitle}}</h1>
+                <h1 id="titleId">Add Course</h1>
             </div>
         </template>
         <!--Add course components start-->
@@ -229,7 +229,7 @@ const exportExcelAction = () => {
         <template #header="{ close, titleId, titleClass }">
             <div class="my-header">
                 <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{editTitle}}</h1>
+                <h1 id="titleId">Edit Course</h1>
             </div>
         </template>
         <!--Edit course component start-->

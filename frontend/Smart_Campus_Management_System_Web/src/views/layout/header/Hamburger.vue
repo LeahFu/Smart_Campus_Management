@@ -5,14 +5,14 @@ import { useRoute ,useRouter} from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-const handleLink = (item)=>{
+const handleLink = (item:{path:any;})=>{
     router.push({
         path:item.path
     })
 }
 
 const matched = computed(() => route.matched.filter(item => item.meta && item.meta.title));
-
+console.log('matched:',matched)
 </script>
 
 <template>

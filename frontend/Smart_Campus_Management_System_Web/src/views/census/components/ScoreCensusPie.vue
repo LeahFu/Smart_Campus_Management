@@ -104,7 +104,7 @@ let chart: EChartsType
 
 const initChart = () => {
     let chart = echarts.init(document.getElementById(props.id))
-    chart.setOption(options,true)
+    chart.setOption(options)
     return chart
 }
 watch(

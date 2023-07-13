@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
-import {ElMessage, FormInstance} from "element-plus";
+import {ElMessage} from "element-plus";
 import {addRoleApi} from "../../../api/role/role.ts";
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 const ruleFormRef = ref<FormInstance>()
 // Define form constraint rule objects
 const rules = reactive<FormRules>({
@@ -33,8 +33,8 @@ const addRole = async (formEl: FormInstance | undefined) => {
             ElMessage.error('Submission failed, you still have unfilled items!')
             console.log('error submit!', fields)
         }
-        subLoading.value = false
     })
+    subLoading.value = false
 }
 // Cancel form
 const close = ()=> {
@@ -56,7 +56,7 @@ const close = ()=> {
                 </el-form-item>
             </el-col>
             <el-col :span="24">
-                <el-form-item label="remark">
+                <el-form-item label="remarks">
                     <el-input
                             v-model="formRole.remarks"
                             :rows="2"
@@ -68,14 +68,14 @@ const close = ()=> {
         </el-row>
     </el-form>
 
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">Cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="addRole(ruleFormRef)">Save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

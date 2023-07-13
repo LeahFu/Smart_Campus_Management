@@ -42,6 +42,6 @@ public class Md5Util {
         }
     }
     public static void main(String[] args){
-        System.out.println(Md5Util.MD5("123456"));
+        System.out.printf(Md5Util.MD5("123456"));
     }
 }

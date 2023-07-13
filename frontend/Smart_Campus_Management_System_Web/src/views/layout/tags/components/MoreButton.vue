@@ -3,6 +3,7 @@ import {computed} from "vue";
 import {useSettingStore} from "../../../../store/modules/setting"
 import {useTagsViewStore} from "../../../../store/modules/tagsView"
 import { useRouter,useRoute } from 'vue-router'
+import {ArrowDown, Close, FolderDelete, FolderRemove} from "@element-plus/icons-vue";
 const router = useRouter()
 const route = useRoute()
 const SettingStore = useSettingStore()

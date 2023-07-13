@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useSettingStore} from "../../../store/modules/setting"
 import {computed} from "vue"
+import {Expand, Fold} from "@element-plus/icons-vue";
 const SettingStore = useSettingStore()
 const isCollapse = computed(() =>!SettingStore.isCollapse)
 const handleCollapse = () => {

@@ -1,10 +1,13 @@
 package ca.access.student.vo;
 
+import lombok.Data;
+
 /**
  * @author: Lei Fu
  * @date: 2023/07/06
  * @description: Modify password model
  */
+@Data
 public class ModifyPwdModel {
     /**
      * Old password

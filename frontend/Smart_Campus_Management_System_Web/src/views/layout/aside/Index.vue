@@ -24,7 +24,7 @@ const isCollapse = computed(() => !SettingStore.isCollapse)
     >
         <!--logo start-->
         <div class="imgBox hidden-xs-only" v-if="!isCollapse">
-            <img src="../../../assets/logo.png">
+            <img src="../../../assets/logo.jpg">
         </div>
         <!--logo end-->
 

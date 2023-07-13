@@ -77,7 +77,7 @@ watch(route, () => {
                         :path="item.path"
                         :label="item.title"
                         :name="item.path"
-                        :closable="!(item.meta&&item.meta.affix)"
+                        :closable="!(item.meta&&item.meta.affix)">
                 >
                     <template #label>
                         <el-icon class="tabs-icon" v-if="item.icon">

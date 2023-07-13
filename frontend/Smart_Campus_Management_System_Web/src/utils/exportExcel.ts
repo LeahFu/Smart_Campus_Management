@@ -11,7 +11,7 @@ export const autoWidthAction = (val,width=10)=> {
 }
 // Export Excel
 export const exportExcel = async ({column,data,filename,autoWidth,format})=> {
-    console.log('data----------:',data)
+   // console.log('data----------:',data)
     // Create excel workbook
     const workbook = new ExcelJS.Workbook()
     // Set workbook properties
@@ -23,10 +23,10 @@ export const exportExcel = async ({column,data,filename,autoWidth,format})=> {
     const worksheet = workbook.addWorksheet(filename)
     // set column name
     const columnsName = []
-    console.log('column----------:',column)
+   /* console.log('column----------:',column)
     for (let item in column) {
         console.log('item----------:',item)
-    }
+    }*/
     column.forEach((item,index)=>{
         const obj = {
             header: item.label,

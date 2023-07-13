@@ -28,7 +28,7 @@ import TopBar from './header/TopBar.vue';
                 </el-header>
                 <!-- main content -->
                 <el-main>
-                    <router-view>main content</router-view>
+                    <router-view></router-view>
                 </el-main>
             </el-container>
         </el-container>

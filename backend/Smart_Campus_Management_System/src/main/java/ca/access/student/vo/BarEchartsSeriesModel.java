@@ -1,5 +1,7 @@
 package ca.access.student.vo;
 
+import lombok.Data;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,7 @@ import java.util.List;
  * @date: 2023/06/29
  * @description: Column chart returns result set object
  */
+@Data
 public class BarEchartsSeriesModel {
     private List<Double> data;
     private String type;

@@ -4,7 +4,7 @@ export const useSettingStore = defineStore({
     state: ()=>({
         isCollapse:true,
         // tagsView default display
-        showTag:true,
+       // showTag:true,
     }),
     getters: {},
     actions:{

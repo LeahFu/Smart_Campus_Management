@@ -222,7 +222,7 @@ router.beforeEach(async (to, from, next) => {
     const userStore = useUserStore()
     if(!userStore.token)return next({path:`/login?redirect=${to.path}`,replace:true})
 
-    // Get the role of the logged in user
+    // Get the role of the login user
     const { userInfo } = userStore
     const roles = []
     roles.push(userInfo.role.code)

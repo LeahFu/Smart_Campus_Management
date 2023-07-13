@@ -61,6 +61,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addUser(SysUser sysUser) {
+        sysUser.setPassword(Md5Util.MD5(sysUser.getPassword()));
         SysUser dbSysUser = sysUserRepository.save(sysUser);
         return dbSysUser.getId() != null;
     }

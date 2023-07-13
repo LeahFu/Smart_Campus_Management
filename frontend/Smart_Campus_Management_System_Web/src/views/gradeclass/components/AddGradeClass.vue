@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import {ref, reactive} from 'vue'
-import addGradeClass from "./AddGradeClass.vue";
 import {ElMessage} from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 import {addGradeClassApi} from "../../../api/gradeclass/gradeclass.ts";
+
 const emit = defineEmits(['closeAddGradeClassForm','success'])
 const subLoading = ref(false)
-const {data} = await addGradeClassApi(formGradeClass)
 const formGradeClass = reactive({
     name: '',
     code: '',
@@ -84,14 +83,14 @@ const close = ()=> {
         </el-row>
     </el-form>
 
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">Cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="addGradeClass(ruleFormRef)">Save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

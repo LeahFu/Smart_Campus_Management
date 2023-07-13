@@ -96,7 +96,7 @@ public class CourseController {
      * @param
      * @return
      */
-    @GetMapping("/all")
+    @GetMapping(value="/all")
     public BaseResult getAll(){
         List<Course> list =  courseService.queryAll();
         List<ResultVo> resultVoList = list.stream().map(temp -> {

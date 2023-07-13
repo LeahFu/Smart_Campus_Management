@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import {ElMessage} from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 import {editGradeClassApi} from "../../../api/gradeclass/gradeclass.ts";
 const subLoading = ref(false)
 const formGradeClass = reactive({
@@ -47,8 +47,8 @@ const editGradeClass = async (formEl: FormInstance | undefined) => {
             ElMessage.error('Submission failed, you still have unfilled items!')
             console.log('error submit!', fields)
         }
-        subLoading.value = false
     })
+    subLoading.value = false
 }
 // Cancel form
 const close = ()=> {
@@ -92,14 +92,14 @@ const close = ()=> {
         </el-row>
     </el-form>
 
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">Cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="editGradeClass(ruleFormRef)">Save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

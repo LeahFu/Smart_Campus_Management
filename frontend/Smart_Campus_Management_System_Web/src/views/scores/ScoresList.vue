@@ -6,13 +6,18 @@ import {editScoresApi, getScoresListApi, registerScoresApi, deleteScoresApi} fro
 import { formatTime } from "../../utils/date"
 import {ElMessage} from 'element-plus'
 import {exportExcel} from "../../utils/exportExcel.ts";
+import {Delete, Download, Money, Search} from "@element-plus/icons-vue";
 
 // Define class dropdown selections
 const gradeClassOptions = ref<object[]>([])
 // Define class id
-const gradeClassId = ref(null)
+const gradeClassId = ref()
 // Get a list of all classes
-async function gradeClassList() {
+const gradeClassList = async ()=>{
+    const { data } = await gradeClassListApi()
+    gradeClassOptions.value = data.result
+}
+/*async function gradeClassList() {
     try {
         const { data } = await gradeClassListApi()
         if (data.status === 200) {
@@ -21,13 +26,17 @@ async function gradeClassList() {
     } catch (e) {
         console.log(e)
     }
-}
+}*/
 // Define course dropdown selections
 const courseOptions = ref<object[]>([])
 // Define course id
-const courseId = ref(null)
+const courseId = ref()
 // Get a list of all courses
-async function getAllCourseList() {
+const getAllCourseList = async ()=>{
+    const { data } = await getAllCourseListApi()
+    courseOptions.value = data.result
+}
+/*async function getAllCourseList() {
     try {
         const { data } = await getAllCourseListApi()
         if (data.status === 200) {
@@ -36,7 +45,7 @@ async function getAllCourseList() {
     } catch (e) {
         console.log(e)
     }
-}
+}*/
 //Load data after mount
 onMounted(() => {
     loadData(state)
@@ -77,13 +86,10 @@ const loadData = async (state: any)=> {
 }
 // Refresh list data
 const refresh = () => {
-    // Course ID
     courseId.value = ''
-    // Class ID
     gradeClassId.value = ''
-    // Search keywords
-    state.searchValue = ''
-    // Refresh data
+    state.name = ''
+    state.stuno = ''
     loadData(state);
 }
 const search = () => {
@@ -104,12 +110,12 @@ const search = () => {
     }
 }
 // Change page event
-const changePage = (val) => {
+const changePage = (val:number) => {
     state.pageIndex = val
     loadData(state)
 }
 // Process serial number
-const Nindex = (index) => {
+const Nindex = (index:number) => {
     // Current page number - 1 * number of data items per page + 1
     const page = state.pageIndex // Current page number
     const pagesize = state.pageSize // Number of data items per page
@@ -173,6 +179,7 @@ const delScores = async (id:number)=> {
     const { data } = await deleteScoresApi(id)
     if(data.status===200){
         ElMessage.success('Successfully deleted')
+        await loadData(state)
     }else {
         ElMessage.error('Failed to delete')
     }
@@ -201,7 +208,7 @@ const exportExcelAction = () => {
 </script>
 
 <template>
-    <el-card class="box-card">
+    <el-card>
         <!--Header start-->
         <template #header>
             <div class="card-header">

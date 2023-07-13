@@ -6,6 +6,7 @@ import {ElMessage} from 'element-plus'
 import AddRole from "./components/AddRole.vue";
 import EditRole from "./components/EditRole.vue";
 import {exportExcel} from "../../utils/exportExcel.ts";
+import {Delete, Download, EditPen, Search, Stamp} from "@element-plus/icons-vue";
 const addTitle = ref('Add role')
 const addRoleDialogFormVisible = ref(false)
 const state = reactive({
@@ -130,12 +131,12 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
 </script>
 
 <template>
-    <el-card class="box-card">
+    <el-card>
         <!--head start-->
         <template #header>
             <div class="card-header">
                 <h3>
-                    <el-icon style="margin-right: 10px;"><UserFilled /></el-icon>Role Management
+                    <el-icon style="margin-right: 10px;"><Stamp/></el-icon>Role Management
                 </h3>
 
                 <!--Search area start-->
@@ -149,7 +150,7 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
                             <div class="my-button">
                                 <el-button plain style="width: 100%;" color="#2fa7b9" @click="addRole">Add Role</el-button>
                                 <el-button @click="exportExcelAction" type="primary">
-                                    <el-icon style="margin-right: 6px"><Download /></el-icon>Export Excel
+                                    <el-icon style="margin-right: 6px"><Download/></el-icon>Export Excel
                                 </el-button>
                             </div>
                         </el-col>
@@ -175,7 +176,7 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
              <el-table-column label="role name">
                 <template #default="scope">
                    <el-tooltip :content="scope.row.name" palacement="top" effect="light">
-                      <span class="highlight">{{scope.row.name}}</span>
+                      <span>{{scope.row.name}}</span>
                    </el-tooltip>
                 </template>
              </el-table-column>
@@ -222,7 +223,7 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
        <template #header="{ close, titleId, titleClass }">
           <div class="my-header">
              <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{addTitle}}</h1>
+                <h1 id="titleId">Add Role</h1>
           </div>
        </template>
     <!--Add role component start-->
@@ -236,7 +237,7 @@ const{tableData,pageIndex,pageSize,loading,total,searchValue} = toRefs(state)
         <template #header="{ close, titleId, titleClass }">
             <div class="my-header">
                 <el-icon size="26px"><EditPen /></el-icon>
-                <h1 id="titleId">{{editTitle}}</h1>
+                <h1 id="titleId">Edit Role</h1>
             </div>
 
         </template>
