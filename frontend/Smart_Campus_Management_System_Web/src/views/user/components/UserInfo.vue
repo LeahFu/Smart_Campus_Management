@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {calculateDays} from "../../../utils/date.ts";
 import {useUserStore} from "../../../store/modules/user.ts";
+import {Grid, Sunrise, Watch} from "@element-plus/icons-vue";
 // Server path
 const url = import.meta.env.VITE_APP_BASE_API;
 // Login user information
@@ -8,7 +9,7 @@ const {userInfo} = useUserStore()
 </script>
 
 <template>
-    <el-col class="hidden-md-and-down" :lg="6" :xl="6">
+    <el-col :span="6">
         <div class="right_box">
             <h3 class="title">
                 <el-icon style="margin-right: 10px;">
@@ -34,9 +35,9 @@ const {userInfo} = useUserStore()
             </h3>
             <div class="type">
                 <br>
-                <p>Account types are divided into: ordinary users, administrators</p>
+                <p>Account types are divided into: general users, administrators</p>
                 <p>The administrator can manage the data, grades, system, etc. of this site</p>
-                <p>Ordinary users can manage grades, etc.</p>
+                <p>General users can manage grades, etc.</p>
                 <br>
                 <p>Technical Support</p>
                 <p>

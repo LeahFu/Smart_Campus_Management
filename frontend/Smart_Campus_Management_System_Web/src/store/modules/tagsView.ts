@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import router from "../../router"
+// @ts-ignore
 export const useTagsViewStore = defineStore({
     id: 'tagsViewState',
     state: () => ({

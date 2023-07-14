@@ -6,6 +6,7 @@ import {ElMessage} from 'element-plus'
 import AddTeacher from "./components/AddTeacher.vue";
 import EditTeacher from "./components/EditTeacher.vue";
 import {exportExcel} from "../../utils/exportExcel.ts";
+import {Avatar, Delete, Download, EditPen, Search} from "@element-plus/icons-vue";
 
 const state = reactive({
     // Search keywords
@@ -129,12 +130,12 @@ const exportExcelAction = () => {
 </script>
 
 <template>
-    <el-card class="box-card">
+    <el-card>
         <!--Header start-->
         <template #header>
             <div class="card-header">
                 <h3>
-                    <el-icon style="margin-right: 10px;"><UserFilled /></el-icon>Teacher Management
+                    <el-icon style="margin-right: 10px;"><Avatar/></el-icon>Teacher Management
                 </h3>
 
                 <!--Search area start-->
@@ -169,10 +170,9 @@ const exportExcelAction = () => {
         <div class="table-box">
             <el-table element-loading-text="Loading..." v-loading="loading" :data="tableData"
                       style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
-                      :row-class-name="rowClassName"
                       :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
 
-                <el-table-column label="Serial number" width="100" type="index" :index="Nindex"/>
+                <el-table-column label="Serial NO." width="100" type="index" :index="Nindex"/>
                 <el-table-column label="Teacher ID">
                     <template #default="scope">
                         <span>{{scope.row.teachno}}</span>
@@ -185,9 +185,9 @@ const exportExcelAction = () => {
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Course name">
+                <el-table-column label="Course NO.">
                     <template #default="scope">
-                        <span>{{scope.row.course.coursename}}</span>
+                        <span>{{scope.row.course.courseno}}</span>
                     </template>
                 </el-table-column>
 

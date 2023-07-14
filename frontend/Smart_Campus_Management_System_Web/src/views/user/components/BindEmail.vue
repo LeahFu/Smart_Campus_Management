@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref,reactive,toRefs,onMounted,computed } from 'vue'
 import {useUserStore} from "../../../store/modules/user.ts";
-import {sendEmailApi, updateEmailApi} from "../../../api/user/user.ts";
+import {sendEmailApi, updateEmailApi, verifyCodeApi} from "../../../api/user/user.ts";
 import {ElMessage} from "element-plus";
 const state = reactive({
     toBind: {
@@ -72,7 +72,7 @@ const confirmCode = async () => {
     if(state.toBind.code!=''){
         // Verify that the verification code entered by the user is correct
         const { data } = await verifyCodeApi(state.toBind.code)
-        if(data.status===200){
+        if(data.status===200) {
             // Show input box for new email address
             showNewEmail.value = true
             // Close the old email verification code input box
@@ -82,18 +82,15 @@ const confirmCode = async () => {
             window.clearInterval(timer.value)
             timer.value = null
             codeText.value = "Get verification code"
-        }else {
-            ElMessage.error(data.message)
         }
     }else {
-        ElMessage.error('Perform the replacement mailbox binding operation as required.')
-        return false;
+            ElMessage.error('Perform the replacement mailbox binding operation as required.')
+            return false;
     }
 }
 // Submit email to change binding
 const toBindSubmit = async () => {
     if(state.toBind.code2!=''){
-        showNewEmail.value = false
         // Clear timer
         show.value = true
         window.clearInterval(timer.value);

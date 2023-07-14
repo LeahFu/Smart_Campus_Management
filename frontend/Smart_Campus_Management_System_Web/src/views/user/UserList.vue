@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { reactive,toRefs,onMounted,watch,ref } from 'vue'
-import {Search, Delete} from '@element-plus/icons-vue'
+import {Search, Delete, UserFilled, Download, EditPen} from '@element-plus/icons-vue'
 import {deleteUserApi, getUserApi, getUserListApi} from "../../api/user/user.ts";
 import { formatTime } from "../../utils/date"
 import AddUser from './components/AddUser.vue'
 import EditUser from "./components/EditUser.vue";
 import {ElMessage, ElNotification, ElMessageBox} from 'element-plus'
 import {exportExcel} from "../../utils/exportExcel.ts";
-
-// add user popup status
-const userDialogFormVisible = ref(false)
-const title = ref('add user')
-// edit user popup status
-const editUserDialogFormVisible = ref(false)
-const editTitle = ref('edit user')
 
 const state = reactive({
     // search form content
@@ -47,12 +40,12 @@ const loadData = async (state: any)=> {
 
 // the execution event of switching pages
 // val current page
-const changePage = (val) => {
+const changePage = (val:number) => {
     state.pageIndex = val;
     loadData(state);
 }
 // dealing with user serial number issues after pagination
-const Nindex = (index) => {
+const Nindex = (index:number) => {
     // current page number - 1 * number of data items per page + 1
     const page = state.pageIndex // current page
     const pagesize = state.pageSize // number of data items per page
@@ -61,7 +54,7 @@ const Nindex = (index) => {
 // refresh
 const refresh = () => {
     // search value
-    state.searchValue = null
+    state.searchValue = ""
     // filter drop-down box content
     state.status = null
     // refresh data
@@ -89,20 +82,27 @@ watch(() => state.status, (val, preVal) => {
         }
     }
 })
+// Add user popup status
+const addUserDialogFormVisible = ref(false)
+// Define the form title
+const addTitle = "Add User"
 // add user
 const addUser = ()=> {
-    userDialogFormVisible.value = true
+    addUserDialogFormVisible.value = true
 }
 // close the new user popup
 const closeAddUserForm = ()=> {
-    userDialogFormVisible.value = false
+    addUserDialogFormVisible.value = false
 }
 // submit form callback function
 const success = ()=> {
     loadData(state);
-    userDialogFormVisible.value = false
-    editUserDialogFormVisible.value = false
+    closeAddUserForm()
+    closeEditUserForm()
 }
+// Edit User Popup Status
+const editUserDialogFormVisible = ref(false)
+const editTitle = ref('Edit User')
 // edit user information
 const userInfo = ref()
 const editUser = async (id:number)=> {
@@ -198,7 +198,7 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
              style="width: 100%;text-align: center" :cell-style="{textAlign: 'center'}"
              :header-cell-style="{fontSize: '15px', background: '#178557',color: 'white',textAlign: 'center'}">
 
-        <el-table-column label="serial number" width="100" type="index" :index="Nindex"/>
+        <el-table-column label="serial NO." width="100" type="index" :index="Nindex"/>
         <el-table-column label="user name">
            <template #default="scope">
               <el-tooltip :content="scope.row.username" palacement="top" effect="light">
@@ -259,7 +259,7 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
                      icon-color="#626AEF" :title="'Are you sure you want to delete :“'+scope.row.username+'” ?'"
                      @confirm="delUser(scope.row.id)">
                  <template #reference>
-                    <el-button size="small" type="danger" style="margin-bottom: 10px;">delete</el-button>
+                    <el-button size="small" type="danger" style="margin-bottom: 10px;">Delete</el-button>
                  </template>
               </el-popconfirm>
            </template>
@@ -277,11 +277,11 @@ const {tableData,pageIndex,pageSize,loading,total,status,searchValue} = toRefs(s
   </el-card>
 
   <!--User Dialog FormVisible start-->
-  <el-dialog  align-center  v-model="userDialogFormVisible"  width="42%" destroy-on-close>
+  <el-dialog  align-center  v-model="addUserDialogFormVisible"  width="42%" destroy-on-close>
     <template #header="{ close, titleId, titleClass }">
       <div class="my-header">
         <el-icon size="26px"><EditPen /></el-icon>
-        <h1 id="titleId">{{title}}</h1>
+        <h1 id="titleId">{{addTitle}}</h1>
       </div>
     </template>
     <!--Add user component start-->

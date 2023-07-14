@@ -2,6 +2,7 @@
 import { ref, reactive} from 'vue'
 import { FormInstance, FormRules, ElMessage } from 'element-plus'
 import {updatePwdApi} from "../../../api/user/user.ts";
+import {CircleCheck, Warning} from "@element-plus/icons-vue";
 
 // Define the form instance object
 const modifyFormRef = ref<FormInstance>()

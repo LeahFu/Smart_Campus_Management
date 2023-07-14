@@ -49,8 +49,8 @@ const editUser = async (formEl: FormInstance | undefined) => {
             ElMessage.error('Submission failed, you still have unfilled items')
             console.log('error submit!', fields)
         }
-        subLoading.value = false
     })
+    subLoading.value = false
 }
 // cancel form
 const close = ()=> {
@@ -59,7 +59,11 @@ const close = ()=> {
 // Define role dropdown selections
 const roleOptions = ref<object[]>([])
 // Get a list of all roles
-async function getAllRoleList() {
+const getAllRoleList = async () => {
+    const { data } = await getAllRoleListApi()
+    roleOptions.value = data.result
+}
+/*async function getAllRoleList() {
     try {
         const { data } = await getAllRoleListApi()
         if (data.status === 200) {
@@ -68,8 +72,8 @@ async function getAllRoleList() {
     } catch (e) {
         console.log(e)
     }
-}
-getAllRoleList()
+}*/
+
 onMounted(()=>{
     getAllRoleList()
 })
@@ -135,14 +139,14 @@ onMounted(()=>{
 
         </el-row>
     </el-form>
-    <div class="dialong__button--wrap">
+    <div class="dialog__button--wrap">
         <el-button @click="close">cancel</el-button>
         <el-button color="#178557" :loading="subLoading" type="success" @click="editUser(ruleFormRef)">save</el-button>
     </div>
 </template>
 
 <style scoped>
-.dialong__button--wrap {
+.dialog__button--wrap {
     text-align: center;
     margin-top: 20px;
 }

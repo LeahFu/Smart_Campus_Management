@@ -7,6 +7,7 @@ import BindEmail from "./BindEmail.vue";
 import UpdatePwd from "./UpdatePwd.vue";
 import UserInfo from "./UserInfo.vue"
 
+
 const state = reactive({
     // Basic information
     basic: {
@@ -62,14 +63,18 @@ const onBasicSubmit = (formEl: FormInstance | undefined) => {
                 loading.value = false
             }
         } else {
-            console.log('error submit!')
-            return false
+            ElMessage({
+                type: 'error',
+                message: 'Submission failed, you still have unfilled items.'
+            })
+            loading.value = false
         }
     })
 }
 const { userInfo } = userStore
 // Load data after mount
 onMounted(() => {
+    const { userInfo } = useUserStore()
     state.basic.realname = userInfo.realname
     state.basic.gender = userInfo.gender
     state.basic.userIcon = userInfo.userIcon
